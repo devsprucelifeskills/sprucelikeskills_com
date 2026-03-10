@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BookOpen } from "lucide-react";
+import EnquiryModal from "./EnquiryModal";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -14,8 +15,7 @@ const TOP_BAR_LINKS = [
 
 const TOP_BAR_RIGHT = [
     { label: "Login", href: "/login" },
-    { label: "Register", href: "/register" },
-    { label: "Fee Payment", href: "https://rzp.io/rzp/rVZoLtS", external: true },
+    { label: "Register", href: "/register" }
 ];
 
 const NAV_LINKS = [
@@ -71,52 +71,6 @@ const NAV_LINKS = [
     },
 ];
 
-// ─── Demo Modal ───────────────────────────────────────────────────────────────
-
-function DemoModal({ onClose }: { onClose: () => void }) {
-    return (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8">
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl leading-none"
-                    aria-label="Close"
-                >
-                    &times;
-                </button>
-                <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    Book Your <span className="text-[#2ecc71]">Free Demo Class</span>
-                </h3>
-                <p className="text-sm text-gray-500 mb-6">Fill in your details and we'll reach out shortly.</p>
-                <div className="space-y-4">
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ecc71]/40"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ecc71]/40"
-                    />
-                    <input
-                        type="tel"
-                        placeholder="Phone Number"
-                        className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ecc71]/40"
-                    />
-                    <button className="w-full bg-[#2ecc71] hover:bg-[#27ae60] text-white font-semibold rounded-lg py-2.5 text-sm transition-colors">
-                        Submit
-                    </button>
-                </div>
-                <div className="mt-4 text-center">
-                    <a href="tel:+919595025757" className="text-[#2ecc71] text-sm font-medium hover:underline">
-                        📞 GET QUICK CALL BACK: +91 9595025757
-                    </a>
-                </div>
-            </div>
-        </div>
-    );
-}
 
 // ─── Mega / Dropdown Menu ─────────────────────────────────────────────────────
 
@@ -141,7 +95,7 @@ function BlogDropdown() {
             ))}
             <div className="mt-2 pt-2 border-t border-gray-50 px-4 pb-1">
                 <Link href="/blog" className="text-xs font-bold text-gray-400 hover:text-[#2ecc71] flex items-center gap-1 group">
-                    View All Posts 
+                    View All Posts
                     <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                     </svg>
@@ -201,9 +155,9 @@ function AboutDropdown() {
                     w-48 py-2"
         >
             {aboutLink?.children?.map((child) => (
-                <Link 
-                    key={child.label} 
-                    href={child.href} 
+                <Link
+                    key={child.label}
+                    href={child.href}
                     className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] transition-colors font-medium border-l-2 border-transparent hover:border-[#2ecc71]"
                 >
                     {child.label}
@@ -357,7 +311,7 @@ export default function Header() {
                         >
                             Book Free Demo Class
                         </button>
-                        
+
                         {user ? (
                             <>
                                 <Link
@@ -383,9 +337,9 @@ export default function Header() {
                                     rel={link.external ? "noopener noreferrer" : undefined}
                                     className={`px-3 py-1.5 text-xs font-medium transition-colors rounded
                                     ${link.label === "Fee Payment"
-                                        ? "bg-[#2ecc71]/20 text-[#2ecc71] hover:bg-[#2ecc71] hover:text-white"
-                                        : "text-gray-300 hover:text-white hover:bg-white/10"
-                                    }`}
+                                            ? "bg-[#2ecc71]/20 text-[#2ecc71] hover:bg-[#2ecc71] hover:text-white"
+                                            : "text-gray-300 hover:text-white hover:bg-white/10"
+                                        }`}
                                 >
                                     {link.label}
                                 </Link>
@@ -585,8 +539,8 @@ export default function Header() {
                 </div>
             </header>
 
-            {/* ── Demo Modal ────────────────────────────────────────────── */}
-            {demoOpen && <DemoModal onClose={() => setDemoOpen(false)} />}
+            {/* ── Enquiry Modal ────────────────────────────────────────────── */}
+            <EnquiryModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
         </>
     );
 }

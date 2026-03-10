@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { 
-  ChevronRight, 
-  Check, 
-  FileText, 
-  Briefcase, 
-  Building2, 
-  UserCircle, 
-  Table as TableIcon 
+import {
+  ChevronRight,
+  Check,
+  FileText,
+  Briefcase,
+  Building2,
+  UserCircle,
+  Table as TableIcon,
+  ChevronLeft,
+  Star
 } from 'lucide-react';
 import { courses, CourseSection } from '@/lib/courses';
 import Header from '@/components/common/Header';
@@ -18,7 +20,7 @@ import Header from '@/components/common/Header';
 export default function CourseDetailPage() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('intro');
-  
+
   const course = courses.find(c => c.slug === slug);
 
   useEffect(() => {
@@ -81,12 +83,12 @@ export default function CourseDetailPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       {/* Hero Banner Section */}
       <div className="relative h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden">
-        <img 
-          src={course.image} 
-          alt={course.title} 
+        <img
+          src={course.image}
+          alt={course.title}
           className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 hover:scale-100 transition-transform duration-1000"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A3D24] via-transparent to-transparent opacity-90"></div>
@@ -105,7 +107,7 @@ export default function CourseDetailPage() {
             {course.description.split('.')[0]}. Professional training for a successful career.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link 
+            <Link
               href={`/purchase/${course.slug}`}
               className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
             >
@@ -131,30 +133,29 @@ export default function CourseDetailPage() {
       {/* Main Content Area */}
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16">
-          
+
           {/* Left Sidebar Navigation - Desktop Sticky */}
           <aside className="hidden lg:block lg:col-span-3">
             <div className="sticky top-28 space-y-6">
               <div className="bg-white border-2 border-[#FDB813]/20 shadow-2xl rounded-sm overflow-hidden">
                 <div className="bg-[#0A3D24] p-5 text-center">
-                   <h3 className="text-white font-bold text-sm tracking-wider uppercase">Quick navigation</h3>
+                  <h3 className="text-white font-bold text-sm tracking-wider uppercase">Quick navigation</h3>
                 </div>
                 <nav>
                   <ul className="flex flex-col">
                     {course.sections.map((section) => (
                       <li key={section.id}>
-                        <a 
+                        <a
                           href={`#${section.id}`}
                           onClick={(e) => {
                             e.preventDefault();
                             document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth' });
                             setActiveSection(section.id);
                           }}
-                          className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold border-b border-gray-100 transition-all group ${
-                            activeSection === section.id 
-                              ? 'bg-[#FDB813] text-black' 
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
-                          }`}
+                          className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold border-b border-gray-100 transition-all group ${activeSection === section.id
+                            ? 'bg-[#FDB813] text-black'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
+                            }`}
                         >
                           <span className={`transition-colors ${activeSection === section.id ? 'text-black' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`}>
                             {getIcon(section.id)}
@@ -165,18 +166,17 @@ export default function CourseDetailPage() {
                     ))}
                     {course.featuresTable && (
                       <li>
-                        <a 
+                        <a
                           href="#features"
                           onClick={(e) => {
                             e.preventDefault();
                             document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                             setActiveSection('features');
                           }}
-                          className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all group ${
-                            activeSection === 'features' 
-                              ? 'bg-[#FDB813] text-black' 
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
-                          }`}
+                          className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all group ${activeSection === 'features'
+                            ? 'bg-[#FDB813] text-black'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
+                            }`}
                         >
                           <TableIcon className={`w-5 h-5 transition-colors ${activeSection === 'features' ? 'text-black' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`} />
                           Courses & Course Features
@@ -200,7 +200,7 @@ export default function CourseDetailPage() {
 
           {/* Right Content Sections */}
           <main className="lg:col-span-9 space-y-24">
-            
+
             {/* Dynamic Sections */}
             {course.sections.map((section, sIdx) => (
               <section key={section.id} id={section.id} className="scroll-mt-32 last:mb-0">
@@ -210,7 +210,7 @@ export default function CourseDetailPage() {
                     {section.title}
                   </h2>
                 </div>
-                
+
                 <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-6">
                   {section.content && section.content.split('\n\n').map((p, i) => (
                     <p key={i} className="text-lg md:text-xl font-medium text-gray-700/90 leading-[1.8]">
@@ -247,7 +247,7 @@ export default function CourseDetailPage() {
             {course.featuresTable && (
               <section id="features" className="scroll-mt-32">
                 <div className="flex flex-col items-center mb-12">
-                   <button className="bg-[#0A3D24] text-white font-black px-12 py-4 rounded-sm shadow-xl uppercase tracking-widest text-sm mb-6">
+                  <button className="bg-[#0A3D24] text-white font-black px-12 py-4 rounded-sm shadow-xl uppercase tracking-widest text-sm mb-6">
                     Course & Course Features
                   </button>
                   <p className="text-gray-500 font-medium text-center max-w-lg">
@@ -263,8 +263,8 @@ export default function CourseDetailPage() {
                           Courses & Course Features
                         </th>
                         {course.featuresTable.columns.map((col, i) => (
-                          <th 
-                            key={i} 
+                          <th
+                            key={i}
                             className="p-6 text-sm font-black uppercase tracking-wider border-r border-white/10 w-1/5 text-center last:border-r-0"
                           >
                             <div className="flex flex-col h-full justify-between gap-4">
@@ -306,13 +306,13 @@ export default function CourseDetailPage() {
                     </tbody>
                   </table>
                 </div>
-                
+
                 <div className="mt-12 bg-[#FDB813]/10 p-8 rounded-md border border-[#FDB813]/20 flex flex-col md:flex-row items-center justify-between gap-6">
                   <div>
                     <h3 className="text-xl font-black text-[#0A3D24] mb-1">Ready to start your journey?</h3>
                     <p className="text-gray-700 font-medium">Join 5000+ students who have successfully transformed their careers with Spruce.</p>
                   </div>
-                  <Link 
+                  <Link
                     href={`/purchase/${course.slug}`}
                     className="bg-[#0A3D24] hover:bg-black text-white px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap inline-block"
                   >
@@ -325,8 +325,104 @@ export default function CourseDetailPage() {
           </main>
         </div>
       </div>
-      
+      {/* ── Other Courses Slider ──────────────────────────────── */}
+      <section className="bg-[#F8FAFC] py-12 md:py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1.5 h-8 bg-[#FDB813]" />
+              <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                Other <span className="font-normal text-gray-600">Courses</span>
+              </h2>
+            </div>
+            <Link href="/courses" className="text-xs font-black text-[#0A3D24] uppercase tracking-widest hover:underline">
+              View All
+            </Link>
+          </div>
+
+          {/* Slider */}
+          <OtherCoursesSlider currentSlug={slug as string} />
+        </div>
+      </section>
+
       {/* Scroll to Top button could go here or in layout */}
+    </div>
+  );
+}
+
+// ── OTHER COURSES SLIDER ──────────────────────────────────────────────────────
+function OtherCoursesSlider({ currentSlug }: { currentSlug: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const otherCourses = courses.filter(c => c.slug !== currentSlug);
+
+  const scroll = (dir: 'left' | 'right') => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir === 'left' ? -300 : 300, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="relative">
+      {/* Scroll Buttons */}
+      <button
+        onClick={() => scroll('left')}
+        className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center text-gray-600 hover:text-[#0A3D24] border border-gray-100 transition-all"
+        aria-label="Scroll left"
+      >
+        <ChevronLeft size={20} strokeWidth={2.5} />
+      </button>
+      <button
+        onClick={() => scroll('right')}
+        className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center text-gray-600 hover:text-[#0A3D24] border border-gray-100 transition-all"
+        aria-label="Scroll right"
+      >
+        <ChevronRight size={20} strokeWidth={2.5} />
+      </button>
+
+      {/* Scrollable Container */}
+      <div
+        ref={scrollRef}
+        className="flex gap-5 overflow-x-auto pb-4 scroll-smooth"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {otherCourses.map((c) => (
+          <Link
+            key={c.slug}
+            href={`/courses/${c.slug}`}
+            className="group flex-none w-[240px] sm:w-[280px] bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            {/* Image */}
+            <div className="relative h-40 overflow-hidden">
+              <img
+                src={c.image}
+                alt={c.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+
+            {/* Content */}
+            <div className="p-5">
+              <div className="flex gap-0.5 mb-2">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <Star key={i} size={10} className={i <= 4 ? 'fill-[#FDB813] text-[#FDB813]' : 'fill-gray-200 text-gray-200'} />
+                ))}
+              </div>
+              <h3 className="text-sm font-black text-gray-900 leading-snug mb-3 group-hover:text-[#0A3D24] transition-colors line-clamp-2">
+                {c.title}
+              </h3>
+              <div className="flex items-center justify-between">
+                <span className="text-[#0A3D24] font-black text-sm">
+                  ₹{(c.discountPrice ?? c.price).toLocaleString()}
+                </span>
+                <span className="bg-[#0A3D24] text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-sm">
+                  Enroll
+                </span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

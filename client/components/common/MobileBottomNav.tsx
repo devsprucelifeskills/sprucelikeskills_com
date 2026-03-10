@@ -7,7 +7,7 @@ import { Home, BookOpen, Images, PlayCircle } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '/', icon: Home },
-  { label: 'Courses', href: '/#courses', icon: BookOpen },
+  { label: 'Courses', href: '/courses/medical-coding', icon: BookOpen },
   { label: 'Gallery', href: '/gallery', icon: Images },
   { label: 'My Courses', href: '/profile/my-courses', icon: PlayCircle },
 ];

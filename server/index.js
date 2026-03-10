@@ -3,11 +3,11 @@ dotenv.config()
 import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
+import courseRoutes from './routes/courseRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+import enquiryRoutes from './routes/enquiryRoutes.js'
+import partnerEnquiryRoutes from './routes/partnerEnquiryRoutes.js'
 
-
-
-
-dotenv.config()
 const app = express()
 app.use(cors({
     origin: "*",
@@ -17,27 +17,15 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 
-
-
-
 app.use(express.json())
-
-import courseRoutes from './routes/courseRoutes.js'
-import authRoutes from './routes/authRoutes.js'
 
 app.use('/api/v2/course', courseRoutes)
 app.use('/api/v2/auth', authRoutes)
-
-
-
-
-
-
-
-
+app.use('/api/v2/enquiry', enquiryRoutes)
+app.use('/api/v2/partner-enquiry', partnerEnquiryRoutes)
 
 const PORT = process.env.PORT
-const MONGOURL = process.env.MONGOURL || "mongodb+srv://devsprucelifeskills_db_user:RG2fftQ9F9FHbIDb@sprucelifeskillsdb.knnggtq.mongodb.net/sprucelifeskillsDb?appName=sprucelifeskillsDb"
+const MONGOURL = process.env.MONGOURL
 
 // console.log(await bcrypt.hash("Spruceadmin200", 10))
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import ScrollReveal from '../common/ScrollReveal';
 
 export default function HireFromSpruce() {
@@ -12,15 +13,36 @@ export default function HireFromSpruce() {
     requiredSkills: '',
     numberOfOpenings: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Enquiry submitted:', formData);
-    // Handle form submission logic here
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/v2/partner-enquiry/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsSuccess(true);
+        setFormData({ companyName: '', name: '', mobileNo: '', email: '', requiredSkills: '', numberOfOpenings: '' });
+      } else {
+        setError(data.message || 'Failed to submit. Please try again.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -99,6 +121,23 @@ export default function HireFromSpruce() {
                 Enquiry Form
               </h3>
 
+              {isSuccess ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle2 className="text-[#2ecc71]" size={44} />
+                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-3">Thank You!</h3>
+                <p className="text-gray-500 font-medium leading-relaxed max-w-xs">
+                  Your partner enquiry has been received. Our team will reach out to you shortly.
+                </p>
+                <button
+                  onClick={() => setIsSuccess(false)}
+                  className="mt-6 text-xs font-bold text-[#0A3D24] underline underline-offset-2 hover:text-black transition-colors"
+                >
+                  Submit another enquiry
+                </button>
+              </div>
+              ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {/* Company Name */}
@@ -197,14 +236,22 @@ export default function HireFromSpruce() {
                   </div>
                 </div>
 
+                {error && (
+                  <p className="text-red-600 text-sm font-bold bg-red-50 border border-red-100 rounded px-3 py-2 text-center">
+                    {error}
+                  </p>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-[#FDB813] hover:bg-[#e6a510] text-black font-bold py-3.5 text-base rounded-sm transition-colors mt-2"
+                  disabled={isLoading}
+                  className="w-full bg-[#FDB813] hover:bg-[#e6a510] disabled:opacity-60 text-black font-bold py-3.5 text-base rounded-sm transition-colors mt-2 flex items-center justify-center gap-2"
                 >
-                  Submit
+                  {isLoading ? <><Loader2 className="animate-spin" size={18} /> Submitting...</> : 'Submit Enquiry'}
                 </button>
               </form>
+              )}
             </div>
           </ScrollReveal>
         </div>
