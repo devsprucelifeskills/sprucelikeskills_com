@@ -10,7 +10,7 @@ import mongoose from "mongoose"
 dotenv.config()
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:3000", "https://sprucelikeskills.vercel.app"],
+    origin: "*",
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
     credentials: true,
