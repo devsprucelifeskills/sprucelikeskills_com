@@ -301,7 +301,7 @@ export default function PurchasePage() {
 
           {/* Right Column */}
           <div className="lg:col-span-5 lg:sticky lg:top-24">
-            <ScrollReveal animation="slide-in-right">
+            <ScrollReveal animation="slide-right">
               <div className="bg-white rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden">
                 <div className="h-48 w-full relative">
                   <img
