@@ -13,7 +13,7 @@ const TOP_BAR_LINKS = [
     { label: "sprucelifeskills@gmail.com", href: "mailto:sprucelifeskills@gmail.com" },
 ];
 
-const TOP_BAR_RIGHT = [
+const TOP_BAR_RIGHT: { label: string; href: string; external?: boolean }[] = [
     { label: "Login", href: "/login" },
     { label: "Register", href: "/register" }
 ];

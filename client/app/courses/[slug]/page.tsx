@@ -20,8 +20,34 @@ import Header from '@/components/common/Header';
 export default function CourseDetailPage() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('intro');
+  const [isEnrolled, setIsEnrolled] = useState(false);
 
   const course = courses.find(c => c.slug === slug);
+
+  useEffect(() => {
+    // Check enrollment status from backend
+    const checkEnrollment = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      try {
+        const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
+        const res = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (data.success && data.isEnrolled) {
+          setIsEnrolled(true);
+        }
+      } catch (err) {
+        console.error("Error checking enrollment:", err);
+      }
+    };
+
+    checkEnrollment();
+  }, [slug]);
 
   useEffect(() => {
     // Handle hash scrolling on initial load

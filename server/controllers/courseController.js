@@ -84,11 +84,6 @@ export const enrollCourse = async (req, res) => {
         
         await enrollment.save();
 
-        // Add course to user's enrolledCourses list
-        await User.findByIdAndUpdate(enrollment.userId, {
-            $addToSet: { enrolledCourses: enrollment.courseId }
-        });
-
         res.status(200).json({
             success: true,
             message: "Enrollment successful",
@@ -112,6 +107,25 @@ export const getMyCourses = async (req, res) => {
         });
     } catch (error) {
         console.error("Error fetching courses:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
+export const checkEnrollment = async (req, res) => {
+    try {
+        const { courseId } = req.params;
+        const enrollment = await CourseEnrollment.findOne({
+            userId: req.user._id,
+            courseId: courseId,
+            status: 'completed'
+        });
+        
+        res.status(200).json({
+            success: true,
+            isEnrolled: !!enrollment
+        });
+    } catch (error) {
+        console.error("Error checking enrollment:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };

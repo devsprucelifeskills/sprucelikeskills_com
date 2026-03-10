@@ -41,10 +41,25 @@ export default function PurchasePage() {
       const userData = JSON.parse(storedUser);
       setUser(userData);
       
-      // Check if user is already enrolled in this course
-      if (userData.enrolledCourses && userData.enrolledCourses.includes(slug as string)) {
-        setIsEnrolled(true);
-      }
+      // Check enrollment status from backend
+      const checkEnrollment = async () => {
+        try {
+          const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
+          const res = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          const data = await res.json();
+          if (data.success && data.isEnrolled) {
+            setIsEnrolled(true);
+          }
+        } catch (err) {
+          console.error("Error checking enrollment:", err);
+        }
+      };
+
+      checkEnrollment();
     }
   }, [slug]);
 
