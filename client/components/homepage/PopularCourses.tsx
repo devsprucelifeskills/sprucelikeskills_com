@@ -114,10 +114,10 @@ export default function PopularCourses() {
                     </div>
                   </div>
                   <Link 
-                    href={`/courses/${course.slug}`} 
+                    href={`/purchase/${course.slug}`} 
                     className="bg-[#0A3D24] text-white text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-black transition-colors shadow-lg"
                   >
-                    Join Course
+                    Enroll Now
                   </Link>
                 </div>
               </div>

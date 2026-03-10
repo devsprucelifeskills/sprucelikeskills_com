@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github } from 'lucide-react';
 import Header from '@/components/common/Header';
 
@@ -9,10 +10,35 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login Form Submission:', formData);
-    alert('Form submitted! check console for data.');
+    setIsLoading(true);
+    try {
+      const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
+      const res = await fetch(`${backend_url}/api/v2/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data));
+        router.push('/');
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred during login');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

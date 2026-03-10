@@ -15,6 +15,8 @@ export interface Course {
     title: string;
     description: string;
     image: string;
+    price: number;
+    discountPrice?: number;
     sections: CourseSection[];
     featuresTable?: {
         headers: string[];
@@ -29,6 +31,8 @@ export const courses: Course[] = [
         description:
             "Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into standardized alphanumeric codes used in medical records and billing systems.",
         image: "https://images.unsplash.com/photo-1580281657527-47f249e8f4df",
+        price: 45000,
+        discountPrice: 39999,
         sections: [
             {
                 id: "intro",
@@ -104,6 +108,8 @@ export const courses: Course[] = [
         description:
             "Clinical research involves studying the safety and effectiveness of medications, medical devices, and treatment procedures through structured clinical trials and scientific investigation.",
         image: "https://images.unsplash.com/photo-1579165466741-7f35e4755660",
+        price: 55000,
+        discountPrice: 49999,
         sections: [
             {
                 id: "intro",
@@ -189,6 +195,8 @@ export const courses: Course[] = [
         description:
             "Medical billing is the process of translating healthcare services rendered by providers into a standardized billing format to submit claims to insurance companies for reimbursement.",
         image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b",
+        price: 35000,
+        discountPrice: 29999,
         sections: [
             {
                 id: "intro",
@@ -258,6 +266,8 @@ export const courses: Course[] = [
         description:
             "Accounts receivable in healthcare focuses on tracking outstanding payments from patients and insurance companies and ensuring that healthcare providers receive timely reimbursements.",
         image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+        price: 30000,
+        discountPrice: 24999,
         sections: [
             {
                 id: "intro",
@@ -325,6 +335,8 @@ export const courses: Course[] = [
         description:
             "Campus to Corporate training programs help students transition from academic life to professional workplaces by developing communication, interview, and corporate readiness skills.",
         image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+        price: 15000,
+        discountPrice: 12999,
         sections: [
             {
                 id: "intro",

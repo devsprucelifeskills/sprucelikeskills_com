@@ -105,9 +105,12 @@ export default function CourseDetailPage() {
             {course.description.split('.')[0]}. Professional training for a successful career.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1">
+            <Link 
+              href={`/purchase/${course.slug}`}
+              className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+            >
               Enroll Now
-            </button>
+            </Link>
             <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
               Download Syllabus
             </button>
@@ -309,9 +312,12 @@ export default function CourseDetailPage() {
                     <h3 className="text-xl font-black text-[#0A3D24] mb-1">Ready to start your journey?</h3>
                     <p className="text-gray-700 font-medium">Join 5000+ students who have successfully transformed their careers with Spruce.</p>
                   </div>
-                  <button className="bg-[#0A3D24] hover:bg-black text-white px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap">
+                  <Link 
+                    href={`/purchase/${course.slug}`}
+                    className="bg-[#0A3D24] hover:bg-black text-white px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap inline-block"
+                  >
                     Apply for Admission
-                  </button>
+                  </Link>
                 </div>
               </section>
             )}

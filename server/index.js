@@ -4,13 +4,13 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 
-import bcrypt from 'bcrypt'
+
 
 
 dotenv.config()
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:9002", "https://sprucelikeskills.vercel.app"],
+    origin: ["http://localhost:3000", "https://sprucelikeskills.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
     credentials: true,
@@ -22,6 +22,13 @@ app.use(cors({
 
 app.use(express.json())
 
+import courseRoutes from './routes/courseRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+
+app.use('/api/v2/course', courseRoutes)
+app.use('/api/v2/auth', authRoutes)
+
+
 
 
 
@@ -30,7 +37,7 @@ app.use(express.json())
 
 
 const PORT = process.env.PORT
-const MONGOURL = process.env.MONGOURL
+const MONGOURL = process.env.MONGOURL || "mongodb+srv://devsprucelifeskills_db_user:RG2fftQ9F9FHbIDb@sprucelifeskillsdb.knnggtq.mongodb.net/sprucelifeskillsDb?appName=sprucelifeskillsDb"
 
 // console.log(await bcrypt.hash("Spruceadmin200", 10))
 

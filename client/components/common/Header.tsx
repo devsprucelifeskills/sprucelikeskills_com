@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { BookOpen } from "lucide-react";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -268,7 +270,33 @@ export default function Header() {
     const [demoOpen, setDemoOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [user, setUser] = useState<any>(null);
     const closeTimer = useRef<NodeJS.Timeout | null>(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const checkUser = () => {
+            const storedUser = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            if (storedUser && token) {
+                setUser(JSON.parse(storedUser));
+            } else {
+                setUser(null);
+            }
+        };
+
+        checkUser();
+        // Add listener for login/logout events if needed, but for now check on mount
+        window.addEventListener('storage', checkUser);
+        return () => window.removeEventListener('storage', checkUser);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        router.push('/login');
+    };
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 60);
@@ -329,21 +357,40 @@ export default function Header() {
                         >
                             Book Free Demo Class
                         </button>
-                        {TOP_BAR_RIGHT.map((link, i) => (
-                            <Link
-                                key={link.label}
-                                href={link.href}
-                                target={link.external ? "_blank" : undefined}
-                                rel={link.external ? "noopener noreferrer" : undefined}
-                                className={`px-3 py-1.5 text-xs font-medium transition-colors rounded
-                  ${link.label === "Fee Payment"
+                        
+                        {user ? (
+                            <>
+                                <Link
+                                    href="/profile/my-courses"
+                                    className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
+                                >
+                                    <BookOpen size={12} className="text-[#2ecc71]" />
+                                    My Courses
+                                </Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            TOP_BAR_RIGHT.map((link, i) => (
+                                <Link
+                                    key={link.label}
+                                    href={link.href}
+                                    target={link.external ? "_blank" : undefined}
+                                    rel={link.external ? "noopener noreferrer" : undefined}
+                                    className={`px-3 py-1.5 text-xs font-medium transition-colors rounded
+                                    ${link.label === "Fee Payment"
                                         ? "bg-[#2ecc71]/20 text-[#2ecc71] hover:bg-[#2ecc71] hover:text-white"
                                         : "text-gray-300 hover:text-white hover:bg-white/10"
                                     }`}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
@@ -468,25 +515,47 @@ export default function Header() {
                 >
                     <div className="bg-white px-4 pt-3 pb-5 overflow-y-auto max-h-[75vh] divide-y divide-gray-50">
                         {/* Mobile top actions */}
-                        <div className="flex items-center gap-2 pb-3">
+                        <div className="flex flex-wrap items-center gap-2 pb-3">
                             <button
                                 onClick={() => { setDemoOpen(true); setMobileOpen(false); }}
-                                className="flex-1 bg-[#2ecc71] text-white text-xs font-bold py-2.5 rounded-lg text-center"
+                                className="flex-1 min-w-[140px] bg-[#2ecc71] text-white text-xs font-bold py-2.5 rounded-lg text-center"
                             >
                                 Book Free Demo Class
                             </button>
-                            <Link
-                                href="/login"
-                                className="flex-1 border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71] transition-colors"
-                            >
-                                Login
-                            </Link>
-                            <Link
-                                href="/register"
-                                className="flex-1 bg-gray-800 text-white text-xs font-bold py-2.5 rounded-lg text-center"
-                            >
-                                Register
-                            </Link>
+                            {user ? (
+                                <>
+                                    <Link
+                                        href="/profile/my-courses"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="flex-1 min-w-[140px] border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71]"
+                                    >
+                                        My Courses
+                                    </Link>
+                                    <button
+                                        onClick={() => { handleLogout(); setMobileOpen(false); }}
+                                        className="flex-1 min-w-[140px] bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center"
+                                    >
+                                        Logout
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href="/login"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="flex-1 min-w-[70px] border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center"
+                                    >
+                                        Login
+                                    </Link>
+                                    <Link
+                                        href="/register"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="flex-1 min-w-[70px] bg-gray-800 text-white text-xs font-bold py-2.5 rounded-lg text-center"
+                                    >
+                                        Register
+                                    </Link>
+                                </>
+                            )}
                         </div>
 
                         {/* Nav items */}

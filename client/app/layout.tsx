@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import Footer from "@/components/common/Footer";
+import MobileBottomNav from "@/components/common/MobileBottomNav";
 
 export default function RootLayout({
   children,
@@ -29,10 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <main className="flex-grow">
+        <main className="flex-grow pb-20 lg:pb-0">
           {children}
         </main>
         <Footer />
+        <MobileBottomNav />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { User, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/common/Header';
 
 export default function RegisterPage() {
@@ -13,14 +14,44 @@ export default function RegisterPage() {
     confirmPassword: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
-    console.log('Registration Form Submission:', formData);
-    alert('Registration successful! Check console for data.');
+
+    setIsLoading(true);
+    try {
+      const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
+      const res = await fetch(`${backend_url}/api/v2/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data));
+        router.push('/');
+      } else {
+        alert(data.message || 'Registration failed');
+      }
+    } catch (err) {
+        console.error(err);
+        alert('An error occurred during registration');
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   return (
