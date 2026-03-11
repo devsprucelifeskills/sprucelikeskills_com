@@ -22,7 +22,7 @@ router.post('/profile-image', upload.single('image'), async (req, res) => {
 
         console.log('Uploading to Cloudinary...');
         const result = await cloudinary.uploader.upload(fileBase64, {
-            folder: 'profile',
+            folder: 'sprucelikeskills_com/placement',
             resource_type: 'auto'
         });
 

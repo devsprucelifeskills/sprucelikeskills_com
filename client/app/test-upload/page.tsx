@@ -100,8 +100,8 @@ export default function TestUploadPage() {
                         type="submit"
                         disabled={loading || !file}
                         className={`w-full py-4 rounded-xl font-bold text-white transition-all duration-300 flex items-center justify-center gap-2 ${loading || !file
-                                ? 'bg-gray-700 cursor-not-allowed text-gray-400'
-                                : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-900/20 active:scale-95'
+                            ? 'bg-gray-700 cursor-not-allowed text-gray-400'
+                            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-900/20 active:scale-95'
                             }`}
                     >
                         {loading ? (
@@ -148,8 +148,8 @@ export default function TestUploadPage() {
                                 <button
                                     onClick={copyToClipboard}
                                     className={`px-4 py-2 rounded-lg font-bold text-xs transition-all duration-300 whitespace-nowrap ${copied
-                                            ? 'bg-green-500 text-white'
-                                            : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm'
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm'
                                         }`}
                                 >
                                     {copied ? 'Copied!' : 'Copy Link'}
