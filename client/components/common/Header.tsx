@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { BookOpen } from "lucide-react";
 import EnquiryModal from "./EnquiryModal";
 
@@ -227,6 +227,7 @@ export default function Header() {
     const [user, setUser] = useState<any>(null);
     const closeTimer = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         const checkUser = () => {
@@ -305,29 +306,56 @@ export default function Header() {
 
                     {/* Right */}
                     <div className="flex items-center gap-1">
-                        <button
-                            onClick={() => setDemoOpen(true)}
-                            className="bg-[#2ecc71] hover:bg-[#27ae60] text-white text-xs font-semibold px-4 py-1.5 rounded transition-colors mr-3"
-                        >
-                            Book Free Demo Class
-                        </button>
+
 
                         {user ? (
-                            <>
+                            <div className="flex items-center gap-3">
                                 <Link
                                     href="/profile/my-courses"
                                     className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
                                 >
-                                    <BookOpen size={12} className="text-[#2ecc71]" />
+                                    <BookOpen size={14} className="text-[#2ecc71]" />
                                     My Courses
                                 </Link>
-                                <button
-                                    onClick={handleLogout}
-                                    className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
-                                >
-                                    Logout
-                                </button>
-                            </>
+                                <div className="relative group py-1">
+                                    <button className="w-7 h-7 rounded-full bg-[#2ecc71] flex items-center justify-center text-white font-bold text-xs shadow-sm uppercase overflow-hidden border border-white/20">
+                                        {user?.avatar ? (
+                                            <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                        ) : (
+                                            user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
+                                        )}
+                                    </button>
+
+                                    <div className="absolute right-0 top-full pt-1 opacity-0 invisible hover:opacity-100 hover:visible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
+                                        <div className="w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
+                                            <div className="bg-gray-50 px-4 py-3 border-b border-gray-100">
+                                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || 'User'}</p>
+                                                <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
+                                            </div>
+                                            <div className="p-2">
+                                                <Link
+                                                    href="/profile/my-courses"
+                                                    className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
+                                                >
+                                                    <BookOpen size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
+                                                    My Courses
+                                                </Link>
+                                            </div>
+                                            <div className="p-2 border-t border-gray-100">
+                                                <button
+                                                    onClick={handleLogout}
+                                                    className="w-full text-left flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                >
+                                                    <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                    </svg>
+                                                    Logout
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         ) : (
                             TOP_BAR_RIGHT.map((link, i) => (
                                 <Link
@@ -351,10 +379,10 @@ export default function Header() {
 
             {/* ── Main Header ───────────────────────────────────────────── */}
             <header
-                className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300
+                className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 backdrop-blur-md
           ${scrolled
-                        ? "bg-white shadow-lg shadow-black/5"
-                        : "bg-white border-b border-gray-100"
+                        ? "bg-[#1a1a2e]/90 shadow-lg shadow-black/20"
+                        : "bg-[#1a1a2e]/90 border-b border-white/20"
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 xl:px-6 flex items-center justify-between h-16 lg:h-[70px]">
@@ -373,7 +401,7 @@ export default function Header() {
                             </div>
                         </div> */}
                         <img
-                            src={scrolled ? "Spruse Logo.png" : "Spruse Logo.png"}
+                            src={scrolled ? "spruseLogo.png" : "spruseLogo.png"}
                             alt="Spruce Lifeskills"
                             className="h-10 w-auto object-contain"
                         />
@@ -395,10 +423,10 @@ export default function Header() {
                                     rel={link.external ? "noopener noreferrer" : undefined}
                                     className={`flex items-center gap-1 px-2.5 xl:px-3 py-2 text-[13px] font-semibold rounded-md transition-all
                     ${link.highlight
-                                            ? "text-[#2ecc71] bg-[#f0fdf4] hover:bg-[#2ecc71] hover:text-white"
-                                            : "text-gray-700 hover:text-[#2ecc71] hover:bg-[#f0fdf4]"
+                                            ? "text-[#2ecc71] bg-[#2ecc71]/10 hover:bg-[#2ecc71] hover:text-white"
+                                            : "text-gray-200 hover:text-[#2ecc71] hover:bg-white/10"
                                         }
-                    ${activeDropdown === link.label ? "text-[#2ecc71] bg-[#f0fdf4]" : ""}
+                    ${activeDropdown === link.label || pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href)) ? "text-[#2ecc71] bg-white/10" : ""}
                   `}
                                 >
                                     {link.label}
@@ -423,16 +451,7 @@ export default function Header() {
                     {/* Right actions */}
                     <div className="flex items-center gap-2">
                         {/* Book Demo — desktop shortcut */}
-                        <button
-                            onClick={() => setDemoOpen(true)}
-                            className="hidden lg:inline-flex items-center gap-1.5 bg-[#2ecc71] hover:bg-[#27ae60] active:scale-95
-                         text-white text-xs font-bold px-4 py-2 rounded-lg shadow-md shadow-[#2ecc71]/30 transition-all"
-                        >
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            Book Free Demo
-                        </button>
+
 
                         {/* Phone — mobile CTA */}
                         <a
@@ -448,7 +467,7 @@ export default function Header() {
                         {/* Hamburger */}
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
-                            className="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors"
+                            className="lg:hidden p-2 rounded-md text-gray-200 hover:bg-white/10 transition-colors"
                             aria-label="Toggle menu"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -469,28 +488,38 @@ export default function Header() {
                     <div className="bg-white px-4 pt-3 pb-5 overflow-y-auto max-h-[75vh] divide-y divide-gray-50">
                         {/* Mobile top actions */}
                         <div className="flex flex-wrap items-center gap-2 pb-3">
-                            <button
-                                onClick={() => { setDemoOpen(true); setMobileOpen(false); }}
-                                className="flex-1 min-w-[140px] bg-[#2ecc71] text-white text-xs font-bold py-2.5 rounded-lg text-center"
-                            >
-                                Book Free Demo Class
-                            </button>
+
                             {user ? (
-                                <>
-                                    <Link
-                                        href="/profile/my-courses"
-                                        onClick={() => setMobileOpen(false)}
-                                        className="flex-1 min-w-[140px] border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71]"
-                                    >
-                                        My Courses
-                                    </Link>
-                                    <button
-                                        onClick={() => { handleLogout(); setMobileOpen(false); }}
-                                        className="flex-1 min-w-[140px] bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center"
-                                    >
-                                        Logout
-                                    </button>
-                                </>
+                                <div className="w-full flex flex-col gap-2 pb-2">
+                                    <div className="flex items-center gap-3 px-2 py-2 border-b border-gray-100">
+                                        <div className="w-10 h-10 rounded-full bg-[#2ecc71] flex items-center justify-center text-white font-bold text-lg shadow-sm uppercase overflow-hidden">
+                                            {user?.avatar ? (
+                                                <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                            ) : (
+                                                user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
+                                            )}
+                                        </div>
+                                        <div className="overflow-hidden">
+                                            <p className="text-sm font-bold text-gray-900 truncate">{user?.name || 'User'}</p>
+                                            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Link
+                                            href="/profile/my-courses"
+                                            onClick={() => setMobileOpen(false)}
+                                            className="flex-1 border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71]"
+                                        >
+                                            My Courses
+                                        </Link>
+                                        <button
+                                            onClick={() => { handleLogout(); setMobileOpen(false); }}
+                                            className="flex-1 bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center hover:bg-red-700 transition-colors"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
                             ) : (
                                 <>
                                     <Link

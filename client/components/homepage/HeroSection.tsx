@@ -29,7 +29,7 @@ const ANIMATION_STYLES = `
 const slides = [
   {
     id: 1,
-    bgImage: "https://images.unsplash.com/photo-1576091160550-2173ff9e5ee5?q=80&w=2669&auto=format&fit=crop", // Medical/computer background
+    bgImage: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773394514/lpw5r9bcukjbmuftvp2q.jpg", // Medical/computer background
     subtitle: "RISK FREE CERTIFICATION WITH SPRUCE",
     title: "Welcome To Spruce Lifeskills",
     desc1: "Only Authorized Education Partner Of",
@@ -97,14 +97,14 @@ export default function HeroSection() {
     <div className="relative h-[90vh] min-h-[700px] w-full overflow-hidden bg-gray-900 group">
       <style>{ANIMATION_STYLES}</style>
       {/* Slides Container */}
-      <div 
+      <div
         className="flex h-full w-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {slides.map((slide) => (
           <div key={slide.id} className="relative h-full w-full shrink-0">
             {/* Background Image & Overlay */}
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             >
@@ -174,8 +174,8 @@ export default function HeroSection() {
                 {slide.showAffiliations && (
                   <div className={`mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${currentSlide === slides.indexOf(slide) ? "animate-fade-in-up animation-delay-800" : "opacity-0"}`}>
                     {affiliations.map((affil, idx) => (
-                      <div 
-                        key={idx} 
+                      <div
+                        key={idx}
                         className="flex h-14 w-24 flex-col items-center justify-center bg-white p-1 shadow-xl hover:scale-105 transition-transform rounded-lg border border-white/20"
                       >
                         {/* Placeholder for actual logos, using text initials for now */}
@@ -218,9 +218,8 @@ export default function HeroSection() {
             key={idx}
             onClick={() => setCurrentSlide(idx)}
             aria-label={`Go to slide ${idx + 1}`}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              currentSlide === idx ? "w-8 bg-white" : "w-2.5 bg-white/40 hover:bg-white/60"
-            }`}
+            className={`h-2.5 rounded-full transition-all duration-300 ${currentSlide === idx ? "w-8 bg-white" : "w-2.5 bg-white/40 hover:bg-white/60"
+              }`}
           />
         ))}
       </div>
