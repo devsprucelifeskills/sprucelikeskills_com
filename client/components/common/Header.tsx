@@ -401,7 +401,7 @@ export default function Header() {
                             </div>
                         </div> */}
                         <img
-                            src={scrolled ? "spruseLogo.png" : "spruseLogo.png"}
+                            src={scrolled ? "/spruseLogo.png" : "/spruseLogo.png"}
                             alt="Spruce Lifeskills"
                             className="h-10 w-auto object-contain"
                         />
