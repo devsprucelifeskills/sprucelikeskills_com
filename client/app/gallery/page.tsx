@@ -21,9 +21,9 @@ export default function GalleryPage() {
       <Header />
 
       {/* Hero Section */}
-      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A3D24] via-[#0A3D24]/90 to-transparent"></div>
+      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden ">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87')] bg-cover bg-center "></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D24]/10 via-[#0A3D24]/40 to-[#0A3D24]"></div>
 
         <div className="relative container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center max-w-7xl">
           {/* Breadcrumb */}
@@ -52,11 +52,10 @@ export default function GalleryPage() {
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-black transition-all ${
-                  activeFilter === cat
-                    ? 'bg-[#0A3D24] text-white shadow-lg scale-105'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                className={`shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-black transition-all ${activeFilter === cat
+                  ? 'bg-[#0A3D24] text-white shadow-lg scale-105'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
               >
                 {cat}
               </button>

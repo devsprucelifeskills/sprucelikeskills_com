@@ -16,14 +16,19 @@ export default function Footer() {
 
           {/* Top Section */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-10 pb-8 border-b border-[#1b5c3e]">
-            <div className="mb-6 md:mb-0">
-              {/* Logo placeholder - using text to mimic the Spruce logo style */}
-              <div className="flex items-center text-white">
+            {/* <div className="mb-6 md:mb-0"> */}
+            {/* Logo placeholder - using text to mimic the Spruce logo style */}
+            {/* <div className="flex items-center text-white">
                 <span className="text-4xl font-serif tracking-widest drop-shadow-md font-bold">SPRUCE</span>
                 <span className="text-sm font-light mt-4 ml-1">®</span>
               </div>
               <div className="text-xs tracking-widest text-white/80 text-right pr-4 italic">Lifeskills</div>
-            </div>
+            </div> */}
+            <img
+              src={"spruseLogo.png"}
+              alt="Spruce Lifeskills"
+              className="h-20 w-auto object-contain"
+            />
 
             <div className="flex items-center gap-6">
               <div className="flex gap-3">

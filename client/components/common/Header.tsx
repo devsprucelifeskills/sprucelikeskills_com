@@ -381,8 +381,8 @@ export default function Header() {
             <header
                 className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 backdrop-blur-md
           ${scrolled
-                        ? "bg-[#1a1a2e]/90 shadow-lg shadow-black/20"
-                        : "bg-[#1a1a2e]/90 border-b border-white/20"
+                        ? "bg-[#0A3D24]/90 shadow-lg shadow-black/20"
+                        : "bg-[#0A3D24]/90 border-b border-white/20"
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 xl:px-6 flex items-center justify-between h-16 lg:h-[70px]">

@@ -34,7 +34,7 @@ export default function CertificationPage() {
       {/* Hero Section */}
       <div className="relative h-[450px] md:h-[550px] w-full bg-[#0A3D24] overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4')] bg-cover bg-center opacity-20 scale-110"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0A3D24] via-[#0A3D24]/90 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D24]/10 via-[#0A3D24]/20 to-[#0A3D24]"></div>
 
         <div className="relative container mx-auto px-4 h-full flex flex-col justify-center max-w-7xl">
           <div className="flex items-center gap-3 mb-6 text-white/70 text-sm font-medium">
@@ -115,7 +115,7 @@ export default function CertificationPage() {
       </section>
 
       {/* CPC Students Hall of Fame */}
-      <section className="py-24 bg-[#0A3D24]" id="hall-of-fame-grid">
+      <section className="py-24 bg-[#1cb067]" id="hall-of-fame-grid">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
@@ -250,7 +250,7 @@ export default function CertificationPage() {
                       <span>Loading Excellence...</span>
                     </div>
                   ) : (
-                    "View Full Hall of Fame"
+                    "Load More"
                   )}
                 </button>
               </>
