@@ -25,7 +25,7 @@ export default function Footer() {
               <div className="text-xs tracking-widest text-white/80 text-right pr-4 italic">Lifeskills</div>
             </div> */}
             <img
-              src={"spruseLogo.png"}
+              src={"/spruseLogo.png"}
               alt="Spruce Lifeskills"
               className="h-20 w-auto object-contain"
             />
