@@ -2,6 +2,7 @@ import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import CourseEnrollment from '../models/CourseEnrollment.js';
 import User from '../models/User.js';
+import Meeting from '../models/Meeting.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -129,3 +130,27 @@ export const checkEnrollment = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
+
+export const getCourseMeeting = async (req, res) => {
+    try {
+        const { courseId } = req.params;
+        const meeting = await Meeting.findOne({ courseId });
+        
+        if (!meeting) {
+            return res.status(200).json({ success: true, meeting: null });
+        }
+
+        res.status(200).json({
+            success: true,
+            meeting: {
+                link: meeting.meetingLink,
+                startTime: meeting.startTime,
+                courseTitle: meeting.courseTitle
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching course meeting:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
