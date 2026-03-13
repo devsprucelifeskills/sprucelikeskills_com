@@ -362,23 +362,22 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex-shrink-0">
                         {/* Replace src with your actual logo paths */}
-                        <div className="flex items-center gap-2.5">
-                            {/* Fallback text logo — swap <img> tag when logo assets are available */}
-                            <div className="w-9 h-9 rounded-lg bg-[#2ecc71] flex items-center justify-center shadow-md">
+                        {/* <div className="flex items-center gap-2.5"> */}
+                        {/* Fallback text logo — swap <img> tag when logo assets are available */}
+                        {/* <div className="w-9 h-9 rounded-lg bg-[#2ecc71] flex items-center justify-center shadow-md">
                                 <span className="text-white font-black text-lg leading-none">S</span>
                             </div>
                             <div className="hidden sm:block">
                                 <p className="text-[15px] font-extrabold text-gray-900 leading-tight">Spruce</p>
                                 <p className="text-[10px] font-medium text-gray-500 uppercase tracking-widest -mt-0.5">Lifeskills</p>
                             </div>
-                        </div>
-                        {/* When you have the actual logo image, use:
-            <img
-              src={scrolled ? "/assets/images/logo.png" : "/assets/images/logo.png"}
-              alt="Spruce Lifeskills"
-              className="h-10 w-auto object-contain"
-            />
-            */}
+                        </div> */}
+                        <img
+                            src={scrolled ? "Spruse Logo.png" : "Spruse Logo.png"}
+                            alt="Spruce Lifeskills"
+                            className="h-10 w-auto object-contain"
+                        />
+
                     </Link>
 
                     {/* Desktop Nav */}

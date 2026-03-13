@@ -30,7 +30,7 @@ export const courses: Course[] = [
         title: "Medical Coding",
         description:
             "Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into standardized alphanumeric codes used in medical records and billing systems.",
-        image: "https://images.unsplash.com/photo-1580281657527-47f249e8f4df",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218282/y03cggrcglzgr7cnkddv.webp",
         price: 45000,
         discountPrice: 39999,
         sections: [
@@ -107,7 +107,7 @@ export const courses: Course[] = [
         title: "Clinical Research",
         description:
             "Clinical research involves studying the safety and effectiveness of medications, medical devices, and treatment procedures through structured clinical trials and scientific investigation.",
-        image: "https://images.unsplash.com/photo-1579165466741-7f35e4755660",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218400/svnnwtsfqnlz85fd2kdt.jpg",
         price: 55000,
         discountPrice: 49999,
         sections: [
@@ -194,7 +194,7 @@ export const courses: Course[] = [
         title: "Medical Billing",
         description:
             "Medical billing is the process of translating healthcare services rendered by providers into a standardized billing format to submit claims to insurance companies for reimbursement.",
-        image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218491/icsiug15qwxyjhmj0bao.jpg",
         price: 35000,
         discountPrice: 29999,
         sections: [
@@ -265,7 +265,7 @@ export const courses: Course[] = [
         title: "Account Receivable",
         description:
             "Accounts receivable in healthcare focuses on tracking outstanding payments from patients and insurance companies and ensuring that healthcare providers receive timely reimbursements.",
-        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218559/korhbctay1hdtkdwjf1g.webp",
         price: 30000,
         discountPrice: 24999,
         sections: [

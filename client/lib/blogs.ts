@@ -21,7 +21,7 @@ export const blogs: BlogPost[] = [
         author: "Spruce Expert",
         category: "Pharmacovigilance",
         excerpt: "Discover the critical role of pharmacovigilance in ensuring drug safety and protecting public health.",
-        image: "https://images.unsplash.com/photo-1576091160550-217359f4ecf8",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773225162/jp1pvuxjcpr0p5ilvmcq.webp",
         highlights: ["Drug Safety", "Risk Management", "Clinical Monitoring"],
         time: "10 min read",
         content: `### The Alarming Rise in Adverse Drug Reactions (ADRs)
@@ -131,7 +131,7 @@ Emerging trends in regulatory affairs include increased automation in compliance
         author: "Spruce Expert",
         category: "Clinical Research",
         excerpt: "We clear the common misconceptions in clinical data management and highlight the truth behind efficient data handling.",
-        image: "https://images.unsplash.com/photo-1504868584819-f8e90526354c",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773225369/ebpgmcjsyo2frljrq2si.webp",
         highlights: ["Database Design", "Trial Integrity", "Stat Soundness"],
         time: "15 min read",
         content: `### The Misconception: CDM is Just Data Entry
