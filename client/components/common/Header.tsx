@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { BookOpen } from "lucide-react";
+import { BookOpen, LayoutDashboard } from "lucide-react";
 import EnquiryModal from "./EnquiryModal";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -310,13 +310,23 @@ export default function Header() {
 
                         {user ? (
                             <div className="flex items-center gap-3">
-                                <Link
-                                    href="/profile/my-courses"
-                                    className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
-                                >
-                                    <BookOpen size={14} className="text-[#2ecc71]" />
-                                    My Courses
-                                </Link>
+                                {user?.role === 'admin' ? (
+                                    <Link
+                                        href="/admin"
+                                        className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
+                                    >
+                                        <LayoutDashboard size={14} className="text-[#2ecc71]" />
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        href="/profile/my-courses"
+                                        className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
+                                    >
+                                        <BookOpen size={14} className="text-[#2ecc71]" />
+                                        My Courses
+                                    </Link>
+                                )}
                                 <div className="relative group py-1">
                                     <button className="w-7 h-7 rounded-full bg-[#2ecc71] flex items-center justify-center text-white font-bold text-xs shadow-sm uppercase overflow-hidden border border-white/20">
                                         {user?.avatar ? (
@@ -333,13 +343,23 @@ export default function Header() {
                                                 <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                                             </div>
                                             <div className="p-2">
-                                                <Link
-                                                    href="/profile/my-courses"
-                                                    className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
-                                                >
-                                                    <BookOpen size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
-                                                    My Courses
-                                                </Link>
+                                                {user?.role === 'admin' ? (
+                                                    <Link
+                                                        href="/admin"
+                                                        className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
+                                                    >
+                                                        <LayoutDashboard size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
+                                                        Dashboard
+                                                    </Link>
+                                                ) : (
+                                                    <Link
+                                                        href="/profile/my-courses"
+                                                        className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
+                                                    >
+                                                        <BookOpen size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
+                                                        My Courses
+                                                    </Link>
+                                                )}
                                             </div>
                                             <div className="p-2 border-t border-gray-100">
                                                 <button
@@ -401,7 +421,8 @@ export default function Header() {
                             </div>
                         </div> */}
                         <img
-                            src={scrolled ? "/spruseLogo.png" : "/spruseLogo.png"}
+
+                            src={"/spruseLogo.png"}
                             alt="Spruce Lifeskills"
                             className="h-10 w-auto object-contain"
                         />
@@ -506,11 +527,11 @@ export default function Header() {
                                     </div>
                                     <div className="flex gap-2">
                                         <Link
-                                            href="/profile/my-courses"
+                                            href={user?.role === 'admin' ? '/admin' : '/profile/my-courses'}
                                             onClick={() => setMobileOpen(false)}
                                             className="flex-1 border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71]"
                                         >
-                                            My Courses
+                                            {user?.role === 'admin' ? 'Dashboard' : 'My Courses'}
                                         </Link>
                                         <button
                                             onClick={() => { handleLogout(); setMobileOpen(false); }}

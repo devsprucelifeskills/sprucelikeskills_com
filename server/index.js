@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes.js'
 import enquiryRoutes from './routes/enquiryRoutes.js'
 import partnerEnquiryRoutes from './routes/partnerEnquiryRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import adminRoutes from './routes/adminRoutes.js'
 
 const app = express()
 app.use(cors({
@@ -25,6 +26,7 @@ app.use('/api/v2/auth', authRoutes)
 app.use('/api/v2/enquiry', enquiryRoutes)
 app.use('/api/v2/partner-enquiry', partnerEnquiryRoutes)
 app.use('/api/v2/upload', uploadRoutes)
+app.use('/api/v2/admin', adminRoutes)
 
 const PORT = process.env.PORT
 const MONGOURL = process.env.MONGOURL
