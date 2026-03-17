@@ -28,7 +28,7 @@ export default function SuccessCorner() {
           <div className="flex justify-between items-end mb-10">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-1.5 h-8 bg-[#FDB813]"></div>
+                <div className="w-1.5 h-8 bg-[#eab308]"></div>
                 <h2 className="text-3xl sm:text-4xl text-black">
                   <span className="font-extrabold">Success</span>{" "}
                   <span className="font-normal text-gray-800">Corner</span>
@@ -41,14 +41,14 @@ export default function SuccessCorner() {
             <div className="hidden sm:flex gap-2">
               <button
                 onClick={scrollLeft}
-                className="bg-[#FDB813] p-2 hover:bg-[#e6a510] transition-colors"
+                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors"
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-5 h-5 text-black" strokeWidth={2.5} />
               </button>
               <button
                 onClick={scrollRight}
-                className="bg-[#FDB813] p-2 hover:bg-[#e6a510] transition-colors"
+                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors"
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-5 h-5 text-black" strokeWidth={2.5} />

@@ -7,6 +7,7 @@ import SuccessCorner from "@/components/homepage/SuccessCorner";
 import CourseTest from "@/components/homepage/CourseTest";
 import BlogSection from "@/components/homepage/BlogSection";
 import HireFromSpruce from "@/components/homepage/HireFromSpruce";
+import WhatStudentsSays from "@/components/homepage/WhatStudentsSays";
 
 export default function Home() {
   return (
@@ -14,17 +15,19 @@ export default function Home() {
       <Header />
       <div className="relative">
         <HeroSection />
+        <PopularCourses />
         {/* Negative margin to pull cards up over the hero section */}
         <div className="relative z-20 -mt-24 pb-12 sm:-mt-28 md:-mt-32">
           <FeatureCards />
         </div>
       </div>
       <AuthorizedPartner />
-      <PopularCourses />
+
       <SuccessCorner />
       <CourseTest />
       <BlogSection />
       <HireFromSpruce />
+      <WhatStudentsSays />
     </div>
   );
 }

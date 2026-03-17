@@ -37,7 +37,7 @@ export default function Footer() {
                 <a href="#" className={socialIconClass} aria-label="LinkedIn"><Linkedin size={14} /></a>
                 <a href="#" className={socialIconClass} aria-label="Google Plus"><span className="text-sm font-bold">G+</span></a>
               </div>
-              <button onClick={() => setEnquiryOpen(true)} className="bg-[#FDB813] text-black text-sm font-bold py-2.5 px-6 hover:bg-[#e6a510] transition-colors">
+              <button onClick={() => setEnquiryOpen(true)} className="bg-[#eab308] text-black text-sm font-bold py-2.5 px-6 hover:bg-[#ca8a04] transition-colors">
                 Enquire Now
               </button>
             </div>
@@ -124,7 +124,7 @@ export default function Footer() {
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-[#1b5c3e] relative">
-            <button onClick={() => setEnquiryOpen(true)} className="bg-[#FDB813] text-black text-xs font-bold py-2.5 px-6 hover:bg-[#e6a510] transition-colors mb-4 md:mb-0 md:-ml-4">
+            <button onClick={() => setEnquiryOpen(true)} className="bg-[#eab308] text-black text-xs font-bold py-2.5 px-6 hover:bg-[#ca8a04] transition-colors mb-4 md:mb-0 md:-ml-4">
               Enquire Now
             </button>
 
@@ -134,7 +134,7 @@ export default function Footer() {
 
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-[#FDB813] p-2 hover:bg-[#e6a510] transition-colors absolute right-0 bottom-0 md:static hidden sm:block"
+              className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors absolute right-0 bottom-0 md:static hidden sm:block"
               aria-label="Scroll to top"
             >
               <ChevronUp className="w-5 h-5 text-black" strokeWidth={3} />

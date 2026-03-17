@@ -3,39 +3,36 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { BookOpen, LayoutDashboard } from "lucide-react";
+import { BookOpen, LayoutDashboard, Phone, Mail, HelpCircle, ChevronDown, LogOut, X, Menu } from "lucide-react";
 import EnquiryModal from "./EnquiryModal";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const TOP_BAR_LINKS = [
-    { label: "Ask a Question", href: "/faq" },
-    { label: "sprucelifeskills@gmail.com", href: "mailto:sprucelifeskills@gmail.com" },
+    { label: "Ask a Question", href: "/faq", icon: "question" },
+    { label: "sprucelifeskills@gmail.com", href: "mailto:sprucelifeskills@gmail.com", icon: "mail" },
+    { label: "+91 9595025757", href: "tel:+919595025757", icon: "phone" },
 ];
 
 const TOP_BAR_RIGHT: { label: string; href: string; external?: boolean }[] = [
     { label: "Login", href: "/login" },
-    { label: "Register", href: "/register" }
+    { label: "Register", href: "/register" },
 ];
 
 const NAV_LINKS = [
     { label: "Home", href: "/" },
     {
-        label: "About Us",
-        href: "#",
+        label: "About Us", href: "#",
         children: [
             { label: "Our Journey", href: "/about/journey" },
             { label: "Our Mission & Vision", href: "/about/mission-vision" },
         ],
     },
     {
-        label: "Our Courses",
-        href: "#",
-        mega: true,
+        label: "Our Courses", href: "#", mega: true,
         children: [
             {
-                label: "Medical Coding",
-                href: "/courses/medical-coding",
+                label: "Medical Coding", href: "/courses/medical-coding",
                 children: [
                     { label: "Foundation Medical Coding", href: "/courses/medical-coding#foundation" },
                     { label: "Certified Professional Coder (CPC) Training", href: "/courses/medical-coding#cpc" },
@@ -49,54 +46,60 @@ const NAV_LINKS = [
         ],
     },
     {
-        label: "Blog",
-        href: "/blog",
+        label: "Blog", href: "/blog",
         children: [
             { label: "Pharmacovigilance", href: "/blog/pharmacovigilance-unsung-hero" },
             { label: "Medical Writing", href: "/blog/day-in-life-medical-writer" },
             { label: "Regulatory Affairs", href: "/blog/navigating-regulatory-affairs" },
             { label: "Clinical Research", href: "/blog/debunking-myths-clinical-data-management" },
             { label: "Medical Coding", href: "/blog/demand-for-medical-coders-increasing" },
-        ]
+        ],
     },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
     { label: "Placement", href: "/placement" },
     { label: "Certification", href: "/certification" },
-    {
-        label: "NEP Courses",
-        href: "https://nep.sprucelifeskills.in/",
-        external: true,
-        highlight: true,
-    },
+    { label: "NEP Courses", href: "https://nep.sprucelifeskills.in/", external: true, highlight: true },
 ];
 
+// ─── Dropdown: About ─────────────────────────────────────────────────────────
+function AboutDropdown() {
+    const aboutLink = NAV_LINKS.find((l) => l.label === "About Us");
+    return (
+        <div className="absolute top-[calc(100%+8px)] left-0 z-50 w-52 bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
+            <div className="p-1.5">
+                {aboutLink?.children?.map((child) => (
+                    <Link key={child.label} href={child.href}
+                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
+                        {child.label}
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+}
 
-// ─── Mega / Dropdown Menu ─────────────────────────────────────────────────────
-
+// ─── Dropdown: Blog ──────────────────────────────────────────────────────────
 function BlogDropdown() {
     return (
-        <div
-            className="absolute top-full left-0 mt-0 z-50
-                    bg-white shadow-xl rounded-b-xl border-t-2 border-[#2ecc71]
-                    w-64 py-2"
-        >
-            <div className="px-4 py-2 border-b border-gray-50 mb-1">
-                <p className="text-[10px] font-black uppercase tracking-widest text-[#2ecc71]">Recent Articles</p>
+        <div className="absolute top-[calc(100%+8px)] left-0 z-50 w-60 bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
+            <div className="px-4 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-gray-100">
+                <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Recent Articles</p>
             </div>
-            {NAV_LINKS.find((l) => l.label === "Blog")?.children?.map((blog: any) => (
-                <Link
-                    key={blog.label}
-                    href={blog.href}
-                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] transition-colors font-medium border-l-2 border-transparent hover:border-[#2ecc71]"
-                >
-                    {blog.label}
-                </Link>
-            ))}
-            <div className="mt-2 pt-2 border-t border-gray-50 px-4 pb-1">
-                <Link href="/blog" className="text-xs font-bold text-gray-400 hover:text-[#2ecc71] flex items-center gap-1 group">
+            <div className="p-1.5">
+                {NAV_LINKS.find((l) => l.label === "Blog")?.children?.map((blog: any) => (
+                    <Link key={blog.label} href={blog.href}
+                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
+                        {blog.label}
+                    </Link>
+                ))}
+            </div>
+            <div className="px-4 py-2.5 border-t border-gray-100">
+                <Link href="/blog" className="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 group">
                     View All Posts
-                    <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                     </svg>
                 </Link>
@@ -105,108 +108,90 @@ function BlogDropdown() {
     );
 }
 
+// ─── Mega: Courses ───────────────────────────────────────────────────────────
 function CoursesDropdown() {
+    const courses = NAV_LINKS.find((l) => l.label === "Our Courses")?.children ?? [];
     return (
-        <div
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-0 z-50
-                    bg-white shadow-2xl rounded-b-2xl border-t-4 border-[#2ecc71]
-                    w-[580px] p-6 grid grid-cols-2 gap-x-6 gap-y-1"
-        >
-            <div className="col-span-2 mb-2">
-                <p className="text-xs font-bold uppercase tracking-widest text-[#2ecc71]">Our Courses</p>
-            </div>
-            {NAV_LINKS.find((l) => l.label === "Our Courses")?.children?.map((course: any) => (
-                <div key={course.label} className="mb-2">
-                    <Link
-                        href={course.href}
-                        className="flex items-center gap-2 text-sm font-semibold text-gray-800 hover:text-[#2ecc71] transition-colors group"
-                        {...(course.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#2ecc71] group-hover:scale-125 transition-transform" />
-                        {course.label}
-                    </Link>
-                    {course.children?.map((sub: any) => (
-                        <Link
-                            key={sub.label}
-                            href={sub.href}
-                            className="block ml-4 mt-1 text-xs text-gray-500 hover:text-[#2ecc71] transition-colors"
-                        >
-                            ↳ {sub.label}
-                        </Link>
-                    ))}
-                </div>
-            ))}
-            {/* Decorative image panel */}
-            <div className="col-span-2 mt-2 rounded-xl overflow-hidden h-24 bg-gradient-to-r from-[#2ecc71]/20 to-[#27ae60]/30 flex items-center justify-center">
-                <span className="text-sm text-[#2ecc71] font-semibold opacity-70">
-                    🎓 Industry-Recognized Healthcare Certifications
+        <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 z-50 w-[600px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
+            {/* Header band */}
+            <div className="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center justify-between">
+                <p className="text-xs font-black uppercase tracking-widest text-white/90">Our Programmes</p>
+                <span className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-semibold">
+                    {courses.length} Courses
                 </span>
             </div>
-        </div>
-    );
-}
-
-function AboutDropdown() {
-    const aboutLink = NAV_LINKS.find((l) => l.label === "About Us");
-    return (
-        <div
-            className="absolute top-full left-0 mt-0 z-50
-                    bg-white shadow-xl rounded-b-xl border-t-2 border-[#2ecc71]
-                    w-48 py-2"
-        >
-            {aboutLink?.children?.map((child) => (
-                <Link
-                    key={child.label}
-                    href={child.href}
-                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] transition-colors font-medium border-l-2 border-transparent hover:border-[#2ecc71]"
-                >
-                    {child.label}
+            {/* Grid */}
+            <div className="p-4 grid grid-cols-2 gap-1">
+                {courses.map((course: any) => (
+                    <div key={course.label}>
+                        <Link href={course.href}
+                            {...(course.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            className="flex items-start gap-3 px-3.5 py-3 rounded-xl hover:bg-emerald-50 transition-all group">
+                            <div className="mt-0.5 w-7 h-7 rounded-lg bg-emerald-100 group-hover:bg-emerald-200 flex items-center justify-center shrink-0 transition-colors">
+                                <svg className="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                            </div>
+                            <div className="min-w-0">
+                                <p className="text-sm font-semibold text-gray-800 group-hover:text-emerald-700 transition-colors leading-snug">{course.label}</p>
+                                {course.children && (
+                                    <p className="text-xs text-gray-400 mt-0.5">{course.children.length} modules</p>
+                                )}
+                            </div>
+                        </Link>
+                        {course.children?.map((sub: any) => (
+                            <Link key={sub.label} href={sub.href}
+                                className="block ml-[52px] text-xs text-gray-500 hover:text-emerald-600 transition-colors py-0.5 -mt-1 mb-1">
+                                ↳ {sub.label}
+                            </Link>
+                        ))}
+                    </div>
+                ))}
+            </div>
+            {/* CTA footer */}
+            <div className="mx-4 mb-4 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 px-4 py-3 flex items-center justify-between">
+                <div>
+                    <p className="text-xs font-bold text-emerald-800">🎓 Industry-Recognised Certifications</p>
+                    <p className="text-[11px] text-emerald-600 mt-0.5">AAPC · AHIMA · ICH-GCP accredited</p>
+                </div>
+                <Link href="/courses" className="text-xs bg-[#eab308] hover:bg-[#ca8a04] text-black font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                    All Courses →
                 </Link>
-            ))}
+            </div>
         </div>
     );
 }
 
-// ─── Mobile Nav Item ──────────────────────────────────────────────────────────
-
-function MobileNavItem({ link }: { link: any }) {
+// ─── Mobile Nav Item ─────────────────────────────────────────────────────────
+function MobileNavItem({ link, onClose }: { link: any; onClose: () => void }) {
     const [open, setOpen] = useState(false);
     return (
-        <div>
-            <div className="flex items-center justify-between">
-                <Link
-                    href={link.href}
-                    className={`block py-2 text-sm font-medium ${link.highlight ? "text-[#2ecc71]" : "text-gray-800"}`}
-                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
+        <div className="border-b border-gray-50 last:border-0">
+            <div className="flex items-center justify-between py-1">
+                <Link href={link.href} onClick={!link.children ? onClose : undefined}
+                    className={`flex-1 py-2.5 text-sm font-semibold ${link.highlight ? "text-emerald-600" : "text-gray-800"}`}
+                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                     {link.label}
                 </Link>
                 {link.children && (
-                    <button onClick={() => setOpen(!open)} className="p-1 text-gray-400 hover:text-[#2ecc71]">
-                        <svg className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
+                    <button onClick={() => setOpen(!open)} className="p-2 text-gray-400 hover:text-emerald-600 transition-colors">
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
                     </button>
                 )}
             </div>
             {link.children && open && (
-                <div className="pl-4 border-l-2 border-[#2ecc71]/30 ml-2 space-y-1">
+                <div className="pb-2 pl-4 border-l-2 border-emerald-100 ml-1 space-y-0.5">
                     {link.children.map((child: any) => (
                         <div key={child.label}>
-                            {child.href ? (
-                                <Link
-                                    href={child.href}
-                                    className="block py-1 text-sm text-gray-600 hover:text-[#2ecc71]"
-                                    {...(child.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                >
-                                    {child.label}
-                                </Link>
-                            ) : (
-                                <p className="py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">{child.label}</p>
-                            )}
+                            <Link href={child.href} onClick={onClose}
+                                className="block py-2 text-sm text-gray-600 hover:text-emerald-600 font-medium transition-colors"
+                                {...(child.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                                {child.label}
+                            </Link>
                             {child.children?.map((sub: any) => (
-                                <Link key={sub.label} href={sub.href} className="block pl-3 py-1 text-xs text-gray-500 hover:text-[#2ecc71]">
-                                    {sub.label}
+                                <Link key={sub.label} href={sub.href} onClick={onClose}
+                                    className="block pl-3 py-1 text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+                                    ↳ {sub.label}
                                 </Link>
                             ))}
                         </div>
@@ -218,7 +203,6 @@ function MobileNavItem({ link }: { link: any }) {
 }
 
 // ─── Main Header ─────────────────────────────────────────────────────────────
-
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [demoOpen, setDemoOpen] = useState(false);
@@ -231,35 +215,29 @@ export default function Header() {
 
     useEffect(() => {
         const checkUser = () => {
-            const storedUser = localStorage.getItem('user');
-            const token = localStorage.getItem('token');
-            if (storedUser && token) {
-                setUser(JSON.parse(storedUser));
-            } else {
-                setUser(null);
-            }
+            const storedUser = localStorage.getItem("user");
+            const token = localStorage.getItem("token");
+            if (storedUser && token) setUser(JSON.parse(storedUser));
+            else setUser(null);
         };
-
         checkUser();
-        // Add listener for login/logout events if needed, but for now check on mount
-        window.addEventListener('storage', checkUser);
-        return () => window.removeEventListener('storage', checkUser);
+        window.addEventListener("storage", checkUser);
+        return () => window.removeEventListener("storage", checkUser);
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setUser(null);
-        router.push('/login');
+        router.push("/login");
     };
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60);
+        const onScroll = () => setScrolled(window.scrollY > 10);
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Close mobile nav on resize
     useEffect(() => {
         const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
         window.addEventListener("resize", onResize);
@@ -270,106 +248,88 @@ export default function Header() {
         if (closeTimer.current) clearTimeout(closeTimer.current);
         setActiveDropdown(label);
     };
-
     const handleMouseLeave = () => {
-        closeTimer.current = setTimeout(() => setActiveDropdown(null), 150);
+        closeTimer.current = setTimeout(() => setActiveDropdown(null), 180);
     };
+
+    const isActive = (link: any) =>
+        pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
 
     return (
         <>
-            {/* ── Top Bar ───────────────────────────────────────────────── */}
-            <div className="bg-[#1a1a2e] text-white text-xs hidden lg:block">
-                <div className="max-w-7xl mx-auto px-4 xl:px-6 flex items-center justify-between h-9">
-                    {/* Left */}
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        .spruce-header { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .nav-pill-indicator {
+          position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+          width: 4px; height: 4px; border-radius: 50%; background: #059669;
+          opacity: 0; transition: opacity 0.2s;
+        }
+        .nav-item-active .nav-pill-indicator,
+        .nav-item:hover .nav-pill-indicator { opacity: 1; }
+        .dropdown-enter { animation: dropdownIn 0.18s ease forwards; }
+        @keyframes dropdownIn {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .mobile-drawer { transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s; }
+        .mobile-overlay { transition: opacity 0.3s; }
+      `}</style>
+
+            {/* ══ TOP BAR ══════════════════════════════════════════════════════════ */}
+            <div className="spruce-header bg-gray-950 text-white hidden lg:block border-b border-white/5">
+                <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-9">
                     <div className="flex items-center gap-5">
-                        {TOP_BAR_LINKS.map((link) => (
-                            <Link
-                                key={link.label}
-                                href={link.href}
-                                className="flex items-center gap-1.5 text-gray-300 hover:text-[#2ecc71] transition-colors"
-                            >
-                                {link.label === "Ask a Question" && (
-                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                                    </svg>
-                                )}
-                                {link.label.includes("@") && (
-                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                                    </svg>
-                                )}
-                                {link.label}
-                            </Link>
-                        ))}
+                        <a href="mailto:sprucelifeskills@gmail.com"
+                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
+                            <Mail className="w-3 h-3" />
+                            sprucelifeskills@gmail.com
+                        </a>
+                        <a href="tel:+919595025757"
+                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
+                            <Phone className="w-3 h-3" />
+                            +91 9595025757
+                        </a>
+                        <Link href="/faq"
+                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
+                            <HelpCircle className="w-3 h-3" />
+                            Ask a Question
+                        </Link>
                     </div>
 
-                    {/* Right */}
                     <div className="flex items-center gap-1">
-
-
                         {user ? (
                             <div className="flex items-center gap-3">
-                                {user?.role === 'admin' ? (
-                                    <Link
-                                        href="/admin"
-                                        className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
-                                    >
-                                        <LayoutDashboard size={14} className="text-[#2ecc71]" />
-                                        Dashboard
-                                    </Link>
-                                ) : (
-                                    <Link
-                                        href="/profile/my-courses"
-                                        className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded flex items-center gap-2"
-                                    >
-                                        <BookOpen size={14} className="text-[#2ecc71]" />
-                                        My Courses
-                                    </Link>
-                                )}
+                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
+                                    className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors px-2 py-1">
+                                    {user?.role === "admin"
+                                        ? <><LayoutDashboard className="w-3 h-3 text-emerald-400" /> Dashboard</>
+                                        : <><BookOpen className="w-3 h-3 text-emerald-400" /> My Courses</>}
+                                </Link>
+                                {/* Avatar dropdown */}
                                 <div className="relative group py-1">
-                                    <button className="w-7 h-7 rounded-full bg-[#2ecc71] flex items-center justify-center text-white font-bold text-xs shadow-sm uppercase overflow-hidden border border-white/20">
-                                        {user?.avatar ? (
-                                            <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                        ) : (
-                                            user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
-                                        )}
+                                    <button className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-[10px] uppercase overflow-hidden">
+                                        {user?.avatar
+                                            ? <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                            : (user?.name?.charAt(0) || user?.email?.charAt(0) || "U")}
                                     </button>
-
-                                    <div className="absolute right-0 top-full pt-1 opacity-0 invisible hover:opacity-100 hover:visible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
-                                        <div className="w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
+                                    <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
+                                        <div className="w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
                                             <div className="bg-gray-50 px-4 py-3 border-b border-gray-100">
-                                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || 'User'}</p>
+                                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || "User"}</p>
                                                 <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                                             </div>
                                             <div className="p-2">
-                                                {user?.role === 'admin' ? (
-                                                    <Link
-                                                        href="/admin"
-                                                        className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
-                                                    >
-                                                        <LayoutDashboard size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
-                                                        Dashboard
-                                                    </Link>
-                                                ) : (
-                                                    <Link
-                                                        href="/profile/my-courses"
-                                                        className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#f0fdf4] hover:text-[#2ecc71] rounded-lg transition-colors group/link"
-                                                    >
-                                                        <BookOpen size={16} className="text-gray-400 group-hover/link:text-[#2ecc71]" />
-                                                        My Courses
-                                                    </Link>
-                                                )}
+                                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
+                                                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors">
+                                                    {user?.role === "admin" ? <LayoutDashboard size={14} /> : <BookOpen size={14} />}
+                                                    {user?.role === "admin" ? "Dashboard" : "My Courses"}
+                                                </Link>
                                             </div>
                                             <div className="p-2 border-t border-gray-100">
-                                                <button
-                                                    onClick={handleLogout}
-                                                    className="w-full text-left flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                >
-                                                    <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                                    </svg>
-                                                    Logout
+                                                <button onClick={handleLogout}
+                                                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                                    <LogOut size={14} /> Logout
                                                 </button>
                                             </div>
                                         </div>
@@ -377,18 +337,9 @@ export default function Header() {
                                 </div>
                             </div>
                         ) : (
-                            TOP_BAR_RIGHT.map((link, i) => (
-                                <Link
-                                    key={link.label}
-                                    href={link.href}
-                                    target={link.external ? "_blank" : undefined}
-                                    rel={link.external ? "noopener noreferrer" : undefined}
-                                    className={`px-3 py-1.5 text-xs font-medium transition-colors rounded
-                                    ${link.label === "Fee Payment"
-                                            ? "bg-[#2ecc71]/20 text-[#2ecc71] hover:bg-[#2ecc71] hover:text-white"
-                                            : "text-gray-300 hover:text-white hover:bg-white/10"
-                                        }`}
-                                >
+                            TOP_BAR_RIGHT.map((link) => (
+                                <Link key={link.label} href={link.href}
+                                    className="text-[11px] font-medium text-gray-400 hover:text-white px-3 py-1 rounded hover:bg-white/5 transition-all">
                                     {link.label}
                                 </Link>
                             ))
@@ -397,198 +348,222 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* ── Main Header ───────────────────────────────────────────── */}
-            <header
-                className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 backdrop-blur-md
-          ${scrolled
-                        ? "bg-[#0A3D24]/90 shadow-lg shadow-black/20"
-                        : "bg-[#0A3D24]/90 border-b border-white/20"
-                    }`}
-            >
-                <div className="max-w-7xl mx-auto px-4 xl:px-6 flex items-center justify-between h-16 lg:h-[70px]">
+            {/* ══ MAIN HEADER ══════════════════════════════════════════════════════ */}
+            <header className={`spruce-header sticky top-0 left-0 right-0 z-[100] transition-all duration-300
+        ${scrolled
+                    ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
+                    : "bg-white border-b border-gray-100"}`}>
 
-                    {/* Logo */}
-                    <Link href="/" className="flex-shrink-0">
-                        {/* Replace src with your actual logo paths */}
-                        {/* <div className="flex items-center gap-2.5"> */}
-                        {/* Fallback text logo — swap <img> tag when logo assets are available */}
-                        {/* <div className="w-9 h-9 rounded-lg bg-[#2ecc71] flex items-center justify-center shadow-md">
-                                <span className="text-white font-black text-lg leading-none">S</span>
-                            </div>
-                            <div className="hidden sm:block">
-                                <p className="text-[15px] font-extrabold text-gray-900 leading-tight">Spruce</p>
-                                <p className="text-[10px] font-medium text-gray-500 uppercase tracking-widest -mt-0.5">Lifeskills</p>
-                            </div>
-                        </div> */}
-                        <img
+                <div className="max-w-7xl mx-auto px-4 xl:px-6 h-[68px] flex items-center justify-between gap-4">
 
-                            src={"/spruseLogo.png"}
-                            alt="Spruce Lifeskills"
-                            className="h-10 w-auto object-contain"
-                        />
-
+                    {/* ── Logo ── */}
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-3">
+                        <img src="/logo2.png" alt="Spruce Lifeskills"
+                            className="h-10 w-auto object-contain" />
                     </Link>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
-                        {NAV_LINKS.map((link) => (
-                            <div
-                                key={link.label}
-                                className="relative"
-                                onMouseEnter={() => link.children && handleMouseEnter(link.label)}
-                                onMouseLeave={link.children ? handleMouseLeave : undefined}
-                            >
-                                <Link
-                                    href={link.href}
-                                    target={link.external ? "_blank" : undefined}
-                                    rel={link.external ? "noopener noreferrer" : undefined}
-                                    className={`flex items-center gap-1 px-2.5 xl:px-3 py-2 text-[13px] font-semibold rounded-md transition-all
-                    ${link.highlight
-                                            ? "text-[#2ecc71] bg-[#2ecc71]/10 hover:bg-[#2ecc71] hover:text-white"
-                                            : "text-gray-200 hover:text-[#2ecc71] hover:bg-white/10"
-                                        }
-                    ${activeDropdown === link.label || pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href)) ? "text-[#2ecc71] bg-white/10" : ""}
-                  `}
-                                >
-                                    {link.label}
-                                    {link.children && (
-                                        <svg
-                                            className={`w-3 h-3 transition-transform ${activeDropdown === link.label ? "rotate-180" : ""}`}
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        >
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                                        </svg>
+                    {/* ── Desktop Nav (floating pill strip) ── */}
+                    <nav className="hidden lg:flex items-center">
+                        {/* Pill container */}
+                        <div className="flex items-center gap-0.5 bg-gray-50 rounded-full px-2 py-1.5 border border-gray-200/80 shadow-inner">
+                            {NAV_LINKS.filter((l) => !l.highlight).map((link) => (
+                                <div key={link.label} className="relative nav-item"
+                                    onMouseEnter={() => link.children && handleMouseEnter(link.label)}
+                                    onMouseLeave={link.children ? handleMouseLeave : undefined}>
+                                    <Link href={link.href}
+                                        target={link.external ? "_blank" : undefined}
+                                        rel={link.external ? "noopener noreferrer" : undefined}
+                                        className={`relative flex items-center gap-1 px-3 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200
+                      ${isActive(link)
+                                                ? "bg-white text-emerald-700 shadow-sm"
+                                                : "text-gray-600 hover:text-gray-900 hover:bg-white hover:shadow-sm"
+                                            } ${activeDropdown === link.label ? "bg-white text-gray-900 shadow-sm" : ""}`}>
+                                        {link.label}
+                                        {link.children && (
+                                            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === link.label ? "rotate-180" : ""}`} />
+                                        )}
+                                    </Link>
+
+                                    {/* Dropdowns */}
+                                    {link.children && activeDropdown === link.label && (
+                                        <div className="dropdown-enter">
+                                            {link.label === "Blog" ? <BlogDropdown />
+                                                : link.mega ? <CoursesDropdown />
+                                                    : <AboutDropdown />}
+                                        </div>
                                     )}
-                                </Link>
-
-                                {/* Dropdown */}
-                                {link.children && activeDropdown === link.label && (
-                                    link.label === "Blog" ? <BlogDropdown /> : (link.mega ? <CoursesDropdown /> : <AboutDropdown />)
-                                )}
-                            </div>
-                        ))}
-                    </nav>
-
-                    {/* Right actions */}
-                    <div className="flex items-center gap-2">
-                        {/* Book Demo — desktop shortcut */}
-
-
-                        {/* Phone — mobile CTA */}
-                        <a
-                            href="tel:+919595025757"
-                            className="lg:hidden flex items-center gap-1 bg-[#2ecc71]/10 text-[#2ecc71] text-xs font-bold px-3 py-2 rounded-lg"
-                        >
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                            </svg>
-                            Call Us
-                        </a>
-
-                        {/* Hamburger */}
-                        <button
-                            onClick={() => setMobileOpen(!mobileOpen)}
-                            className="lg:hidden p-2 rounded-md text-gray-200 hover:bg-white/10 transition-colors"
-                            aria-label="Toggle menu"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                {mobileOpen
-                                    ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                }
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                {/* ── Mobile Nav Drawer ───────────────────────────────────── */}
-                <div
-                    className={`lg:hidden overflow-hidden transition-all duration-300 border-t border-gray-100
-            ${mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}
-                >
-                    <div className="bg-white px-4 pt-3 pb-5 overflow-y-auto max-h-[75vh] divide-y divide-gray-50">
-                        {/* Mobile top actions */}
-                        <div className="flex flex-wrap items-center gap-2 pb-3">
-
-                            {user ? (
-                                <div className="w-full flex flex-col gap-2 pb-2">
-                                    <div className="flex items-center gap-3 px-2 py-2 border-b border-gray-100">
-                                        <div className="w-10 h-10 rounded-full bg-[#2ecc71] flex items-center justify-center text-white font-bold text-lg shadow-sm uppercase overflow-hidden">
-                                            {user?.avatar ? (
-                                                <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                            ) : (
-                                                user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
-                                            )}
-                                        </div>
-                                        <div className="overflow-hidden">
-                                            <p className="text-sm font-bold text-gray-900 truncate">{user?.name || 'User'}</p>
-                                            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <Link
-                                            href={user?.role === 'admin' ? '/admin' : '/profile/my-courses'}
-                                            onClick={() => setMobileOpen(false)}
-                                            className="flex-1 border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center hover:border-[#2ecc71] hover:text-[#2ecc71]"
-                                        >
-                                            {user?.role === 'admin' ? 'Dashboard' : 'My Courses'}
-                                        </Link>
-                                        <button
-                                            onClick={() => { handleLogout(); setMobileOpen(false); }}
-                                            className="flex-1 bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center hover:bg-red-700 transition-colors"
-                                        >
-                                            Logout
-                                        </button>
-                                    </div>
                                 </div>
-                            ) : (
-                                <>
-                                    <Link
-                                        href="/login"
-                                        onClick={() => setMobileOpen(false)}
-                                        className="flex-1 min-w-[70px] border border-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg text-center"
-                                    >
-                                        Login
-                                    </Link>
-                                    <Link
-                                        href="/register"
-                                        onClick={() => setMobileOpen(false)}
-                                        className="flex-1 min-w-[70px] bg-gray-800 text-white text-xs font-bold py-2.5 rounded-lg text-center"
-                                    >
-                                        Register
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Nav items */}
-                        <div className="pt-3 space-y-1">
-                            {NAV_LINKS.map((link) => (
-                                <MobileNavItem key={link.label} link={link} />
                             ))}
                         </div>
 
-                        {/* Contact info */}
-                        <div className="pt-4 space-y-1.5">
-                            <a href="tel:+919595025757" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#2ecc71]">
-                                <svg className="w-4 h-4 text-[#2ecc71]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        {/* NEP Courses — standalone accent pill */}
+                        {NAV_LINKS.filter((l) => l.highlight).map((link) => (
+                            <Link key={link.label} href={link.href}
+                                target="_blank" rel="noopener noreferrer"
+                                className="ml-2 flex items-center gap-1.5 px-4 py-2 text-[13px] font-bold
+                           bg-[#eab308] hover:bg-[#ca8a04]
+                           text-black rounded-full shadow-md hover:shadow-lg transition-all duration-200 whitespace-nowrap">
+                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
-                                +91 9595025757
-                            </a>
-                            <a href="mailto:sprucelifeskills@gmail.com" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#2ecc71]">
-                                <svg className="w-4 h-4 text-[#2ecc71]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                                </svg>
-                                sprucelifeskills@gmail.com
-                            </a>
-                        </div>
+                                {link.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* ── Right actions (desktop) ── */}
+                    <div className="hidden lg:flex items-center gap-2">
+                        {user ? (
+                            <div className="flex items-center gap-2">
+                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
+                                    className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-emerald-700
+                             px-3 py-2 rounded-xl hover:bg-emerald-50 transition-all">
+                                    {user?.role === "admin"
+                                        ? <><LayoutDashboard size={15} className="text-emerald-600" /> Dashboard</>
+                                        : <><BookOpen size={15} className="text-emerald-600" /> My Courses</>}
+                                </Link>
+                                <div className="relative group">
+                                    <button className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500
+                                     flex items-center justify-center text-white font-bold text-sm shadow-md
+                                     uppercase overflow-hidden border-2 border-white ring-2 ring-emerald-100">
+                                        {user?.avatar
+                                            ? <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                            : (user?.name?.charAt(0) || "U")}
+                                    </button>
+                                    <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
+                                        <div className="w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                                            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-3 border-b border-gray-100">
+                                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || "User"}</p>
+                                                <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
+                                            </div>
+                                            <div className="p-2">
+                                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
+                                                    className="flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium text-gray-700
+                                     hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">
+                                                    {user?.role === "admin" ? <LayoutDashboard size={15} /> : <BookOpen size={15} />}
+                                                    {user?.role === "admin" ? "Dashboard" : "My Courses"}
+                                                </Link>
+                                            </div>
+                                            <div className="p-2 border-t border-gray-100">
+                                                <button onClick={handleLogout}
+                                                    className="w-full text-left flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium
+                                     text-red-600 hover:bg-red-50 rounded-xl transition-colors">
+                                                    <LogOut size={15} /> Logout
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-2">
+                                <Link href="/login"
+                                    className="text-sm font-semibold text-gray-700 hover:text-emerald-700 px-4 py-2
+                             rounded-xl hover:bg-gray-100 transition-all">
+                                    Login
+                                </Link>
+                                <Link href="/register"
+                                    className="text-sm font-bold text-black px-5 py-2.5 rounded-xl
+                             bg-[#eab308] hover:bg-[#ca8a04] shadow-md hover:shadow-lg transition-all">
+                                    Register Free →
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* ── Mobile actions ── */}
+                    <div className="flex lg:hidden items-center gap-2">
+                        <a href="tel:+919595025757"
+                            className="flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-2 rounded-lg border border-emerald-200">
+                            <Phone className="w-3.5 h-3.5" />
+                            Call
+                        </a>
+                        <button onClick={() => setMobileOpen(!mobileOpen)}
+                            className="p-2 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors"
+                            aria-label="Toggle menu">
+                            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                        </button>
                     </div>
                 </div>
             </header>
 
-            {/* ── Enquiry Modal ────────────────────────────────────────────── */}
+            {/* ══ MOBILE DRAWER ════════════════════════════════════════════════════ */}
+            {/* Overlay */}
+            <div onClick={() => setMobileOpen(false)}
+                className={`lg:hidden fixed inset-0 bg-black/40 z-[90] mobile-overlay ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} />
+
+            {/* Drawer */}
+            <div className={`spruce-header lg:hidden fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white z-[95]
+                       shadow-2xl mobile-drawer flex flex-col
+                       ${mobileOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
+
+                {/* Drawer header */}
+                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-emerald-600 to-teal-600">
+                    <img src="/spruseLogo.png" alt="Spruce" className="h-8 w-auto object-contain brightness-0 invert" />
+                    <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-colors">
+                        <X className="w-4 h-4" />
+                    </button>
+                </div>
+
+                {/* Auth strip */}
+                <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
+                    {user ? (
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500
+                              flex items-center justify-center text-white font-bold uppercase overflow-hidden shrink-0">
+                                {user?.avatar
+                                    ? <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                    : (user?.name?.charAt(0) || "U")}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || "User"}</p>
+                                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                            </div>
+                            <button onClick={() => { handleLogout(); setMobileOpen(false); }}
+                                className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                                <LogOut size={16} />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex gap-2">
+                            <Link href="/login" onClick={() => setMobileOpen(false)}
+                                className="flex-1 border border-gray-200 text-gray-800 text-sm font-bold py-2.5 rounded-xl text-center hover:border-emerald-400 hover:text-emerald-700 transition-all">
+                                Login
+                            </Link>
+                            <Link href="/register" onClick={() => setMobileOpen(false)}
+                                className="flex-1 bg-gray-900 text-white text-sm font-bold py-2.5 rounded-xl text-center hover:bg-gray-800 transition-colors">
+                                Register
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* Nav items */}
+                <div className="flex-1 overflow-y-auto px-4 py-3">
+                    {NAV_LINKS.map((link) => (
+                        <MobileNavItem key={link.label} link={link} onClose={() => setMobileOpen(false)} />
+                    ))}
+                </div>
+
+                {/* Contact footer */}
+                <div className="px-4 py-4 border-t border-gray-100 bg-gray-50 space-y-2">
+                    <a href="tel:+919595025757" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-emerald-600 font-medium transition-colors">
+                        <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
+                            <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                        </div>
+                        +91 9595025757
+                    </a>
+                    <a href="mailto:sprucelifeskills@gmail.com" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-emerald-600 font-medium transition-colors">
+                        <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
+                            <Mail className="w-3.5 h-3.5 text-emerald-600" />
+                        </div>
+                        sprucelifeskills@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            {/* ── Enquiry Modal ── */}
             <EnquiryModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
         </>
     );

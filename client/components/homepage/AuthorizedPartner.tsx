@@ -43,7 +43,7 @@ export default function AuthorizedPartner() {
     <section className="bg-white py-16 md:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-          
+
           {/* Left Column - Content */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             <ScrollReveal animation="slide-left">
@@ -51,22 +51,22 @@ export default function AuthorizedPartner() {
                 Authorized Education Partner <br className="hidden sm:block" />
                 <span className="text-[#0A3D24] font-medium">of AAPC in central India</span>
               </h2>
-              
+
               <h3 className="mt-8 text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
                 Risk free certification with spruce
               </h3>
-              
+
               <p className="mt-4 text-base text-gray-600 leading-relaxed">
-                Being an AAPC partner means having exclusive access to high quality 
-                healthcare training and certification programs recognized and valued by 
-                global companies, creating way for you to secure rewarding careers in the 
+                Being an AAPC partner means having exclusive access to high quality
+                healthcare training and certification programs recognized and valued by
+                global companies, creating way for you to secure rewarding careers in the
                 healthcare industry.
               </p>
-              
+
               <div className="mt-8">
                 <Link
                   href="/about"
-                  className="inline-block bg-[#FDB813] text-black font-bold text-sm px-8 py-3.5 hover:bg-[#e5a60e] transition-colors rounded-sm shadow-sm"
+                  className="inline-block bg-[#eab308] text-black font-bold text-sm px-8 py-3.5 hover:bg-[#ca8a04] transition-colors rounded-sm shadow-sm"
                 >
                   Read More
                 </Link>
@@ -99,7 +99,7 @@ export default function AuthorizedPartner() {
               })}
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>
