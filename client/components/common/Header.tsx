@@ -34,14 +34,36 @@ const NAV_LINKS = [
             {
                 label: "Medical Coding", href: "/courses/medical-coding",
                 children: [
-                    { label: "Foundation Medical Coding", href: "/courses/medical-coding#foundation" },
-                    { label: "Certified Professional Coder (CPC) Training", href: "/courses/medical-coding#cpc" },
+                    { label: "Foundation Medical Coding", href: "/courses/medical-coding-foundation-medical-coding" },
+                    { label: "Certified Professional Coder (CPC) Training", href: "/courses/medical-coding-certified-proffesional-coder" },
+                    { label: "Advance Diploma in Medical Coding", href: "/courses/medical-coding-advance-diploma-in-medical-coding" },
+                    { label: "Post Graduate Diploma in Clinical Research & Medical Coding", href: "/courses/medical-coding-post-graduate-diploma" },
                 ],
             },
-            { label: "Clinical Research", href: "/courses/clinical-research" },
-            { label: "Medical Billing", href: "/courses/medical-billing" },
-            { label: "Account Receivable", href: "/courses/account-receivable" },
-            { label: "Campus to Corporate", href: "/courses/campus-corporate" },
+            { label: "Clinical Research", href: "/courses/clinical-research",
+                children: [
+                    { label: "Post Graduate Diploma (1)", href: "/courses/clinical-research-post-graduate-diploma" },
+                    { label: "Advance Diploma in Clinical Research", href: "/courses/clinical-research-advance-diploma" },
+                    { label: "Advance Diploma IT ", href: "/courses/clinical-research-advance-diploma-it" },
+                    { label: "Diploma (Any One Subject)", href: "/courses/clinical-research-diploma-in-one-subject" },
+                ],
+             },
+            { label: "Medical Billing", href: "/courses/medical-billing" ,
+                children: [
+                    { label: "Diploma In Medical Billing", href: "/courses/diploma-in-medical-billing" },
+                    { label: "Diploma In Coding & Billing", href: "/courses/medical-billing-diploma-in-coding-billing" },
+                    
+                ],
+
+            },
+            { label: "Account Receivable", href: "/courses/account-receivable",
+                children: [
+                    { label: "Diploma In AR", href: "/courses/diploma-in-account-receivable" },
+                    { label: "Diploma In AR & Billing", href: "/courses/diploma-in-account-receivable-billing" },
+                    
+                ],
+             },
+            { label: "Campus to Corporate", href: "/courses/campus-corporate"},
             { label: "NEP Courses", href: "https://nep.sprucelifeskills.in/", external: true },
         ],
     },

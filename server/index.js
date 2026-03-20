@@ -9,7 +9,8 @@ import enquiryRoutes from './routes/enquiryRoutes.js'
 import partnerEnquiryRoutes from './routes/partnerEnquiryRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
-
+import dns from "dns";
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const app = express()
 app.use(cors({
     origin: "*",
