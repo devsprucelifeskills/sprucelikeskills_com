@@ -159,13 +159,23 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-            columns: [
-               
+              columns: [
+                {
+                    title: "Post Graduate Diploma in Clinical Research & Medical Coding",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma in Medical Coding",
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Diploma In Medical Coding (Foundation)",
                     features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
                 },
-                
+                {
+                    title: "Diploma In Certified Professional Coder (CPC)",
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
             ]
         }
     },
@@ -226,8 +236,19 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-            columns: [
-               
+             columns: [
+                {
+                    title: "Post Graduate Diploma in Clinical Research & Medical Coding",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma in Medical Coding",
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Medical Coding (Foundation)",
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
                     features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -292,13 +313,23 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-            columns: [
-                
+              columns: [
+                {
+                    title: "Post Graduate Diploma in Clinical Research & Medical Coding",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Advance Diploma in Medical Coding",
                     features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-               
+                {
+                    title: "Diploma In Medical Coding (Foundation)",
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Certified Professional Coder (CPC)",
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
             ]
         }
     },
@@ -359,12 +390,23 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-            columns: [
+             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-                
+                {
+                    title: "Advance Diploma in Medical Coding",
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Medical Coding (Foundation)",
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Certified Professional Coder (CPC)",
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
             ]
         }
     },
@@ -522,12 +564,23 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
+           columns: [
                 {
                     title: "Post Graduate Diploma (1)",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-               
+                {
+                    title: "Advance Diploma (1)",
+                    features: ["6 Months", "checkmark", "-", "-", "-", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma IT (2)",
+                    features: ["6 Months", "checkmark", "-", "checkmark", "checkmark", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma (Any One Subject)",
+                    features: ["3 Months", "checkmark", "-", "-", "-", "-", "-", "checkmark", "checkmark", "-", "checkmark"]
+                }
             ]
         }
     },
@@ -598,13 +651,23 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
-               
+              columns: [
+                {
+                    title: "Post Graduate Diploma (1)",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Advance Diploma (1)",
                     features: ["6 Months", "checkmark", "-", "-", "-", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-              
+                {
+                    title: "Advance Diploma IT (2)",
+                    features: ["6 Months", "checkmark", "-", "checkmark", "checkmark", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma (Any One Subject)",
+                    features: ["3 Months", "checkmark", "-", "-", "-", "-", "-", "checkmark", "checkmark", "-", "checkmark"]
+                }
             ]
         }
     },
@@ -676,12 +739,22 @@ export const courses: Course[] = [
                 "Daily/Weekly Batches"
             ],
             columns: [
-              
+                {
+                    title: "Post Graduate Diploma (1)",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma (1)",
+                    features: ["6 Months", "checkmark", "-", "-", "-", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Advance Diploma IT (2)",
                     features: ["6 Months", "checkmark", "-", "checkmark", "checkmark", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-             
+                {
+                    title: "Diploma (Any One Subject)",
+                    features: ["3 Months", "checkmark", "-", "-", "-", "-", "-", "checkmark", "checkmark", "-", "checkmark"]
+                }
             ]
         }
     },
@@ -753,7 +826,18 @@ export const courses: Course[] = [
                 "Daily/Weekly Batches"
             ],
             columns: [
-                
+                {
+                    title: "Post Graduate Diploma (1)",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma (1)",
+                    features: ["6 Months", "checkmark", "-", "-", "-", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma IT (2)",
+                    features: ["6 Months", "checkmark", "-", "checkmark", "checkmark", "3", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Diploma (Any One Subject)",
                     features: ["3 Months", "checkmark", "-", "-", "-", "-", "-", "checkmark", "checkmark", "-", "checkmark"]
@@ -891,12 +975,15 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
+      columns: [
                 {
                     title: "Diploma In Medical Billing",
                     features: ["2 Months", "checkmark", "-", "-", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-                
+                {
+                    title: "Diploma In Coding & Billing",
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
             ]
         }
     },
@@ -959,8 +1046,11 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
-                
+      columns: [
+                {
+                    title: "Diploma In Medical Billing",
+                    features: ["2 Months", "checkmark", "-", "-", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Diploma In Coding & Billing",
                     features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -1094,12 +1184,15 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
+                 columns: [
                 {
                     title: "Diploma In AR",
                     features: ["2 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
                 },
-                
+                {
+                    title: "Diploma In AR & Billing",
+                    features: ["3 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
             ]
         }
     },
@@ -1160,8 +1253,11 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-            columns: [
-               
+                 columns: [
+                {
+                    title: "Diploma In AR",
+                    features: ["2 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
                 {
                     title: "Diploma In AR & Billing",
                     features: ["3 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
