@@ -65,9 +65,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can enroll in these programs."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
             }
         ],
         featuresTable: {
@@ -102,7 +102,7 @@ export const courses: Course[] = [
             ]
         }
     },
-      {
+    {
         slug: "medical-coding-foundation-medical-coding",
         title: "Foundation in Medical Coding",
         description:
@@ -142,9 +142,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can enroll in these programs."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
             }
         ],
         featuresTable: {
@@ -159,7 +159,7 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-              columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -179,7 +179,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "medical-coding-certified-proffesional-coder",
         title: "Certified Professional Coder (CPC)",
         description:
@@ -219,9 +219,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can enroll in these programs."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
             }
         ],
         featuresTable: {
@@ -236,7 +236,7 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-             columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -256,7 +256,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "medical-coding-advance-diploma-in-medical-coding",
         title: "Advance Diploma in Medical Coding",
         description:
@@ -296,9 +296,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can enroll in these programs."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
             }
         ],
         featuresTable: {
@@ -313,7 +313,7 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-              columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -333,7 +333,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "medical-coding-post-graduate-diploma",
         title: "Post Graduate Diploma in Medical Coding",
         description:
@@ -373,9 +373,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can enroll in these programs."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
             }
         ],
         featuresTable: {
@@ -390,7 +390,7 @@ export const courses: Course[] = [
                 "Regular Tests",
                 "Placement Support"
             ],
-             columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -454,9 +454,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
             },
             {
                 id: "features-table",
@@ -541,9 +541,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
             },
             {
                 id: "features-table",
@@ -564,7 +564,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-           columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma (1)",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -584,7 +584,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "clinical-research-advance-diploma",
         title: "Advance Diploma in Clinical Research",
         description:
@@ -628,9 +628,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
             },
             {
                 id: "features-table",
@@ -651,7 +651,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-              columns: [
+            columns: [
                 {
                     title: "Post Graduate Diploma (1)",
                     features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "4", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -671,7 +671,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "clinical-research-advance-diploma-it",
         title: "Clinical Research Advance Diploma IT",
         description:
@@ -715,9 +715,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
             },
             {
                 id: "features-table",
@@ -758,7 +758,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "clinical-research-diploma-in-one-subject",
         title: "Clinical Research Diploma",
         description:
@@ -802,9 +802,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
             },
             {
                 id: "features-table",
@@ -882,9 +882,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Any graduate with strong communication skills and basic computer knowledge. Life science background is preferred but not mandatory for billing roles."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
             },
             {
                 id: "features-table",
@@ -916,7 +916,7 @@ export const courses: Course[] = [
             ]
         }
     },
-     {
+    {
         slug: "diploma-in-medical-billing",
         title: "Diploma In Medical Billing",
         description:
@@ -953,9 +953,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Any graduate with strong communication skills and basic computer knowledge. Life science background is preferred but not mandatory for billing roles."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
             },
             {
                 id: "features-table",
@@ -975,7 +975,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-      columns: [
+            columns: [
                 {
                     title: "Diploma In Medical Billing",
                     features: ["2 Months", "checkmark", "-", "-", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -987,7 +987,7 @@ export const courses: Course[] = [
             ]
         }
     },
-   {
+    {
         slug: "medical-billing-diploma-in-coding-billing",
         title: "Diploma In Coding & Billing",
         description:
@@ -1024,9 +1024,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Any graduate with strong communication skills and basic computer knowledge. Life science background is preferred but not mandatory for billing roles."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
             },
             {
                 id: "features-table",
@@ -1046,7 +1046,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-      columns: [
+            columns: [
                 {
                     title: "Diploma In Medical Billing",
                     features: ["2 Months", "checkmark", "-", "-", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -1095,9 +1095,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM). Requires good analytical skills and persistency."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
             },
             {
                 id: "features-table",
@@ -1127,7 +1127,7 @@ export const courses: Course[] = [
             ]
         }
     },
-        {
+    {
         slug: "diploma-in-account-receivable",
         title: "Diploma In Account Receivable",
         description:
@@ -1164,9 +1164,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM). Requires good analytical skills and persistency."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
             },
             {
                 id: "features-table",
@@ -1184,7 +1184,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-                 columns: [
+            columns: [
                 {
                     title: "Diploma In AR",
                     features: ["2 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
@@ -1196,7 +1196,7 @@ export const courses: Course[] = [
             ]
         }
     },
-        {
+    {
         slug: "diploma-in-account-receivable-billing",
         title: "Diploma In Account Receivable",
         description:
@@ -1233,9 +1233,9 @@ export const courses: Course[] = [
                 ]
             },
             {
-                id: "who-can-enroll",
-                title: "Who Can Enroll",
-                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM). Requires good analytical skills and persistency."
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
             },
             {
                 id: "features-table",
@@ -1253,7 +1253,7 @@ export const courses: Course[] = [
                 "Exam Preparation",
                 "Daily/Weekly Batches"
             ],
-                 columns: [
+            columns: [
                 {
                     title: "Diploma In AR",
                     features: ["2 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]

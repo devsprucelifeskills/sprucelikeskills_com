@@ -59,13 +59,14 @@ export default function PopularCourses() {
         </ScrollReveal>
 
         {/* Carousel Area */}
-        <div 
+        <div
           ref={scrollContainerRef}
           className="flex overflow-x-auto gap-8 pb-12 snap-x snap-mandatory pt-4 -mt-4 scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {/* Hide scrollbar for webkit */}
-          <style dangerouslySetInnerHTML={{__html: `
+          <style dangerouslySetInnerHTML={{
+            __html: `
             div::-webkit-scrollbar {
               display: none;
             }
@@ -73,7 +74,7 @@ export default function PopularCourses() {
 
           {courses.map((course, idx) => (
             <ScrollReveal key={idx} animation="fade-up" delay={idx * 100} threshold={0.05}>
-              <div 
+              <div
                 className="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col snap-start transition-all hover:-translate-y-2 duration-500 border border-gray-100/50"
               >
                 <Link href={`/courses/${course.slug}`} className="block group flex-1">
@@ -113,11 +114,11 @@ export default function PopularCourses() {
                       ))}
                     </div>
                   </div>
-                  <Link 
-                    href={`/purchase/${course.slug}`} 
+                  <Link
+                    href={`/purchase/${course.slug}`}
                     className="bg-[#eab308] text-black text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-[#ca8a04] transition-colors shadow-lg"
                   >
-                    Enroll Now
+                    Apply Now
                   </Link>
                 </div>
               </div>

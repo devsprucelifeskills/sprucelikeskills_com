@@ -36,11 +36,11 @@ export default function PurchasePage() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
-    
+
     if (storedUser && token) {
       const userData = JSON.parse(storedUser);
       setUser(userData);
-      
+
       // Check enrollment status from backend
       const checkEnrollment = async () => {
         try {
@@ -99,7 +99,7 @@ export default function PurchasePage() {
 
       const createOrderRes = await fetch(`${backend_url}/api/v2/course/create-order`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -125,7 +125,7 @@ export default function PurchasePage() {
         amount: amount,
         currency: currency,
         name: "Spruce Life Skills",
-        description: `Enrollment for ${course.title}`,
+        description: `Apply for ${course.title}`,
         order_id: order_id,
         handler: async function (response: any) {
           await handlePaymentSuccess(response, order_id);
@@ -165,7 +165,7 @@ export default function PurchasePage() {
       // 3. Verify Payment on Backend
       const res = await fetch(`${backend_url}/api/v2/course/enroll-course`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -185,7 +185,7 @@ export default function PurchasePage() {
           router.push('/profile/my-courses');
         }, 3000);
       } else {
-        throw new Error(data.message || "Enrollment verification failed");
+        throw new Error(data.message || "Application verification failed");
       }
     } catch (err: any) {
       setError(err.message || "Error confirming enrollment. Please contact support.");
@@ -202,9 +202,9 @@ export default function PurchasePage() {
           <div className="w-24 h-24 bg-[#2ecc71]/10 rounded-full flex items-center justify-center mx-auto mb-8">
             <CheckCircle2 className="w-12 h-12 text-[#2ecc71]" />
           </div>
-          <h1 className="text-4xl font-black text-gray-900 mb-4">Enrollment Successful!</h1>
+          <h1 className="text-4xl font-black text-gray-900 mb-4">Application Successful!</h1>
           <p className="text-lg text-gray-600 mb-8 font-medium">
-            Congratulations! You are now enrolled in <strong>{course.title}</strong>.
+            Congratulations! You have successfully applied for <strong>{course.title}</strong>.
             Redirecting you to <strong>My Courses</strong>...
           </p>
           <div className="animate-pulse flex items-center justify-center gap-2 text-[#0A3D24] font-bold">
@@ -327,7 +327,7 @@ export default function PurchasePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-6">
                     <span className="bg-[#FDB813] text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
-                      Enrollment Open
+                      Application Open
                     </span>
                   </div>
                 </div>
@@ -384,7 +384,7 @@ export default function PurchasePage() {
                       </>
                     ) : (
                       <>
-                        Proceed to Enroll
+                        Proceed to Apply
                         <ChevronRight className="w-6 h-6" />
                       </>
                     )}

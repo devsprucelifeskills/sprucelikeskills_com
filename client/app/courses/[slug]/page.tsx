@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { courses, CourseSection } from '@/lib/courses';
 import Header from '@/components/common/Header';
+import CourseFeaturesCards from '@/components/courses/FeatureCard';
 
 export default function CourseDetailPage() {
   const { slug } = useParams();
@@ -100,7 +101,7 @@ export default function CourseDetailPage() {
       case 'intro': return <FileText className="w-5 h-5" />;
       case 'job-roles': return <Briefcase className="w-5 h-5" />;
       case 'industries': return <Building2 className="w-5 h-5" />;
-      case 'who-can-enroll': return <UserCircle className="w-5 h-5" />;
+      case 'who-can-apply': return <UserCircle className="w-5 h-5" />;
       case 'features': return <TableIcon className="w-5 h-5" />;
       default: return <FileText className="w-5 h-5" />;
     }
@@ -137,7 +138,7 @@ export default function CourseDetailPage() {
               href={`/purchase/${course.slug}`}
               className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
             >
-              Enroll Now
+              Apply Now
             </Link>
             <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
               Download Syllabus
@@ -259,7 +260,7 @@ export default function CourseDetailPage() {
                 </div>
 
                 {/* Specific Action Buttons for sections as seen in design */}
-                {(section.id === 'who-can-enroll' || section.id === 'industries') && (
+                {(section.id === 'who-can-apply' || section.id === 'industries') && (
                   <div className="mt-12">
                     <button className="bg-[#0A3D24] hover:bg-black text-white font-black px-10 py-4 rounded-sm transition-all shadow-xl hover:-translate-y-1 uppercase tracking-wider text-sm">
                       {section.title}
@@ -281,7 +282,15 @@ export default function CourseDetailPage() {
                   </p>
                 </div>
 
-                <div className="overflow-x-auto rounded-md border-2 border-gray-100 shadow-2xl">
+                <div className="lg:hidden">
+                  <CourseFeaturesCards
+                    headers={course.featuresTable.headers}
+                    columns={course.featuresTable.columns}
+                    enrollHref={`/purchase/${course.slug}`}
+                  />
+                </div>
+
+                <div className="hidden lg:block overflow-x-auto rounded-md border-2 border-gray-100 shadow-2xl">
                   <table className="w-full text-left border-collapse min-w-[1100px]">
                     <thead>
                       <tr className="bg-[#0A3D24] text-white">
@@ -442,7 +451,7 @@ function OtherCoursesSlider({ currentSlug }: { currentSlug: string }) {
                   ₹{(c.discountPrice ?? c.price).toLocaleString()}
                 </span>
                 <span className="bg-[#0A3D24] text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-sm">
-                  Enroll
+                  Apply
                 </span>
               </div>
             </div>

@@ -335,11 +335,11 @@ export default function CertificationPage() {
             <span className="text-[#0A3D24]">Global Certified?</span>
           </h2>
           <p className="text-gray-500 text-lg md:text-xl font-medium mb-12">
-            Don't wait for opportunity. Create it. Enroll in our mission-driven certification program and secure your future in healthcare.
+            Don't wait for opportunity. Create it. Apply for our mission-driven certification program and secure your future in healthcare.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <button className="bg-[#0A3D24] text-white font-black px-12 py-5 rounded-full shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 uppercase tracking-widest text-sm">
-              Enroll for Certification
+              Apply for Certification
             </button>
             <button className="bg-white border-2 border-gray-200 text-gray-900 font-black px-12 py-5 rounded-full transition-all uppercase tracking-widest text-sm">
               Download Brochure
