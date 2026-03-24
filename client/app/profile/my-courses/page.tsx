@@ -200,7 +200,7 @@ export default function MyCoursesPage() {
                           className="w-full flex items-center justify-center gap-2 bg-[#2ecc71] text-white p-4 rounded-xl font-bold transition-all hover:bg-[#27ae60] shadow-md shadow-[#2ecc71]/20 group/meeting"
                         >
                           <Video size={18} className="group-hover/meeting:scale-110 transition-transform" />
-                          Start Meeting
+                          Join Meeting
                         </button>
                       )}
                       <Link
