@@ -20,11 +20,11 @@ export default function PlacementPage() {
           <div className="flex items-center gap-3 mb-6 text-white/80 text-sm font-medium">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#FDB813] font-bold">Placements</span>
+            <span className="text-[#13523f] font-bold">Placements</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6 drop-shadow-lg">
-            Our Placed <span className="text-[#FDB813]">Students</span>
+            Our Placed <span className="text-[#13523f]">Students</span>
           </h1>
 
           <p className="text-white/90 text-lg md:text-2xl max-w-3xl font-medium leading-relaxed mb-8">
@@ -33,17 +33,17 @@ export default function PlacementPage() {
 
           <div className="flex flex-wrap justify-center gap-8 text-white">
             <div className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-black text-[#FDB813]">5000+</span>
+              <span className="text-3xl md:text-4xl font-black text-[#13523f]">5000+</span>
               <span className="text-sm uppercase tracking-widest font-bold opacity-70">Students Placed</span>
             </div>
             <div className="w-px h-12 bg-white/20 hidden md:block"></div>
             <div className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-black text-[#FDB813]">100%</span>
+              <span className="text-3xl md:text-4xl font-black text-[#13523f]">100%</span>
               <span className="text-sm uppercase tracking-widest font-bold opacity-70">Job Guarantee</span>
             </div>
             <div className="w-px h-12 bg-white/20 hidden md:block"></div>
             <div className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-black text-[#FDB813]">50+</span>
+              <span className="text-3xl md:text-4xl font-black text-[#13523f]">50+</span>
               <span className="text-sm uppercase tracking-widest font-bold opacity-70">Hiring Partners</span>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function PlacementPage() {
 
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
-                <div className="w-12 h-12 bg-[#FDB813]/20 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-12 h-12 bg-[#13523f]/20 rounded-xl flex items-center justify-center mb-6">
                   <Building2 className="w-6 h-6 text-[#0A3D24]" />
                 </div>
                 <h4 className="text-xl font-black mb-2">350+</h4>
@@ -91,7 +91,7 @@ export default function PlacementPage() {
               </div>
               <div className="bg-[#0A3D24] p-8 rounded-2xl shadow-xl transform translate-y-12 rotate-2 hover:rotate-0 transition-transform duration-500">
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
-                  <Award className="w-6 h-6 text-[#FDB813]" />
+                  <Award className="w-6 h-6 text-[#13523f]" />
                 </div>
                 <h4 className="text-xl font-black text-white mb-2">98%</h4>
                 <p className="text-sm text-white/60 font-medium">Placement success rate</p>
@@ -103,12 +103,12 @@ export default function PlacementPage() {
                 <h4 className="text-xl font-black mb-2">12,000+</h4>
                 <p className="text-sm text-gray-500 font-medium">Alumni worldwide</p>
               </div>
-              <div className="bg-[#FDB813] p-8 rounded-2xl shadow-xl transform translate-y-12 rotate-3 hover:rotate-0 transition-transform duration-500">
+              <div className="bg-[#13523f] p-8 rounded-2xl shadow-xl transform translate-y-12 rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="w-12 h-12 bg-black/10 rounded-xl flex items-center justify-center mb-6">
-                  <MapPin className="w-6 h-6 text-black" />
+                  <MapPin className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="text-xl font-black text-black mb-2">Global</h4>
-                <p className="text-sm text-black/60 font-medium">Presence in 5 countries</p>
+                <h4 className="text-xl font-black text-white mb-2">Global</h4>
+                <p className="text-sm text-white/60 font-medium">Presence in 5 countries</p>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function PlacementPage() {
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
               Our Success <span className="text-[#0A3D24]">Stories</span>
             </h2>
-            <div className="w-24 h-1.5 bg-[#FDB813] mx-auto mb-8"></div>
+            <div className="w-24 h-1.5 bg-[#13523f] mx-auto mb-8"></div>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto font-medium">
               We take immense pride in the achievements of our students. Each success story is a testament to our quality training and their dedication.
             </p>
@@ -156,7 +156,7 @@ export default function PlacementPage() {
                     {student.college}
                   </p>
 
-                  <div className="bg-gray-50 rounded-lg p-3 group-hover:bg-[#FDB813]/10 transition-colors">
+                  <div className="bg-gray-50 rounded-lg p-3 group-hover:bg-[#13523f]/10 transition-colors">
                     <p className="text-[10px] uppercase tracking-widest text-gray-400 font-black mb-1">Placed At</p>
                     <p className="text-sm font-black text-[#0A3D24] line-clamp-1">{student.company}</p>
                   </div>
@@ -176,13 +176,13 @@ export default function PlacementPage() {
       <section className="py-24 bg-[#0A3D24]">
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-black text-white mb-8">
-            Be the Next <span className="text-[#FDB813]">Success Story</span>
+            Be the Next <span className="text-[#13523f]">Success Story</span>
           </h2>
           <p className="text-white/80 text-lg md:text-xl font-medium mb-12">
             Join Spruce Life Skills today and take the first step towards a rewarding career in healthcare. Our placement team is waiting to help you.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button className="bg-[#FDB813] hover:bg-white text-black font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl">
+            <button className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl">
               Apply For Admission
             </button>
             <button className="bg-transparent border-2 border-white/30 hover:border-white text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest">

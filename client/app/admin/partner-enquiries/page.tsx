@@ -17,7 +17,7 @@ interface PartnerEnquiry {
 
 const statusStyles = {
   new: 'bg-blue-100 text-blue-700',
-  contacted: 'bg-yellow-100 text-yellow-700',
+  contacted: 'bg-[#13523f]/10 text-[#13523f]',
   closed: 'bg-gray-100 text-gray-500',
 };
 
@@ -87,11 +87,10 @@ export default function PartnerEnquiriesPage() {
           <button
             key={tab}
             onClick={() => setFilter(tab)}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize transition-all ${
-              filter === tab
-                ? 'bg-[#0A3D24] text-white'
-                : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0A3D24]/40'
-            }`}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize transition-all ${filter === tab
+                ? 'bg-[#13523f] text-white'
+                : 'bg-white text-gray-500 border border-gray-200 hover:border-[#13523f]/40'
+              }`}
           >
             {tab} ({counts[tab]})
           </button>
@@ -101,7 +100,7 @@ export default function PartnerEnquiriesPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-[#0A3D24] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#13523f] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -172,7 +171,7 @@ export default function PartnerEnquiriesPage() {
                           value={enq.status}
                           onChange={(e) => handleStatusChange(enq._id, e.target.value)}
                           disabled={updating === enq._id}
-                          className="appearance-none bg-gray-100 text-gray-700 text-xs font-semibold pl-3 pr-8 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/30 cursor-pointer hover:bg-gray-200 transition disabled:opacity-50"
+                          className="appearance-none bg-gray-100 text-gray-700 text-xs font-semibold pl-3 pr-8 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f]/30 cursor-pointer hover:bg-gray-200 transition disabled:opacity-50"
                         >
                           <option value="new">New</option>
                           <option value="contacted">Contacted</option>

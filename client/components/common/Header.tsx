@@ -40,30 +40,33 @@ const NAV_LINKS = [
                     { label: "Post Graduate Diploma in Clinical Research & Medical Coding", href: "/courses/medical-coding-post-graduate-diploma" },
                 ],
             },
-            { label: "Clinical Research", href: "/courses/clinical-research",
+            {
+                label: "Clinical Research", href: "/courses/clinical-research",
                 children: [
                     { label: "Post Graduate Diploma (1)", href: "/courses/clinical-research-post-graduate-diploma" },
                     { label: "Advance Diploma in Clinical Research", href: "/courses/clinical-research-advance-diploma" },
                     { label: "Advance Diploma IT ", href: "/courses/clinical-research-advance-diploma-it" },
                     { label: "Diploma (Any One Subject)", href: "/courses/clinical-research-diploma-in-one-subject" },
                 ],
-             },
-            { label: "Medical Billing", href: "/courses/medical-billing" ,
+            },
+            {
+                label: "Medical Billing", href: "/courses/medical-billing",
                 children: [
                     { label: "Diploma In Medical Billing", href: "/courses/diploma-in-medical-billing" },
                     { label: "Diploma In Coding & Billing", href: "/courses/medical-billing-diploma-in-coding-billing" },
-                    
+
                 ],
 
             },
-            { label: "Account Receivable", href: "/courses/account-receivable",
+            {
+                label: "Account Receivable", href: "/courses/account-receivable",
                 children: [
                     { label: "Diploma In AR", href: "/courses/diploma-in-account-receivable" },
                     { label: "Diploma In AR & Billing", href: "/courses/diploma-in-account-receivable-billing" },
-                    
+
                 ],
-             },
-            { label: "Campus to Corporate", href: "/courses/campus-corporate"},
+            },
+            { label: "Campus to Corporate", href: "/courses/campus-corporate" },
             { label: "NEP Courses", href: "https://nep.sprucelifeskills.in/", external: true },
         ],
     },
@@ -176,7 +179,7 @@ function CoursesDropdown() {
                     <p className="text-xs font-bold text-emerald-800">🎓 Industry-Recognised Certifications</p>
                     <p className="text-[11px] text-emerald-600 mt-0.5">AAPC · AHIMA · ICH-GCP accredited</p>
                 </div>
-                <Link href="/courses" className="text-xs bg-[#eab308] hover:bg-[#ca8a04] text-black font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                <Link href="/courses" className="text-xs bg-[#13523f] hover:bg-[#1a6e4a] text-white font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
                     All Courses →
                 </Link>
             </div>
@@ -423,8 +426,8 @@ export default function Header() {
                             <Link key={link.label} href={link.href}
                                 target="_blank" rel="noopener noreferrer"
                                 className="ml-2 flex items-center gap-1.5 px-4 py-2 text-[13px] font-bold
-                           bg-[#eab308] hover:bg-[#ca8a04]
-                           text-black rounded-full shadow-md hover:shadow-lg transition-all duration-200 whitespace-nowrap">
+                           bg-[#13523f] hover:bg-[#1a6e4a]
+                           text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 whitespace-nowrap">
                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
                                         d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -486,8 +489,8 @@ export default function Header() {
                                     Login
                                 </Link>
                                 <Link href="/register"
-                                    className="text-sm font-bold text-black px-5 py-2.5 rounded-xl
-                             bg-[#eab308] hover:bg-[#ca8a04] shadow-md hover:shadow-lg transition-all">
+                                    className="text-sm font-bold text-white px-5 py-2.5 rounded-xl
+                             bg-[#13523f] hover:bg-[#1a6e4a] shadow-md hover:shadow-lg transition-all">
                                     Register Free →
                                 </Link>
                             </div>

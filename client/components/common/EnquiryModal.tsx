@@ -125,7 +125,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#eab308] hover:bg-[#ca8a04] text-black py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                className="w-full bg-[#13523f] hover:bg-[#1a6e4a] text-white py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
               >
                 {isLoading ? (
                   <><Loader2 className="animate-spin" size={15} /> Sending...</>

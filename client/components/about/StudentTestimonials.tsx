@@ -97,7 +97,7 @@ export default function StudentTestimonials() {
     <div className="bg-white py-24 sm:py-32 border-t border-gray-100 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
         <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="text-base/7 font-semibold text-blue-600 uppercase tracking-wider">Testimonials</h2>
+          <h2 className="text-base/7 font-semibold text-[#13523f] uppercase tracking-wider">Testimonials</h2>
           <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl balance">
             What Our Students Say
           </p>
@@ -105,23 +105,23 @@ export default function StudentTestimonials() {
 
         <div className="relative">
           {/* Slider Container */}
-          <div 
+          <div
             className="flex transition-transform duration-700 ease-in-out gap-6"
-            style={{ 
+            style={{
               transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
             }}
           >
             {testimonials.map((testimonial, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="flex-shrink-0"
                 style={{ width: `calc(${100 / itemsToShow}% - ${(itemsToShow - 1) * 24 / itemsToShow}px)` }}
               >
-                <figure className="h-full rounded-2xl bg-gray-50 hover:bg-white p-8 text-sm/6 transition-all duration-300 ring-1 ring-gray-900/5 shadow-sm hover:shadow-xl flex flex-col justify-between border border-transparent hover:border-blue-100">
+                <figure className="h-full rounded-2xl bg-gray-50 hover:bg-white p-8 text-sm/6 transition-all duration-300 ring-1 ring-gray-900/5 shadow-sm hover:shadow-xl flex flex-col justify-between border border-transparent hover:border-[#13523f]/20">
                   <div>
                     <div className="flex gap-1 mb-6">
                       {[0, 1, 2, 3, 4].map((star) => (
-                          <Star key={star} className="h-5 w-5 text-amber-400 fill-amber-400" />
+                        <Star key={star} className="h-5 w-5 text-[#13523f] fill-[#13523f]" />
                       ))}
                     </div>
                     <blockquote className="text-gray-900 text-lg leading-relaxed italic">
@@ -129,12 +129,12 @@ export default function StudentTestimonials() {
                     </blockquote>
                   </div>
                   <figcaption className="mt-8 flex items-center gap-x-4 pt-6 border-t border-gray-200/60">
-                    <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xl shadow-md">
+                    <div className="h-12 w-12 flex items-center justify-center rounded-full bg-[#13523f] text-white font-bold text-xl shadow-md">
                       {testimonial.author.name.charAt(0)}
                     </div>
                     <div>
                       <div className="font-bold text-gray-900">{testimonial.author.name}</div>
-                      <div className="text-blue-600 text-xs font-bold uppercase tracking-wider">Verified Student</div>
+                      <div className="text-[#13523f] text-xs font-bold uppercase tracking-wider">Verified Student</div>
                     </div>
                   </figcaption>
                 </figure>
@@ -146,14 +146,14 @@ export default function StudentTestimonials() {
           <div className="flex justify-center mt-12 gap-4">
             <button
               onClick={prevSlide}
-              className="p-3 rounded-full bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-600 hover:bg-blue-50 transition-all shadow-sm active:scale-95"
+              className="p-3 rounded-full bg-white border border-gray-200 text-gray-400 hover:text-[#13523f] hover:border-[#13523f] hover:bg-[#13523f]/5 transition-all shadow-sm active:scale-95"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={nextSlide}
-              className="p-3 rounded-full bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-600 hover:bg-blue-50 transition-all shadow-sm active:scale-95"
+              className="p-3 rounded-full bg-white border border-gray-200 text-gray-400 hover:text-[#13523f] hover:border-[#13523f] hover:bg-[#13523f]/5 transition-all shadow-sm active:scale-95"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-6 h-6" />
@@ -166,9 +166,8 @@ export default function StudentTestimonials() {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentIndex === idx ? "w-8 bg-blue-600" : "w-1.5 bg-gray-200 hover:bg-gray-300"
-                }`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === idx ? "w-8 bg-[#13523f]" : "w-1.5 bg-gray-200 hover:bg-gray-300"
+                  }`}
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
             ))}

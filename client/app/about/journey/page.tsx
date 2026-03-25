@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
 import Link from 'next/link';
 import { Award, BookOpen, ShieldCheck, HeadphonesIcon, Play, Users, Briefcase, GraduationCap, Building2 } from 'lucide-react';
 import StudentTestimonials from "@/components/about/StudentTestimonials";
@@ -31,9 +30,9 @@ export default function JourneyPage() {
                         Our Journey
                     </h1>
                     <div className="flex justify-center items-center gap-2 text-sm md:text-base font-medium text-gray-300">
-                        <Link href="/" className="hover:text-[#2ecc71] transition-colors">Home</Link>
+                        <Link href="/" className="hover:text-[#13523f] transition-colors">Home</Link>
                         <span>/</span>
-                        <span className="text-[#2ecc71]">About Us</span>
+                        <span className="text-[#13523f]">About Us</span>
                     </div>
                 </div>
             </div>
@@ -44,28 +43,28 @@ export default function JourneyPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                         {/* Feature 1 */}
                         <div className="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col items-center text-center group">
-                            <div className="w-16 h-16 bg-[#f0fdf4] text-[#2ecc71] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#2ecc71] group-hover:text-white transition-colors duration-300 shadow-md">
+                            <div className="w-16 h-16 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#13523f] group-hover:text-white transition-colors duration-300 shadow-md">
                                 <Award size={32} />
                             </div>
                             <h5 className="text-lg font-bold text-gray-900 leading-tight">Industry Recognized Certification</h5>
                         </div>
                         {/* Feature 2 */}
                         <div className="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col items-center text-center group">
-                            <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-md">
+                            <div className="w-16 h-16 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#13523f] group-hover:text-white transition-colors duration-300 shadow-md">
                                 <BookOpen size={32} />
                             </div>
                             <h5 className="text-lg font-bold text-gray-900 leading-tight">Access to Exclusive Resources</h5>
                         </div>
                         {/* Feature 3 */}
                         <div className="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col items-center text-center group">
-                            <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-md">
+                            <div className="w-16 h-16 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#13523f] group-hover:text-white transition-colors duration-300 shadow-md">
                                 <ShieldCheck size={32} />
                             </div>
                             <h5 className="text-lg font-bold text-gray-900 leading-tight">Professional Credibility</h5>
                         </div>
                         {/* Feature 4 */}
                         <div className="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col items-center text-center group">
-                            <div className="w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300 shadow-md">
+                            <div className="w-16 h-16 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#13523f] group-hover:text-white transition-colors duration-300 shadow-md">
                                 <HeadphonesIcon size={32} />
                             </div>
                             <h5 className="text-lg font-bold text-gray-900 leading-tight">Support and Guidance</h5>
@@ -79,11 +78,11 @@ export default function JourneyPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                     <div className="flex flex-col lg:flex-row items-center gap-16">
                         <div className="w-full lg:w-1/2">
-                            <h2 className="text-sm font-bold tracking-widest text-[#2ecc71] uppercase mb-3">Our Story</h2>
+                            <h2 className="text-sm font-bold tracking-widest text-[#13523f] uppercase mb-3">Our Story</h2>
                             <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
                                 Pioneering the path for healthcare professionals.
                             </h3>
-                            <div className="w-20 h-1.5 bg-[#FDB813] mb-8 rounded-full"></div>
+                            <div className="w-20 h-1.5 bg-[#13523f] mb-8 rounded-full"></div>
                             <p className="text-lg text-gray-600 leading-relaxed font-medium text-justify">
                                 Since 2008, we've pioneered the way, introducing medical coding to Nagpur and becoming the sole AAPC-authorized partner. With a relentless commitment to quality, our ISO-certified institute has transformed countless careers, with our graduates sought after by hospitals, pharmaceutical leaders, and top IT companies.
                             </p>
@@ -96,14 +95,14 @@ export default function JourneyPage() {
                                     className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700 aspect-video lg:aspect-square"
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                                    <button className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center pl-1 text-[#2ecc71] hover:scale-110 hover:bg-white transition-all shadow-lg border border-white/20 hover:border-white">
+                                    <button className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center pl-1 text-[#13523f] hover:scale-110 hover:bg-white transition-all shadow-lg border border-white/20 hover:border-white">
                                         <Play size={28} fill="currentColor" />
                                     </button>
                                 </div>
                             </div>
 
                             {/* Decorative element */}
-                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[radial-gradient(#2ecc71_3px,transparent_3px)] [background-size:20px_20px] opacity-30 -z-10"></div>
+                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[radial-gradient(#13523f_3px,transparent_3px)] [background-size:20px_20px] opacity-30 -z-10"></div>
                         </div>
                     </div>
                 </div>
@@ -121,13 +120,13 @@ export default function JourneyPage() {
                         />
 
                         {/* Decorative blur elements behind the container */}
-                        <div className="absolute -inset-4 bg-gradient-to-r from-[#2ecc71]/20 to-blue-500/20 blur-2xl -z-10 group-hover:opacity-100 opacity-50 transition-opacity duration-500"></div>
+                        <div className="absolute -inset-4 bg-gradient-to-r from-[#13523f]/20 to-[#13523f]/20 blur-2xl -z-10 group-hover:opacity-100 opacity-50 transition-opacity duration-500"></div>
                     </div>
                 </div>
             </section>
 
             {/* Statistics */}
-            <section className="py-20 bg-[#065F46] relative overflow-hidden">
+            <section className="py-20 bg-[#13523f] relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 mix-blend-overlay">
                     <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2669&auto=format&fit=crop" className="w-full h-full object-cover" alt="Background" />
                 </div>
@@ -135,10 +134,10 @@ export default function JourneyPage() {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                         <div className="text-center group">
                             <div className="w-20 h-20 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-6 border border-white/20 group-hover:bg-white/20 transition-colors duration-300">
-                                <Users className="text-[#2ecc71]" size={36} />
+                                <Users className="text-white/40" size={36} />
                             </div>
                             <h4 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2 flex items-center justify-center tracking-tight">
-                                3,788<span className="text-[#FDB813] ml-1">+</span>
+                                3,788<span className="text-[#13523f] ml-1">+</span>
                             </h4>
                             <p className="text-white/80 font-bold uppercase tracking-wider text-sm mt-3">Students Trusted Us</p>
                         </div>
@@ -147,7 +146,7 @@ export default function JourneyPage() {
                                 <Building2 className="text-[#2ecc71]" size={36} />
                             </div>
                             <h4 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2 flex items-center justify-center tracking-tight">
-                                32<span className="text-[#FDB813] ml-1">+</span>
+                                32<span className="text-[#13523f] ml-1">+</span>
                             </h4>
                             <p className="text-white/80 font-bold uppercase tracking-wider text-sm mt-3">Recruitment Partners</p>
                         </div>
@@ -156,7 +155,7 @@ export default function JourneyPage() {
                                 <Briefcase className="text-[#2ecc71]" size={36} />
                             </div>
                             <h4 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2 flex items-center justify-center tracking-tight">
-                                100<span className="text-[#FDB813] ml-1">+</span>
+                                100<span className="text-[#13523f] ml-1">+</span>
                             </h4>
                             <p className="text-white/80 font-bold uppercase tracking-wider text-sm mt-3">Yearly Placements</p>
                         </div>
@@ -165,7 +164,7 @@ export default function JourneyPage() {
                                 <GraduationCap className="text-[#2ecc71]" size={36} />
                             </div>
                             <h4 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2 flex items-center justify-center tracking-tight">
-                                20<span className="text-[#FDB813] ml-1">+</span>
+                                20<span className="text-[#13523f] ml-1">+</span>
                             </h4>
                             <p className="text-white/80 font-bold uppercase tracking-wider text-sm mt-3">Experienced Faculty</p>
                         </div>
@@ -178,7 +177,7 @@ export default function JourneyPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                     <div className="bg-[#1a1a2e] rounded-[2rem] p-10 md:p-16 lg:px-24 text-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative overflow-hidden mb-20 group">
                         <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-700 mix-blend-screen">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#2ecc71]/40 to-blue-600/40 mix-blend-overlay"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#13523f]/40 to-[#13523f]/40 mix-blend-overlay"></div>
                             <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover" alt="Background" />
                         </div>
                         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
@@ -188,7 +187,7 @@ export default function JourneyPage() {
                             <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-medium max-w-2xl">
                                 and remain the first institute offering combined training in clinical research & medical coding in a single program.
                             </p>
-                            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-[#2ecc71] hover:bg-[#27ae60] text-white font-black uppercase tracking-wider text-sm rounded-xl transition-all shadow-lg shadow-[#2ecc71]/30 hover:shadow-[#2ecc71]/50 hover:-translate-y-1">
+                            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black uppercase tracking-wider text-sm rounded-xl transition-all shadow-lg shadow-[#13523f]/30 hover:shadow-[#13523f]/50 hover:-translate-y-1">
                                 Join Now
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </Link>
@@ -197,21 +196,21 @@ export default function JourneyPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center px-4">
                         <div className="flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                            <div className="w-20 h-20 bg-[#e8f5e9] text-[#2ecc71] rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-[#2ecc71]/10">
+                            <div className="w-20 h-20 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-[#13523f]/10">
                                 <Award size={36} />
                             </div>
                             <h3 className="text-xl font-black text-gray-900 mb-3 tracking-tight">Exclusive AAPC Partner</h3>
                             <p className="text-gray-600 font-medium leading-relaxed max-w-xs mx-auto">Central India's only authorized education partner of AAPC.</p>
                         </div>
                         <div className="flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                            <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                            <div className="w-20 h-20 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-[#13523f]/10">
                                 <Briefcase size={36} />
                             </div>
                             <h3 className="text-xl font-black text-gray-900 mb-3 tracking-tight">Proven Success</h3>
                             <p className="text-gray-600 font-medium leading-relaxed max-w-xs mx-auto">With over 100 placements achieved in 2023 alone.</p>
                         </div>
                         <div className="flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                            <div className="w-20 h-20 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-amber-100">
+                            <div className="w-20 h-20 bg-[#13523f]/5 text-[#13523f] rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-[#13523f]/10">
                                 <GraduationCap size={36} />
                             </div>
                             <h3 className="text-xl font-black text-gray-900 mb-3 tracking-tight">Expert Faculty</h3>
@@ -229,7 +228,7 @@ export default function JourneyPage() {
                     <h3 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
                         Our Students <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2ecc71] to-[#0a4d32]">&</span> Parents Feedback
                     </h3>
-                    <div className="w-24 h-1.5 bg-[#FDB813] mb-8 rounded-full mx-auto"></div>
+                    <div className="w-24 h-1.5 bg-[#13523f] mb-8 rounded-full mx-auto"></div>
                 </div> */}
                 {/* Embedded previous existing component */}
                 <StudentTestimonials />

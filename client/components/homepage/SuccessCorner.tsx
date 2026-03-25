@@ -28,7 +28,7 @@ export default function SuccessCorner() {
           <div className="flex justify-between items-end mb-10">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-1.5 h-8 bg-[#eab308]"></div>
+                <div className="w-1.5 h-8 bg-[#13523f]"></div>
                 <h2 className="text-3xl sm:text-4xl text-black">
                   <span className="font-extrabold">Success</span>{" "}
                   <span className="font-normal text-gray-800">Corner</span>
@@ -41,17 +41,17 @@ export default function SuccessCorner() {
             <div className="hidden sm:flex gap-2">
               <button
                 onClick={scrollLeft}
-                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors"
+                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-colors"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5 text-black" strokeWidth={2.5} />
+                <ChevronLeft className="w-5 h-5 text-white" strokeWidth={2.5} />
               </button>
               <button
                 onClick={scrollRight}
-                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors"
+                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-colors"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5 text-black" strokeWidth={2.5} />
+                <ChevronRight className="w-5 h-5 text-white" strokeWidth={2.5} />
               </button>
             </div>
           </div>
@@ -59,13 +59,14 @@ export default function SuccessCorner() {
 
         {/* Carousel Area */}
         <div className="relative">
-          <div 
+          <div
             ref={scrollContainerRef}
             className="flex overflow-x-auto gap-6 pb-12 pt-4 px-2 -mx-2 snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {/* Hide scrollbar for webkit */}
-            <style dangerouslySetInnerHTML={{__html: `
+            <style dangerouslySetInnerHTML={{
+              __html: `
               div::-webkit-scrollbar {
                 display: none;
               }
@@ -73,7 +74,7 @@ export default function SuccessCorner() {
 
             {successCorner.map((student, idx) => (
               <ScrollReveal key={idx} animation="fade-up" delay={idx * 100} threshold={0.05}>
-                <div 
+                <div
                   className="flex-none w-[260px] bg-white rounded-md shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden flex flex-col snap-start transition-transform hover:-translate-y-1 duration-300 border border-gray-100"
                 >
                   {/* Image Section */}

@@ -18,7 +18,7 @@ export default function CourseTest() {
   return (
     <section className="relative w-full py-20 md:py-28 overflow-hidden bg-[#065F46]">
       {/* Background with slight texture/pattern overlay mimicking the depth in the design */}
-      <div 
+      <div
         className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
         style={{
           backgroundImage: 'radial-gradient(circle at center, #ffffff 1px, transparent 1px)',
@@ -41,7 +41,7 @@ export default function CourseTest() {
 
         {/* 3 Steps Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 w-full max-w-4xl mb-16">
-          
+
           {/* Step 1 */}
           <ScrollReveal animation="scale-up" delay={100}>
             <div className="flex flex-col items-center justify-center p-8 bg-white/10 backdrop-blur-sm border border-white/10 rounded-sm hover:bg-white/15 transition-colors h-full">
@@ -73,8 +73,8 @@ export default function CourseTest() {
           <div className="relative">
             {/* Subtle green glowing border effect wrapping the form */}
             <div className="absolute -inset-1.5 bg-white/20 rounded-lg blur-[2px] pointer-events-none"></div>
-            
-            <form 
+
+            <form
               onSubmit={handleSubmit}
               className="relative flex flex-col sm:flex-row items-center gap-3 bg-white/10 backdrop-blur-md p-3 rounded-md border border-white/20 shadow-2xl"
             >
@@ -88,11 +88,11 @@ export default function CourseTest() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full sm:w-[300px] md:w-[350px] px-5 py-3.5 bg-white text-gray-900 placeholder-gray-500 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#FDB813] font-medium"
+                className="w-full sm:w-[300px] md:w-[350px] px-5 py-3.5 bg-white text-gray-900 placeholder-gray-500 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#13523f] font-medium"
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3.5 bg-[#FDB813] hover:bg-[#e6a510] text-black font-bold uppercase tracking-wide text-sm rounded-sm transition-colors whitespace-nowrap"
+                className="w-full sm:w-auto px-8 py-3.5 bg-[#13523f] hover:bg-[#1a6e4a] text-white font-bold uppercase tracking-wide text-sm rounded-sm transition-colors whitespace-nowrap"
               >
                 Start Test
               </button>

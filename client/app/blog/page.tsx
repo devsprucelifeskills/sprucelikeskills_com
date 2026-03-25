@@ -11,7 +11,7 @@ export default function BlogListingPage() {
   const featuredPost = blogs[0];
   const recentPosts = blogs.slice(1);
 
-  const filteredPosts = blogs.filter(post => 
+  const filteredPosts = blogs.filter(post =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     post.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -19,7 +19,7 @@ export default function BlogListingPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       {/* Hero Section */}
       <div className="bg-[#0A3D24] pt-20 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f')] bg-cover bg-center opacity-10"></div>
@@ -27,12 +27,12 @@ export default function BlogListingPage() {
           <div className="flex items-center gap-3 mb-8 text-white/60 text-sm font-medium justify-center lg:justify-start">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#FDB813] font-bold">Blog</span>
+            <span className="text-[#13523f] font-bold">Blog</span>
           </div>
-          
+
           <div className="text-center lg:text-left">
             <h1 className="text-5xl md:text-7xl font-black text-white leading-tight mb-8">
-              Spruce <span className="text-[#FDB813]">Insights</span>
+              Spruce <span className="text-[#13523f]">Insights</span>
             </h1>
             <p className="text-white/70 text-lg md:text-xl max-w-2xl font-medium leading-relaxed">
               Stay updated with the latest trends in Medical Coding, Clinical Research, and Healthcare career growth from our industry experts.
@@ -45,12 +45,12 @@ export default function BlogListingPage() {
       <section className="container mx-auto px-4 max-w-7xl -mt-20 relative z-20">
         <Link href={`/blog/${featuredPost.slug}`} className="group block bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 flex flex-col lg:flex-row min-h-[500px] transition-transform duration-500 hover:-translate-y-2">
           <div className="lg:w-1/2 relative h-[300px] lg:h-auto overflow-hidden">
-            <img 
-              src={featuredPost.image} 
+            <img
+              src={featuredPost.image}
               alt={featuredPost.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute top-6 left-6 bg-[#FDB813] text-black text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+            <div className="absolute top-6 left-6 bg-[#13523f] text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
               Featured Story
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function BlogListingPage() {
               {featuredPost.excerpt}
             </p>
             <div className="flex items-center gap-3 text-[#0A3D24] font-black text-sm uppercase tracking-[0.2em] group/btn">
-              Read Detailed Insight 
+              Read Detailed Insight
               <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" />
             </div>
           </div>
@@ -79,8 +79,8 @@ export default function BlogListingPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
             <h2 className="text-3xl font-black text-gray-900 italic">Recent Stories</h2>
             <div className="relative w-full md:w-96 group">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -92,14 +92,14 @@ export default function BlogListingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {filteredPosts.map((post) => (
-              <Link 
-                key={post.id} 
+              <Link
+                key={post.id}
                 href={`/blog/${post.slug}`}
                 className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-3"
               >
                 <div className="relative h-60 overflow-hidden">
-                  <img 
-                    src={post.image} 
+                  <img
+                    src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -121,7 +121,7 @@ export default function BlogListingPage() {
                   </p>
                   <div className="flex items-center justify-between pt-6 border-t border-gray-50">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-[#FDB813]/20 flex items-center justify-center font-black text-[10px] text-[#0A3D24]">
+                      <div className="w-8 h-8 rounded-full bg-[#13523f]/20 flex items-center justify-center font-black text-[10px] text-[#13523f]">
                         SE
                       </div>
                       <span className="text-xs font-black text-gray-400 uppercase tracking-widest">{post.author}</span>
@@ -145,19 +145,19 @@ export default function BlogListingPage() {
       {/* Newsletter */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="bg-[#FDB813] rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
+          <div className="bg-[#13523f] rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black text-black mb-8 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight">
                 Don't Miss Any <br />
-                <span className="bg-white px-4 py-1 inline-block transform -rotate-1">Industry Update</span>
+                <span className="bg-white px-4 py-1 inline-block transform -rotate-1 text-[#13523f]">Industry Update</span>
               </h2>
-              <p className="text-black/60 text-lg md:text-xl font-medium mb-12 max-w-2xl mx-auto">
+              <p className="text-white/70 text-lg md:text-xl font-medium mb-12 max-w-2xl mx-auto">
                 Subscribe to our newsletter and get the latest healthcare insights delivered directly to your inbox every week.
               </p>
               <form className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   placeholder="Enter your email address"
                   className="flex-1 bg-white rounded-full px-8 py-5 text-black font-medium focus:outline-none shadow-xl border-2 border-transparent focus:border-black transition-all"
                 />

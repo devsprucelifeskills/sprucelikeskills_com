@@ -125,7 +125,7 @@ export default function CourseDetailPage() {
             <ChevronRight className="w-4 h-4 opacity-50" />
             <span className="text-white">Our Courses</span>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#FDB813] font-bold">{course.title}</span>
+            <span className="text-[#13523f] font-bold">{course.title}</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
             {course.title}
@@ -136,7 +136,7 @@ export default function CourseDetailPage() {
           <div className="flex flex-wrap gap-4">
             <Link
               href={`/purchase/${course.slug}`}
-              className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+              className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
             >
               Apply Now
             </Link>
@@ -153,7 +153,7 @@ export default function CourseDetailPage() {
           <div className="flex items-center gap-2">
             <span className="text-gray-900 font-bold">{course.title}</span>
           </div>
-          <button className="bg-[#FDB813] text-xs font-black px-3 py-1.5 rounded-sm">ENQUIRE</button>
+          <button className="bg-[#13523f] text-white text-xs font-black px-3 py-1.5 rounded-sm">ENQUIRE</button>
         </div>
       </div>
 
@@ -164,7 +164,7 @@ export default function CourseDetailPage() {
           {/* Left Sidebar Navigation - Desktop Sticky */}
           <aside className="hidden lg:block lg:col-span-3">
             <div className="sticky top-28 space-y-6">
-              <div className="bg-white border-2 border-[#FDB813]/20 shadow-2xl rounded-sm overflow-hidden">
+              <div className="bg-white border-2 border-[#13523f]/20 shadow-2xl rounded-sm overflow-hidden">
                 <div className="bg-[#0A3D24] p-5 text-center">
                   <h3 className="text-white font-bold text-sm tracking-wider uppercase">Quick navigation</h3>
                 </div>
@@ -180,11 +180,11 @@ export default function CourseDetailPage() {
                             setActiveSection(section.id);
                           }}
                           className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold border-b border-gray-100 transition-all group ${activeSection === section.id
-                            ? 'bg-[#FDB813] text-black'
+                            ? 'bg-[#13523f] text-white'
                             : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
                             }`}
                         >
-                          <span className={`transition-colors ${activeSection === section.id ? 'text-black' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`}>
+                          <span className={`transition-colors ${activeSection === section.id ? 'text-white' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`}>
                             {getIcon(section.id)}
                           </span>
                           {section.title}
@@ -201,11 +201,11 @@ export default function CourseDetailPage() {
                             setActiveSection('features');
                           }}
                           className={`flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all group ${activeSection === 'features'
-                            ? 'bg-[#FDB813] text-black'
+                            ? 'bg-[#13523f] text-white'
                             : 'text-gray-600 hover:bg-gray-50 hover:text-[#0A3D24]'
                             }`}
                         >
-                          <TableIcon className={`w-5 h-5 transition-colors ${activeSection === 'features' ? 'text-black' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`} />
+                          <TableIcon className={`w-5 h-5 transition-colors ${activeSection === 'features' ? 'text-white' : 'text-[#2ecc71] group-hover:text-[#0A3D24]'}`} />
                           Courses & Course Features
                         </a>
                       </li>
@@ -232,7 +232,7 @@ export default function CourseDetailPage() {
             {course.sections.map((section, sIdx) => (
               <section key={section.id} id={section.id} className="scroll-mt-32 last:mb-0">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-2 h-10 bg-[#FDB813] rounded-sm"></div>
+                  <div className="w-2 h-10 bg-[#13523f] rounded-sm"></div>
                   <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
                     {section.title}
                   </h2>
@@ -248,7 +248,7 @@ export default function CourseDetailPage() {
                   {section.list && (
                     <ol className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
                       {section.list.map((item, i) => (
-                        <li key={i} className="flex items-start gap-4 bg-white p-5 rounded-md border-2 border-gray-50 shadow-sm hover:border-[#FDB813]/30 transition-colors group">
+                        <li key={i} className="flex items-start gap-4 bg-white p-5 rounded-md border-2 border-gray-50 shadow-sm hover:border-[#13523f]/30 transition-colors group">
                           <span className="flex-shrink-0 w-8 h-8 bg-[#0A3D24] text-white rounded-full flex items-center justify-center text-sm font-black shadow-md group-hover:scale-110 transition-transform">
                             {i + 1}
                           </span>
@@ -305,7 +305,7 @@ export default function CourseDetailPage() {
                             <div className="flex flex-col h-full justify-between gap-4">
                               <span>{col.title}</span>
                               <div className="pt-2">
-                                <div className="h-0.5 w-8 bg-[#FDB813] mx-auto opacity-50"></div>
+                                <div className="h-0.5 w-8 bg-[#13523f] mx-auto opacity-50"></div>
                               </div>
                             </div>
                           </th>
@@ -342,7 +342,7 @@ export default function CourseDetailPage() {
                   </table>
                 </div>
 
-                <div className="mt-12 bg-[#FDB813]/10 p-8 rounded-md border border-[#FDB813]/20 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="mt-12 bg-[#13523f]/10 p-8 rounded-md border border-[#13523f]/20 flex flex-col md:flex-row items-center justify-between gap-6">
                   <div>
                     <h3 className="text-xl font-black text-[#0A3D24] mb-1">Ready to start your journey?</h3>
                     <p className="text-gray-700 font-medium">Join 5000+ students who have successfully transformed their careers with Spruce.</p>
@@ -365,7 +365,7 @@ export default function CourseDetailPage() {
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-1.5 h-8 bg-[#FDB813]" />
+              <div className="w-1.5 h-8 bg-[#13523f]" />
               <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900">
                 Other <span className="font-normal text-gray-600">Courses</span>
               </h2>
@@ -440,7 +440,7 @@ function OtherCoursesSlider({ currentSlug }: { currentSlug: string }) {
             <div className="p-5">
               <div className="flex gap-0.5 mb-2">
                 {[1, 2, 3, 4, 5].map(i => (
-                  <Star key={i} size={10} className={i <= 4 ? 'fill-[#FDB813] text-[#FDB813]' : 'fill-gray-200 text-gray-200'} />
+                  <Star key={i} size={10} className={i <= 4 ? 'fill-[#13523f] text-[#13523f]' : 'fill-gray-200 text-gray-200'} />
                 ))}
               </div>
               <h3 className="text-sm font-black text-gray-900 leading-snug mb-3 group-hover:text-[#0A3D24] transition-colors line-clamp-2">

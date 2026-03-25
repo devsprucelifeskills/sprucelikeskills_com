@@ -224,7 +224,7 @@ export default function MyCoursesPage() {
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
           <ScrollReveal animation="fade-up">
             <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-gray-100">
-              <div className="w-16 h-16 bg-yellow-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-yellow-500">
+              <div className="w-16 h-16 bg-[#13523f]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#13523f]">
                 <Clock size={32} />
               </div>
               <h3 className="text-xl font-black text-gray-900 mb-2">Class Not Started</h3>

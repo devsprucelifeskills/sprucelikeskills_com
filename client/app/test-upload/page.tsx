@@ -10,6 +10,11 @@ export default function TestUploadPage() {
 
     const [copied, setCopied] = useState(false);
 
+    type UploadResponse = {
+        imageUrl?: string;
+        message?: string;
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFile(e.target.files[0]);
@@ -34,6 +39,14 @@ export default function TestUploadPage() {
             return;
         }
 
+        const backendApi = process.env.NEXT_PUBLIC_BACKEND_API;
+        if (!backendApi) {
+            setError('Missing NEXT_PUBLIC_BACKEND_API in environment configuration.');
+            return;
+        }
+
+        const uploadUrl = `${backendApi}/api/v2/upload/profile-image`;
+
         setLoading(true);
         setError(null);
         setCopied(false);
@@ -42,20 +55,26 @@ export default function TestUploadPage() {
         formData.append('image', file);
 
         try {
-            console.log('Initiating upload request to:', `${process.env.NEXT_PUBLIC_BACKEND_API}/api/v2/upload/profile-image`);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/v2/upload/profile-image`, {
+            console.log('Initiating upload request to:', uploadUrl);
+            const response = await fetch(uploadUrl, {
                 method: 'POST',
                 body: formData,
             });
 
             console.log('Response status:', response.status);
-            const data = await response.json();
+            const rawData: unknown = await response.json();
+            const data: UploadResponse =
+                rawData && typeof rawData === 'object' ? (rawData as UploadResponse) : {};
             console.log('Response data:', data);
 
             if (response.ok) {
-                setImageUrl(data.imageUrl);
+                if (typeof data.imageUrl === 'string' && data.imageUrl.length > 0) {
+                    setImageUrl(data.imageUrl);
+                } else {
+                    setError('Upload succeeded but image URL was not returned.');
+                }
             } else {
-                setError(data.message || 'Upload failed');
+                setError(typeof data.message === 'string' ? data.message : 'Upload failed');
             }
         } catch (err) {
             console.error('Fetch error:', err);

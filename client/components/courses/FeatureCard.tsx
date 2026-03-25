@@ -29,14 +29,13 @@ function formatValue(value: FeatureValue | undefined) {
 export function FeatureCard({ title, headers, features, enrollHref, isBestCourse = false }: FeatureCardProps) {
   return (
     <article
-      className={`flex h-full flex-col rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${
-        isBestCourse ? 'border-[#FDB813] ring-2 ring-[#FDB813]/40' : 'border-gray-200'
-      }`}
+      className={`flex h-full flex-col rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${isBestCourse ? 'border-[#13523f] ring-2 ring-[#13523f]/40' : 'border-gray-200'
+        }`}
     >
       <div className="mb-4 flex items-start justify-between gap-3 border-b border-gray-100 pb-3">
         <h3 className="text-lg font-extrabold leading-tight text-gray-900">{title}</h3>
         {isBestCourse && (
-          <span className="shrink-0 rounded-full bg-[#FDB813] px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#0A3D24]">
+          <span className="shrink-0 rounded-full bg-[#13523f] px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
             Best
           </span>
         )}

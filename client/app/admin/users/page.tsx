@@ -116,12 +116,12 @@ export default function UsersPage() {
               placeholder="Search by name or email..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/20 w-64"
+              className="pl-9 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#13523f]/20 w-64"
             />
           </div>
           <button
             type="submit"
-            className="bg-[#0A3D24] text-white text-sm px-4 py-2.5 rounded-xl font-medium hover:bg-[#0d4f2f] transition-colors"
+            className="bg-[#13523f] text-white text-sm px-4 py-2.5 rounded-xl font-medium hover:bg-[#1a6e4a] transition-colors"
           >
             Search
           </button>
@@ -132,7 +132,7 @@ export default function UsersPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-[#0A3D24] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#13523f] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : users.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -161,7 +161,7 @@ export default function UsersPage() {
                       <td className="px-6 py-4 text-gray-400 font-mono text-xs">{i + 1}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-[#0A3D24] flex items-center justify-center text-white text-xs font-bold shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-[#13523f] flex items-center justify-center text-white text-xs font-bold shrink-0">
                             {user.name.charAt(0).toUpperCase()}
                           </div>
                           <span className="font-semibold text-gray-800">{user.name}</span>
@@ -185,7 +185,7 @@ export default function UsersPage() {
                               value={user.role}
                               onChange={(e) => handleRoleChange(user._id, e.target.value)}
                               disabled={updating === user._id}
-                              className="appearance-none bg-gray-100 text-gray-700 text-xs font-medium pl-3 pr-7 py-1.5 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/30 cursor-pointer hover:bg-gray-200 transition-colors disabled:opacity-50"
+                              className="appearance-none bg-gray-100 text-gray-700 text-xs font-medium pl-3 pr-7 py-1.5 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-[#13523f]/30 cursor-pointer hover:bg-gray-200 transition-colors disabled:opacity-50"
                             >
                               <option value="student">Student</option>
                               <option value="trainer">Trainer</option>

@@ -60,7 +60,7 @@ export default function CoursesPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
                     {course.discountPrice && (
-                      <div className="absolute top-6 right-6 bg-[#FDB813] text-black text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
+                      <div className="absolute top-6 right-6 bg-[#13523f] text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
                         Save {savingsPercentage}%
                       </div>
                     )}

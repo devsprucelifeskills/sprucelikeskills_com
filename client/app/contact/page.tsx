@@ -1,7 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import Header from '@/components/common/Header';
-import Footer from '@/components/common/Footer';
 
 export const metadata = {
   title: 'Contact Us | Spruce Life Skills',
@@ -46,7 +45,7 @@ export default function ContactPage() {
                       type="text"
                       id="name"
                       placeholder="Enter your full name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FDB813] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f] focus:border-transparent transition-all"
                       required
                     />
                   </div>
@@ -60,7 +59,7 @@ export default function ContactPage() {
                       type="email"
                       id="email"
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FDB813] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f] focus:border-transparent transition-all"
                       required
                     />
                   </div>
@@ -74,7 +73,7 @@ export default function ContactPage() {
                       type="tel"
                       id="phone"
                       placeholder="+91-XXXXXXXXXX"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FDB813] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f] focus:border-transparent transition-all"
                       required
                     />
                   </div>
@@ -86,7 +85,7 @@ export default function ContactPage() {
                     </label>
                     <select
                       id="subject"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FDB813] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f] focus:border-transparent transition-all"
                       required
                     >
                       <option value="">Select a subject</option>
@@ -107,7 +106,7 @@ export default function ContactPage() {
                       id="message"
                       placeholder="Type your message here..."
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FDB813] focus:border-transparent transition-all resize-none"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f] focus:border-transparent transition-all resize-none"
                       required
                     ></textarea>
                   </div>
@@ -115,7 +114,7 @@ export default function ContactPage() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-[#FDB813] hover:bg-[#e6a510] text-black font-black py-3 px-6 rounded-lg transition-all transform hover:scale-105 duration-300 text-lg uppercase tracking-wider"
+                    className="w-full bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black py-3 px-6 rounded-lg transition-all transform hover:scale-105 duration-300 text-lg uppercase tracking-wider"
                   >
                     Send Message
                   </button>
@@ -127,8 +126,8 @@ export default function ContactPage() {
                 {/* Head Office Card */}
                 <div className="bg-gradient-to-br from-[#0f4c32] to-[#126B41] text-white p-8 rounded-xl shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-[#FDB813] rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-black" />
+                    <div className="w-12 h-12 bg-[#13523f] text-white rounded-lg flex items-center justify-center">
+                      <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-2xl font-black">Head Office</h3>
                   </div>
@@ -141,8 +140,8 @@ export default function ContactPage() {
                 {/* Branch Office Card */}
                 <div className="bg-gradient-to-br from-[#126B41] to-[#0f4c32] text-white p-8 rounded-xl shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-[#FDB813] rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-black" />
+                    <div className="w-12 h-12 bg-[#13523f] text-white rounded-lg flex items-center justify-center">
+                      <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-2xl font-black">Branch Office</h3>
                   </div>
@@ -151,30 +150,9 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                {/* Training Centers Card */}
-                <div className="bg-white border-2 border-[#0f4c32] p-8 rounded-xl shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-[#FDB813] rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-black" />
-                    </div>
-                    <h3 className="text-2xl font-black text-gray-900">Training Centers</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="border-l-4 border-[#FDB813] pl-4 py-2">
-                      <p className="text-gray-700 text-sm font-medium">
-                        Stree Shikshan Prasarak Mandals Mahila Mahavidyala, Ganesh Nagar, Azamshah Layout, <strong>Nagpur, Maharashtra</strong>
-                      </p>
-                    </div>
-                    <div className="border-l-4 border-[#FDB813] pl-4 py-2">
-                      <p className="text-gray-700 text-sm font-medium">
-                        Dr. Ambedkar College, Deekshabhoomi, <strong>Nagpur-441002</strong>
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
                 {/* Contact Details Card */}
-                <div className="bg-white border-2 border-[#FDB813] p-8 rounded-xl shadow-lg">
+                <div className="bg-white border-2 border-[#13523f] p-8 rounded-xl shadow-lg">
                   <h3 className="text-2xl font-black text-gray-900 mb-6">Quick Contact</h3>
                   <div className="space-y-4">
                     {/* Phone Numbers */}
@@ -182,8 +160,8 @@ export default function ContactPage() {
                       href="tel:+919595025757"
                       className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-all group"
                     >
-                      <div className="w-10 h-10 bg-[#FDB813] rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Phone className="w-5 h-5 text-black" />
+                      <div className="w-10 h-10 bg-[#13523f] text-white rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Phone className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Phone</p>
@@ -195,8 +173,8 @@ export default function ContactPage() {
                       href="tel:+918999499930"
                       className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-all group"
                     >
-                      <div className="w-10 h-10 bg-[#FDB813] rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Phone className="w-5 h-5 text-black" />
+                      <div className="w-10 h-10 bg-[#13523f] text-white rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Phone className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Alternate</p>
@@ -209,8 +187,8 @@ export default function ContactPage() {
                       href="mailto:sprucelifeskills@gmail.com"
                       className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-all group"
                     >
-                      <div className="w-10 h-10 bg-[#FDB813] rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Mail className="w-5 h-5 text-black" />
+                      <div className="w-10 h-10 bg-[#13523f] text-white rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Mail className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Email</p>
@@ -271,7 +249,7 @@ export default function ContactPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="tel:+919595025757"
-                  className="bg-[#FDB813] hover:bg-[#e6a510] text-black font-black py-4 px-8 rounded-lg transition-all transform hover:scale-105 duration-300 text-lg uppercase tracking-wider inline-block"
+                  className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black py-4 px-8 rounded-lg transition-all transform hover:scale-105 duration-300 text-lg uppercase tracking-wider inline-block"
                 >
                   Get Quick Call Back
                 </a>
@@ -288,7 +266,6 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

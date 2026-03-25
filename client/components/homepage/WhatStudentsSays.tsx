@@ -6,14 +6,12 @@ import { useState, useEffect, useRef } from "react";
    PARTNER DATA  – swap img src with real logos
 ───────────────────────────────────────────── */
 const partners = [
-    { name: "Ascent Business Solutions", img: "https://placehold.co/160x72/ffffff/1a4731?text=Ascent" },
-    { name: "Augustus Healthcare", img: "https://placehold.co/160x72/ffffff/8B0000?text=Augustus" },
-    { name: "Novartis", img: "https://placehold.co/160x72/ffffff/E65C00?text=Novartis" },
-    { name: "Cognizant", img: "https://placehold.co/160x72/ffffff/1565C0?text=Cognizant" },
-    { name: "Syntel", img: "https://placehold.co/160x72/ffffff/2E7D32?text=Syntel" },
-    { name: "GeBBS Healthcare", img: "https://placehold.co/160x72/ffffff/0D47A1?text=GeBBS" },
+    
+    { name: "Augustus Healthcare", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428463/iokrinaz7smub09rszbg.png" },
+    { name: "Cognizant", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428535/hcwdtut5a8v5hhliyihi.png" },
+   { name: "GeBBS Healthcare", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428606/vlk5ss1xaipug5rw8oij.png" },
     { name: "Wipro", img: "https://placehold.co/160x72/ffffff/6A1B9A?text=Wipro" },
-    { name: "TCS", img: "https://placehold.co/160x72/ffffff/C62828?text=TCS" },
+    { name: "TCS", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428799/vivysotsnnvq1zahpwvn.png" },
 ];
 
 /* ─────────────────────────────────────────────
@@ -144,7 +142,7 @@ function Stars() {
     return (
         <div className="flex gap-0.5 mb-3">
             {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 20 20" className="w-4 h-4 text-yellow-400" fill="currentColor">
+                <svg key={i} viewBox="0 0 20 20" className="w-4 h-4 text-[#13523f]" fill="currentColor">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118L10 14.347l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.644 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
                 </svg>
             ))}
@@ -184,7 +182,7 @@ function TestimonialSlider() {
             <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-black text-white tracking-wide leading-tight">
-                        <span className="border-l-4 border-[#eab308] pl-3 text-[#eab308]">
+                        <span className="border-l-4 border-[#13523f] pl-3 text-[#13523f]">
                             WHAT STUDENT
                         </span>{" "}
                         SAY
@@ -199,10 +197,10 @@ function TestimonialSlider() {
                         onClick={prev}
                         disabled={index === 0}
                         aria-label="Previous"
-                        className="w-10 h-10 bg-[#eab308] hover:bg-[#ca8a04]
+                        className="w-10 h-10 bg-[#13523f] hover:bg-[#1a6e4a]
                        disabled:opacity-40 disabled:cursor-not-allowed
                        flex items-center justify-center rounded
-                       text-black transition-colors"
+                       text-white transition-colors"
                     >
                         <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none"
                             stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
@@ -213,10 +211,10 @@ function TestimonialSlider() {
                         onClick={next}
                         disabled={index >= maxIndex}
                         aria-label="Next"
-                        className="w-10 h-10 bg-[#eab308] hover:bg-[#ca8a04]
+                        className="w-10 h-10 bg-[#13523f] hover:bg-[#1a6e4a]
                        disabled:opacity-40 disabled:cursor-not-allowed
                        flex items-center justify-center rounded
-                       text-black transition-colors"
+                       text-white transition-colors"
                     >
                         <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none"
                             stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
@@ -282,7 +280,7 @@ function TestimonialSlider() {
                         onClick={() => setIndex(i)}
                         aria-label={`Slide ${i + 1}`}
                         className={`rounded-full transition-all duration-300 ${i === index
-                            ? "bg-[#eab308] w-6 h-2.5"
+                            ? "bg-[#13523f] w-6 h-2.5"
                             : "bg-white/30 hover:bg-white/50 w-2.5 h-2.5"
                             }`}
                     />

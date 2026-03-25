@@ -9,7 +9,7 @@ const slides = [
     line1: "Education That",
     line2: "Powers Your",
     circled: "Ambition",
-    sub: <>Online degrees &amp; courses from <span style={{ color: "#eab308", fontStyle: "italic" }}>Spruce Lifeskills.</span></>,
+    sub: <>Online degrees &amp; courses from <span style={{ color: "#13523f", fontStyle: "italic" }}>Spruce Lifeskills.</span></>,
     cta: "Explore Courses",
     href: "/courses",
   },
@@ -18,7 +18,7 @@ const slides = [
     line1: "Careers Built on",
     line2: "Clinical",
     circled: "Excellence",
-    sub: <>Train with AAPC-certified faculty and land your dream <span style={{ color: "#eab308", fontStyle: "italic" }}>healthcare career.</span></>,
+    sub: <>Train with AAPC-certified faculty and land your dream <span style={{ color: "#13523f", fontStyle: "italic" }}>healthcare career.</span></>,
     cta: "View Courses",
     href: "/courses",
   },
@@ -27,7 +27,7 @@ const slides = [
     line1: "Trusted by",
     line2: "3,788+",
     circled: "Students",
-    sub: <>Our graduates work at Cognizant, Novartis, GeBBS &amp; <span style={{ color: "#eab308", fontStyle: "italic" }}>32+ top companies.</span></>,
+    sub: <>Our graduates work at Cognizant, Novartis, GeBBS &amp; <span style={{ color: "#13523f", fontStyle: "italic" }}>32+ top companies.</span></>,
     cta: "View Placements",
     href: "/placement",
   },
@@ -93,13 +93,13 @@ export default function HeroSection() {
         /* Buttons */
         .btn-o {
           display:inline-flex;align-items:center;gap:8px;
-          background:#eab308;color:#000;border:none;border-radius:50px;
+          background:#13523f;color:#fff;border:none;border-radius:50px;
           padding:14px 32px;font-size:15px;font-weight:700;
           font-family:'Inter',sans-serif;text-decoration:none;cursor:pointer;
           transition:background .2s,transform .15s,box-shadow .2s;
           white-space:nowrap;
         }
-        .btn-o:hover{background:#ca8a04;transform:translateY(-2px);box-shadow:0 8px 20px rgba(234,179,8,.32)}
+        .btn-o:hover{background:#1a6e4a;transform:translateY(-2px);box-shadow:0 8px 20px rgba(19,82,63,.32)}
         .btn-g {
           display:inline-flex;align-items:center;gap:6px;
           background:#fff;color:#374151;border:1.5px solid #d1d5db;
@@ -107,7 +107,7 @@ export default function HeroSection() {
           font-family:'Inter',sans-serif;text-decoration:none;cursor:pointer;
           transition:border-color .2s,color .2s;white-space:nowrap;
         }
-        .btn-g:hover{border-color:#eab308;color:#eab308}
+        .btn-g:hover{border-color:#13523f;color:#13523f}
 
         /* Nav circle */
         .nav-c {
@@ -117,7 +117,7 @@ export default function HeroSection() {
           cursor:pointer;padding:0;
           transition:border-color .2s,background .2s;
         }
-        .nav-c:hover{border-color:#eab308;background:#fffbf0}
+        .nav-c:hover{border-color:#13523f;background:#f0faf7}
 
         /* Course card */
         .cc {
@@ -249,12 +249,12 @@ export default function HeroSection() {
           {/* Rotated badge on mobile */}
           <div style={{
             position: "absolute", top: "16px", right: "16px", zIndex: 5,
-            background: "#fcd34d", borderRadius: "12px",
+            background: "#13523f", borderRadius: "12px",
             padding: "8px 12px", textAlign: "center",
             transform: "rotate(8deg)",
             boxShadow: "0 3px 12px rgba(0,0,0,.15)"
           }}>
-            <div style={{ fontSize: "11px", fontWeight: 800, color: "#7c2d12", lineHeight: 1.3 }}>
+            <div style={{ fontSize: "11px", fontWeight: 800, color: "#fff", lineHeight: 1.3 }}>
               Onwards<br />&amp; Upwards
             </div>
           </div>
@@ -267,7 +267,7 @@ export default function HeroSection() {
           }}>
             <div style={{
               width: "24px", height: "24px", borderRadius: "8px",
-              background: "#eab308", display: "flex", alignItems: "center",
+              background: "#13523f", display: "flex", alignItems: "center",
               justifyContent: "center", flexShrink: 0
             }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -295,7 +295,7 @@ export default function HeroSection() {
                 <div className="tx-tag hs-pill" style={{ marginBottom: "18px" }}>
                   <span className="dot-pulse" style={{
                     width: "7px", height: "7px", borderRadius: "50%",
-                    background: "#eab308", display: "inline-block", flexShrink: 0
+                    background: "#13523f", display: "inline-block", flexShrink: 0
                   }} />
                   {s.tag}
                 </div>
@@ -313,7 +313,7 @@ export default function HeroSection() {
                       {s.circled}
                       <svg viewBox="0 0 200 70" fill="none" preserveAspectRatio="none">
                         <ellipse cx="100" cy="35" rx="93" ry="28"
-                          stroke="#eab308" strokeWidth="3" fill="none" />
+                          stroke="#13523f" strokeWidth="3" fill="none" />
                       </svg>
                     </span>
                   </div>
@@ -356,7 +356,7 @@ export default function HeroSection() {
                   }}>
                   <div style={{
                     width: "8px", height: "8px", borderRadius: "50%",
-                    background: idx === current ? "#eab308" : "#d1d5db",
+                    background: idx === current ? "#13523f" : "#d1d5db",
                     transform: idx === current ? "scale(1.45)" : "scale(1)",
                     transition: "all .3s",
                   }} />
@@ -368,7 +368,7 @@ export default function HeroSection() {
                     }}>
                       <div key={animKey} className="prog-bar"
                         style={{
-                          height: "100%", background: "#eab308",
+                          height: "100%", background: "#13523f",
                           borderRadius: "99px", width: 0
                         }} />
                     </div>
@@ -408,7 +408,7 @@ export default function HeroSection() {
                 { num: "13+", lbl: "Years" },
               ].map((b, i) => (
                 <div key={i} className="hs-badge">
-                  <span style={{ fontSize: "16px", fontWeight: 800, color: "#eab308", lineHeight: 1 }}>{b.num}</span>
+                  <span style={{ fontSize: "16px", fontWeight: 800, color: "#13523f", lineHeight: 1 }}>{b.num}</span>
                   <span style={{ fontSize: "11px", color: "#666", fontWeight: 500 }}>{b.lbl}</span>
                 </div>
               ))}
@@ -444,7 +444,7 @@ export default function HeroSection() {
               }}>
                 <div style={{
                   width: "32px", height: "32px", borderRadius: "10px",
-                  background: "#eab308", display: "flex", alignItems: "center",
+                  background: "#13523f", display: "flex", alignItems: "center",
                   justifyContent: "center", flexShrink: 0
                 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -459,12 +459,12 @@ export default function HeroSection() {
               </div>
               {/* Onwards badge */}
               <div style={{
-                background: "#fcd34d", borderRadius: "14px",
+                background: "#13523f", borderRadius: "14px",
                 padding: "10px 14px", textAlign: "center",
                 transform: "rotate(8deg)",
                 boxShadow: "0 4px 16px rgba(0,0,0,.15)", pointerEvents: "auto"
               }}>
-                <div style={{ fontSize: "12px", fontWeight: 800, color: "#7c2d12", lineHeight: 1.3 }}>
+                <div style={{ fontSize: "12px", fontWeight: 800, color: "#fff", lineHeight: 1.3 }}>
                   Onwards<br />&amp; Upwards
                 </div>
               </div>
@@ -484,11 +484,11 @@ export default function HeroSection() {
             {/* Decorative stars */}
             <div className="star-spin" style={{
               position: "absolute", top: "8%", right: "12%",
-              color: "#eab308", fontSize: "16px", opacity: .65, zIndex: 3
+              color: "#13523f", fontSize: "16px", opacity: .65, zIndex: 3
             }}>✦</div>
             <div className="star-spin" style={{
               position: "absolute", top: "18%", left: "14%",
-              color: "#eab308", fontSize: "9px", opacity: .45, zIndex: 3
+              color: "#13523f", fontSize: "9px", opacity: .45, zIndex: 3
             }}>✦</div>
             <div className="star-spin" style={{
               position: "absolute", bottom: "30%", right: "9%",

@@ -32,14 +32,12 @@ export default function Footer() {
 
             <div className="flex items-center gap-6">
               <div className="flex gap-3">
-                <a href="#" className={socialIconClass} aria-label="Facebook"><Facebook size={14} /></a>
-                <a href="#" className={socialIconClass} aria-label="WhatsApp"><span className="text-sm font-bold">W</span></a>
-                <a href="#" className={socialIconClass} aria-label="LinkedIn"><Linkedin size={14} /></a>
+                <a href="https://www.facebook.com/share/1a77hKh57r/" className={socialIconClass} aria-label="Facebook"><Facebook size={14} /></a>
+                <a href="wa.me/919595025757" className={socialIconClass} aria-label="WhatsApp"><span className="text-sm font-bold">W</span></a>
+                <a href="https://www.linkedin.com/company/sprucelifeskills/" className={socialIconClass} aria-label="LinkedIn"><Linkedin size={14} /></a>
                 <a href="#" className={socialIconClass} aria-label="Google Plus"><span className="text-sm font-bold">G+</span></a>
               </div>
-              <button onClick={() => setEnquiryOpen(true)} className="bg-[#eab308] text-black text-sm font-bold py-2.5 px-6 hover:bg-[#ca8a04] transition-colors">
-                Enquire Now
-              </button>
+
             </div>
           </div>
 
@@ -70,41 +68,43 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Company */}
-            <div className="lg:pl-4">
-              <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Company</h3>
-              <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
-              <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
+            {/* Grouping Company & Quick Link for Mobile */}
+            <div className="grid grid-cols-2 gap-8 md:contents">
+              {/* Company */}
+              <div className="lg:pl-4">
+                <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Company</h3>
+                <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
+                <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium">
+                  <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+                  <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+                  <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                </ul>
+              </div>
 
-            {/* Quick Link */}
-            <div>
-              <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Quick Link</h3>
-              <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
-              <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium tracking-tight">
-                <li><Link href="/register" className="hover:text-white transition-colors">Register Now</Link></li>
-                <li><Link href="/login" className="hover:text-white transition-colors">Login</Link></li>
-                <li><Link href="/admission" className="hover:text-white transition-colors">Admission</Link></li>
-
-              </ul>
+              {/* Quick Link */}
+              <div>
+                <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Quick Link</h3>
+                <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
+                <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium tracking-tight">
+                  <li><Link href="/register" className="hover:text-white transition-colors">Register Now</Link></li>
+                  <li><Link href="/login" className="hover:text-white transition-colors">Login</Link></li>
+                  <li><Link href="/admission" className="hover:text-white transition-colors">Admission</Link></li>
+                </ul>
+              </div>
             </div>
 
             {/* Courses */}
             <div>
               <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Courses</h3>
               <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
-              <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium tracking-tight">
-                <li><Link href="/courses/medical-coding" className="hover:text-white transition-colors block">Medical Coding</Link></li>
-                <li><Link href="/courses/clinical-research" className="hover:text-white transition-colors block">Clinical Research</Link></li>
-                <li><Link href="/courses/medical-billing" className="hover:text-white transition-colors block">Medical Billing</Link></li>
+              <ul className="grid grid-cols-2 md:block gap-x-4 gap-y-4 md:space-y-4 font-medium tracking-tight text-sm text-[#e8f5e9]/80">
+                <li><Link href="/courses/medical-coding" className="hover:text-white transition-colors block leading-tight">Medical Coding</Link></li>
+                <li><Link href="/courses/clinical-research" className="hover:text-white transition-colors block leading-tight">Clinical Research</Link></li>
+                <li><Link href="/courses/medical-billing" className="hover:text-white transition-colors block leading-tight">Medical Billing</Link></li>
                 <li><Link href="/courses/account-receivable" className="hover:text-white transition-colors leading-snug block">Account<br />Receivable</Link></li>
                 <li><Link href="/courses/campus-to-corporate" className="hover:text-white transition-colors leading-snug block">Campus to<br />Corporate</Link></li>
-                <li><Link href="/courses/certification" className="hover:text-white transition-colors block">Certification</Link></li>
+                <li><Link href="/courses/certification" className="hover:text-white transition-colors block leading-tight">Certification</Link></li>
               </ul>
             </div>
 
@@ -124,7 +124,7 @@ export default function Footer() {
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-[#1b5c3e] relative">
-            <button onClick={() => setEnquiryOpen(true)} className="bg-[#eab308] text-black text-xs font-bold py-2.5 px-6 hover:bg-[#ca8a04] transition-colors mb-4 md:mb-0 md:-ml-4">
+            <button onClick={() => setEnquiryOpen(true)} className="bg-[#13523f] text-white text-xs font-bold py-2.5 px-6 hover:bg-[#1a6e4a] transition-colors mb-4 md:mb-0 md:-ml-4">
               Enquire Now
             </button>
 
@@ -134,10 +134,10 @@ export default function Footer() {
 
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-colors absolute right-0 bottom-0 md:static hidden sm:block"
+              className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-colors absolute right-0 bottom-0 md:static hidden sm:block"
               aria-label="Scroll to top"
             >
-              <ChevronUp className="w-5 h-5 text-black" strokeWidth={3} />
+              <ChevronUp className="w-5 h-5 text-white" strokeWidth={3} />
             </button>
           </div>
         </div>

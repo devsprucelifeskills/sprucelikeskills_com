@@ -298,14 +298,14 @@ export default function PurchasePage() {
                       <img src={`https://i.pravatar.cc/150?u=${course.slug}${i}`} alt="" />
                     </div>
                   ))}
-                  <div className="w-12 h-12 rounded-full border-2 border-white bg-[#FDB813] flex items-center justify-center text-[10px] font-black">
+                  <div className="w-12 h-12 rounded-full border-2 border-white bg-[#13523f] flex items-center justify-center text-[10px] font-black text-white">
                     +5k
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#FDB813] text-[#FDB813]" />
+                      <Star key={i} className="w-4 h-4 fill-[#13523f] text-[#13523f]" />
                     ))}
                   </div>
                   <p className="text-sm font-bold text-[#0A3D24]">Joined by over 5,000 students worldwide</p>
@@ -326,7 +326,7 @@ export default function PurchasePage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-6">
-                    <span className="bg-[#FDB813] text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                    <span className="bg-[#13523f] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
                       Application Open
                     </span>
                   </div>
