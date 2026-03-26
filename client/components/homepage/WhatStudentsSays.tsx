@@ -323,9 +323,12 @@ export default function WhatStudentsSays() {
             {/* ══ SECTION 2 — TESTIMONIALS ══ */}
             <section
                 className="relative py-16 overflow-hidden mb-10"
-
+                style={{
+                    background:
+                        "linear-gradient(160deg, rgb(16,75,57) 0%, rgb(24,98,70) 50%, rgb(19,82,63) 100%)",
+                }}
             >
-                <div className="absolute inset-0   pointer-events-none" />
+                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                 <div className="relative max-w-6xl mx-auto px-6">
                     {/* <TestimonialSlider /> */}
                     <FeaturableWidget />
