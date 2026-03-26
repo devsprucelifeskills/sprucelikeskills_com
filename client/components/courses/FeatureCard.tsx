@@ -27,6 +27,7 @@ function formatValue(value: FeatureValue | undefined) {
 }
 
 export function FeatureCard({ title, headers, features, enrollHref, isBestCourse = false }: FeatureCardProps) {
+
   return (
     <article
       className={`flex h-full flex-col rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${isBestCourse ? 'border-[#13523f] ring-2 ring-[#13523f]/40' : 'border-gray-200'
@@ -53,12 +54,7 @@ export function FeatureCard({ title, headers, features, enrollHref, isBestCourse
         ))}
       </dl>
 
-      <Link
-        href={enrollHref}
-        className="mt-6 inline-flex w-full items-center justify-center rounded-md bg-[#0A3D24] px-4 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-black"
-      >
-        Apply Now
-      </Link>
+
     </article>
   );
 }

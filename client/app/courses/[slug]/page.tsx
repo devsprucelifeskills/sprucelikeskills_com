@@ -296,7 +296,7 @@ export default function CourseDetailPage() {
                   <CourseFeaturesCards
                     headers={course.featuresTable.headers}
                     columns={course.featuresTable.columns}
-                    enrollHref={`/purchase/${course.slug}`}
+                    enrollHref={`/courses/`}
                   />
                 </div>
 

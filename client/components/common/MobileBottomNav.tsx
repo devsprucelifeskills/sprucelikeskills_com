@@ -7,7 +7,7 @@ import { Home, BookOpen, Images, PlayCircle } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '/', icon: Home },
-  { label: 'Courses', href: '/courses/medical-coding', icon: BookOpen },
+  { label: 'Courses', href: '/courses', icon: BookOpen },
   { label: 'Gallery', href: '/gallery', icon: Images },
   { label: 'My Courses', href: '/profile/my-courses', icon: PlayCircle },
 ];
@@ -23,7 +23,7 @@ export default function MobileBottomNav() {
           const isHome = item.href === '/';
           const isHashLink = item.href.includes('#');
           const pathOnly = item.href.split('#')[0] || '/';
-          
+
           let isActive = false;
           if (isHome) {
             isActive = pathname === '/';
@@ -37,19 +37,17 @@ export default function MobileBottomNav() {
           const Icon = item.icon;
 
           return (
-            <Link 
-              key={item.label} 
+            <Link
+              key={item.label}
               href={item.href}
-              className={`flex flex-col items-center gap-1.5 transition-all ${
-                isActive ? 'text-[#2ecc71]' : 'text-gray-400 hover:text-gray-600'
-              }`}
+              className={`flex flex-col items-center gap-1.5 transition-all ${isActive ? 'text-[#2ecc71]' : 'text-gray-400 hover:text-gray-600'
+                }`}
             >
               <div className={`p-1 rounded-xl transition-colors ${isActive ? 'bg-[#2ecc71]/5' : ''}`}>
                 <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
               </div>
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                isActive ? 'text-[#2ecc71]' : 'text-gray-500'
-              }`}>
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? 'text-[#2ecc71]' : 'text-gray-500'
+                }`}>
                 {item.label}
               </span>
               {isActive && (
