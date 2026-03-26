@@ -383,7 +383,7 @@ export default function Header() {
 
                     {/* ── Logo ── */}
                     <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-                        <img src="/logo2.png" alt="Spruce Lifeskills"
+                        <img src="/Group 10 (1).svg" alt="Spruce Lifeskills"
                             className="h-10 w-auto object-contain" />
                     </Link>
 
