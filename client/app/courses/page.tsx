@@ -4,7 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Header from '@/components/common/Header';
 import ScrollReveal from '@/components/common/ScrollReveal';
-import { courses } from '@/lib/courses';
+import { courses, Course } from '@/lib/courses';
+import ApplyModal from '@/components/courses/ApplyModal';
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -16,7 +18,16 @@ import {
 } from 'lucide-react';
 
 export default function CoursesPage() {
+  const [isApplyModalOpen, setIsApplyModalOpen] = React.useState(false);
+  const [selectedCourse, setSelectedCourse] = React.useState<Course | null>(null);
+
+  const handleApply = (course: Course) => {
+    setSelectedCourse(course);
+    setIsApplyModalOpen(true);
+  };
+
   return (
+
     <div className="min-h-screen bg-[#F8FAFC]">
       <Header />
 
@@ -116,13 +127,14 @@ export default function CoursesPage() {
                         >
                           View Details
                         </Link>
-                        <Link
-                          href={`/purchase/${course.slug}`}
+                        <button
+                          onClick={() => handleApply(course)}
                           className="flex-1 flex items-center justify-center gap-2 bg-[#0A3D24] hover:bg-black text-white font-black text-xs uppercase tracking-wider py-4 rounded-2xl shadow-lg shadow-[#0A3D24]/10 transition-all hover:-translate-y-1"
                         >
                           Apply Now
                           <ChevronRight size={14} />
-                        </Link>
+                        </button>
+
                       </div>
                     </div>
                   </div>

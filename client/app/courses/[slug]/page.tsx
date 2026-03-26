@@ -12,42 +12,64 @@ import {
   UserCircle,
   Table as TableIcon,
   ChevronLeft,
-  Star
+  Star,
+  Clock,
+  CheckCircle2
 } from 'lucide-react';
 import { courses, CourseSection } from '@/lib/courses';
 import Header from '@/components/common/Header';
 import CourseFeaturesCards from '@/components/courses/FeatureCard';
+import ApplyModal from '@/components/courses/ApplyModal';
+
 
 export default function CourseDetailPage() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('intro');
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [application, setApplication] = useState<any>(null);
+  const [checkingStatus, setCheckingStatus] = useState(true);
+
 
   const course = courses.find(c => c.slug === slug);
 
   useEffect(() => {
-    // Check enrollment status from backend
-    const checkEnrollment = async () => {
+    const fetchStatus = async () => {
       const token = localStorage.getItem('token');
-      if (!token) return;
+      if (!token) {
+        setCheckingStatus(false);
+        return;
+      }
 
+      setCheckingStatus(true);
       try {
         const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
-        const res = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        
+        // 1. Check enrollment
+        const enrollRes = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
         });
-        const data = await res.json();
-        if (data.success && data.isEnrolled) {
+        const enrollData = await enrollRes.json();
+        if (enrollData.success && enrollData.isEnrolled) {
           setIsEnrolled(true);
         }
+
+        // 2. Check application status
+        const appRes = await fetch(`${backend_url}/api/v2/applications/check-status/${slug}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const appData = await appRes.json();
+        if (appData.success) {
+          setApplication(appData.application);
+        }
       } catch (err) {
-        console.error("Error checking enrollment:", err);
+        console.error("Error fetching status:", err);
+      } finally {
+        setCheckingStatus(false);
       }
     };
 
-    checkEnrollment();
+    fetchStatus();
   }, [slug]);
 
   useEffect(() => {
@@ -134,13 +156,40 @@ export default function CourseDetailPage() {
             {course.description.split('.')[0]}. Professional training for a successful career.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
-              href={`/purchase/${course.slug}`}
-              className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
-            >
-              Apply Now
-            </Link>
-            <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
+            {isEnrolled ? (
+              <Link 
+                href="/profile/my-courses"
+                className="bg-[#2ecc71] hover:bg-[#27ae60] text-white font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+              >
+                Go to Classroom
+              </Link>
+            ) : checkingStatus ? (
+              <div className="bg-white/10 px-8 py-3.5 rounded-sm animate-pulse text-white/50 font-bold">
+                Checking status...
+              </div>
+            ) : application?.status === 'pending' ? (
+              <div className="bg-yellow-500 text-black font-extrabold px-8 py-3.5 rounded-sm shadow-xl flex items-center gap-2 cursor-default">
+                <Clock className="w-5 h-5" />
+                Application Pending
+              </div>
+            ) : application?.status === 'reviewed' ? (
+              <Link 
+                href="/profile/my-courses"
+                className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block flex items-center gap-2"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                Complete Payment
+              </Link>
+            ) : (
+              <button
+                onClick={() => setIsApplyModalOpen(true)}
+                className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+              >
+                {application?.status === 'rejected' ? 'Re-apply Now' : 'Apply Now'}
+              </button>
+            )}
+
+            <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all lg:inline-block hidden">
               Download Syllabus
             </button>
           </div>
@@ -347,12 +396,26 @@ export default function CourseDetailPage() {
                     <h3 className="text-xl font-black text-[#0A3D24] mb-1">Ready to start your journey?</h3>
                     <p className="text-gray-700 font-medium">Join 5000+ students who have successfully transformed their careers with Spruce.</p>
                   </div>
-                  <Link
-                    href={`/purchase/${course.slug}`}
-                    className="bg-[#0A3D24] hover:bg-black text-white px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap inline-block"
+                  <button
+                    onClick={() => {
+                        if (isEnrolled) router.push('/profile/my-courses');
+                        else if (application?.status === 'reviewed') router.push('/profile/my-courses');
+                        else if (application?.status === 'pending') { /* do nothing */ }
+                        else setIsApplyModalOpen(true);
+                    }}
+                    className={`px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap inline-block font-sans ${
+                        isEnrolled ? 'bg-[#2ecc71] hover:bg-black text-white' : 
+                        application?.status === 'pending' ? 'bg-yellow-500 text-black cursor-default' :
+                        'bg-[#0A3D24] hover:bg-black text-white'
+                    }`}
                   >
-                    Apply for Admission
-                  </Link>
+                    {isEnrolled ? 'Open Classroom' : 
+                     application?.status === 'pending' ? 'Application Received' :
+                     application?.status === 'reviewed' ? 'Complete Payment' :
+                     application?.status === 'rejected' ? 'Re-apply for Admission' :
+                     'Apply for Admission'}
+                  </button>
+
                 </div>
               </section>
             )}
@@ -380,7 +443,16 @@ export default function CourseDetailPage() {
         </div>
       </section>
 
+      {/* Apply Modal */}
+      <ApplyModal 
+        isOpen={isApplyModalOpen} 
+        onClose={() => setIsApplyModalOpen(false)} 
+        courseTitle={course.title}
+        courseSlug={course.slug}
+      />
+
       {/* Scroll to Top button could go here or in layout */}
+
     </div>
   );
 }

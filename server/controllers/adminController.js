@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import CourseEnrollment from '../models/CourseEnrollment.js';
+import Enrollment from '../models/Enrollment.js';
 import Enquiry from '../models/Enquiry.js';
 import PartnerEnquiry from '../models/PartnerEnquiry.js';
 import Meeting from '../models/Meeting.js';
@@ -7,12 +8,15 @@ import Meeting from '../models/Meeting.js';
 // GET /api/v2/admin/stats
 export const getStats = async (req, res) => {
     try {
-        const [userCount, enrollmentCount, enquiryCount, partnerEnquiryCount] = await Promise.all([
+        const [userCount, courseEnrollmentCount, enrollmentCount, enquiryCount, partnerEnquiryCount] = await Promise.all([
             User.countDocuments(),
             CourseEnrollment.countDocuments({ status: 'completed' }),
+            Enrollment.countDocuments({ status: { $in: ['active', 'completed'] } }), // EMI enrollments
             Enquiry.countDocuments(),
             PartnerEnquiry.countDocuments(),
         ]);
+
+        const totalEnrollments = courseEnrollmentCount + enrollmentCount;
 
         const newEnquiries = await Enquiry.countDocuments({ status: 'new' });
         const newPartnerEnquiries = await PartnerEnquiry.countDocuments({ status: 'new' });
@@ -21,7 +25,7 @@ export const getStats = async (req, res) => {
             success: true,
             stats: {
                 users: userCount,
-                enrollments: enrollmentCount,
+                enrollments: totalEnrollments,
                 enquiries: enquiryCount,
                 partnerEnquiries: partnerEnquiryCount,
                 newEnquiries,

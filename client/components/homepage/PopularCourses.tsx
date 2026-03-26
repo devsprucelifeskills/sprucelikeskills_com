@@ -5,9 +5,20 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
 import { courses } from '@/lib/courses';
 import ScrollReveal from '../common/ScrollReveal';
+import ApplyModal from '../courses/ApplyModal';
+import { Course } from '@/lib/courses';
+
 
 export default function PopularCourses() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const [isApplyModalOpen, setIsApplyModalOpen] = React.useState(false);
+  const [selectedCourse, setSelectedCourse] = React.useState<Course | null>(null);
+
+  const handleApply = (course: Course) => {
+    setSelectedCourse(course);
+    setIsApplyModalOpen(true);
+  };
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -21,7 +32,9 @@ export default function PopularCourses() {
     }
   };
 
+
   return (
+
     <section className="bg-[#F8FAFC] py-16 md:py-24 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header Area */}
@@ -114,18 +127,28 @@ export default function PopularCourses() {
                       ))}
                     </div>
                   </div>
-                  <Link
-                    href={`/purchase/${course.slug}`}
+                  <button
+                    onClick={() => handleApply(course)}
                     className="bg-[#eab308] text-black text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-[#ca8a04] transition-colors shadow-lg"
                   >
                     Apply Now
-                  </Link>
+                  </button>
+
                 </div>
               </div>
             </ScrollReveal>
           ))}
         </div>
       </div>
+      {selectedCourse && (
+        <ApplyModal 
+          isOpen={isApplyModalOpen} 
+          onClose={() => setIsApplyModalOpen(false)} 
+          courseTitle={selectedCourse.title}
+          courseSlug={selectedCourse.slug}
+        />
+      )}
     </section>
+
   );
 }

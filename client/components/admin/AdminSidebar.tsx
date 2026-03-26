@@ -11,15 +11,23 @@ import {
   LogOut,
   Menu,
   X,
+  Clock,
   ChevronRight,
   Video,
+  FileText,
+  Settings
 } from 'lucide-react';
+
+
 import { useState } from 'react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/applications', label: 'Applications', icon: FileText },
   { href: '/admin/users', label: 'Users', icon: Users },
+
   { href: '/admin/enrollments', label: 'Enrollments', icon: BookOpen },
+  { href: '/admin/enrollments/emi', label: 'EMI Enrollments', icon: Clock },
   { href: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare },
   { href: '/admin/partner-enquiries', label: 'Partner Enquiries', icon: Handshake },
   { href: '/admin/meetings', label: 'Meetings', icon: Video },

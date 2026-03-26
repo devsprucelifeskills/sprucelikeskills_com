@@ -9,6 +9,9 @@ import enquiryRoutes from './routes/enquiryRoutes.js'
 import partnerEnquiryRoutes from './routes/partnerEnquiryRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
+import applicationRoutes from './routes/applicationRoutes.js'
+import enrollmentRoutes from './routes/enrollmentRoutes.js'
+
 import dns from "dns";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const app = express()
@@ -28,6 +31,9 @@ app.use('/api/v2/enquiry', enquiryRoutes)
 app.use('/api/v2/partner-enquiry', partnerEnquiryRoutes)
 app.use('/api/v2/upload', uploadRoutes)
 app.use('/api/v2/admin', adminRoutes)
+app.use('/api/v2/applications', applicationRoutes)
+app.use('/api/v2/enrollments', enrollmentRoutes)
+
 
 const PORT = process.env.PORT
 const MONGOURL = process.env.MONGOURL
