@@ -4,11 +4,11 @@ import { GraduationCap, Briefcase, Award } from "lucide-react";
 export default function FacultySection() {
   return (
     <section className="py-24 sm:py-32 bg-slate-50 relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-blue-100/40 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-emerald-100/40 rounded-full blur-3xl" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative text-center">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-base/7 font-semibold text-blue-600 uppercase tracking-widest mb-2">Our Foundation</h2>
+          <h2 className="text-base/7 font-semibold text-emerald-600 uppercase tracking-widest mb-2">Our Foundation</h2>
           <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-8">
             Expert Faculty & Leadership
           </p>
@@ -23,13 +23,13 @@ export default function FacultySection() {
               title: "Industry Veterans",
               desc: "Dedicated team including doctors and industry experts with over 5 years of experience.",
               icon: Briefcase,
-              accent: "bg-blue-600"
+              accent: "bg-[#13523f]"
             },
             {
               title: "Expert Guidance",
               desc: "Providing skilled manpower to clinical research & medical coding industries through specialized mentorship.",
               icon: GraduationCap,
-              accent: "bg-indigo-600"
+              accent: "bg-[#0A3D24]"
             },
             {
               title: "Quality Training",
