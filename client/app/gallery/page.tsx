@@ -21,7 +21,7 @@ export default function GalleryPage() {
       <Header />
 
       {/* Hero Section */}
-      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden ">
+      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-gray-900 overflow-hidden ">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87')] bg-cover bg-center "></div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D24]/10 via-[#0A3D24]/40 to-[#0A3D24]"></div>
 

@@ -41,7 +41,7 @@ export default function SuccessCorner() {
             <div className="hidden sm:flex gap-2">
               <button
                 onClick={scrollLeft}
-                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-colors"
+                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-colors "
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-5 h-5 text-white" strokeWidth={2.5} />

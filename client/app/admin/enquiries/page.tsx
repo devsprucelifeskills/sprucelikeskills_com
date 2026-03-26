@@ -7,6 +7,7 @@ interface Enquiry {
   _id: string;
   name: string;
   contact: string;
+  courseName?: string;
   message: string;
   status: 'new' | 'contacted' | 'closed';
   createdAt: string;
@@ -118,6 +119,11 @@ export default function EnquiriesPage() {
                       </span>
                     </div>
                     <p className="text-sm text-gray-500 mb-2">📞 {enq.contact}</p>
+                    {enq.courseName && (
+                      <p className="text-xs font-bold text-[#13523f] bg-[#13523f]/5 border border-[#13523f]/10 px-2 py-1 rounded-md mb-2 inline-block">
+                        Course: {enq.courseName}
+                      </p>
+                    )}
                     <p className="text-sm text-gray-600 bg-gray-50 rounded-xl p-3 leading-relaxed">{enq.message}</p>
                     <p className="text-xs text-gray-300 mt-2">
                       {new Date(enq.createdAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}

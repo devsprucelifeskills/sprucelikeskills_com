@@ -95,7 +95,7 @@ export default function PopularCourses() {
                   {/* Card Content */}
                   <div className="p-8 flex flex-col items-center text-center">
                     <div className="w-12 h-1 bg-[#2ecc71] mb-6 rounded-full group-hover:w-20 transition-all"></div>
-                    <h3 className="text-xl font-black text-gray-900 mb-4 leading-tight group-hover:text-[#2ecc71] transition-colors">
+                    <h3 className="text-xl font-black text-gray-900 mb-4 leading-tight   transition-colors">
                       {course.title}
                     </h3>
                     <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 font-medium">
@@ -115,10 +115,10 @@ export default function PopularCourses() {
                     </div>
                   </div>
                   <Link
-                    href={`/purchase/${course.slug}`}
+                    href={`/courses/${course.slug}`}
                     className="bg-[#13523f] text-white text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-[#1a6e4a] transition-colors shadow-lg"
                   >
-                    Apply Now
+                    View Details
                   </Link>
                 </div>
               </div>

@@ -323,13 +323,13 @@ export default function WhatStudentsSays() {
             {/* ══ SECTION 2 — TESTIMONIALS ══ */}
             <section
                 className="relative py-16 overflow-hidden mb-10"
-                 
+
             >
-                 
-                
-                    {/* <TestimonialSlider /> */}
-                    <FeaturableWidget />
-                
+
+
+                {/* <TestimonialSlider /> */}
+                {/* <FeaturableWidget /> */}
+
             </section>
 
         </div>

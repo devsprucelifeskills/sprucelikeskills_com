@@ -30,13 +30,13 @@ export default function BlogSection() {
   const { prev, current, next } = getVisibleBlogs();
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="pb-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Title Section */}
         <ScrollReveal animation="fade-up">
           <div className="flex flex-col items-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 text-center mb-4 tracking-tight">
-              Spruce's <span className="text-[#2ecc71]">Blogs</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 text-center mb-4 tracking-tight font-bold">
+              Spruce's <span className="text-green-900 font-normal">Blogs</span>
             </h2>
             <div className="w-24 h-1.5 bg-[#13523f] rounded-full"></div>
           </div>

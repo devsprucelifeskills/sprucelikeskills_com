@@ -138,7 +138,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Branch Office Card */}
-                <div className="bg-gradient-to-br from-[#126B41] to-[#0f4c32] text-white p-8 rounded-xl shadow-lg">
+                {/* <div className="bg-gradient-to-br from-[#126B41] to-[#0f4c32] text-white p-8 rounded-xl shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-[#13523f] text-white rounded-lg flex items-center justify-center">
                       <MapPin className="w-6 h-6 text-white" />
@@ -148,7 +148,7 @@ export default function ContactPage() {
                   <p className="text-white/90 leading-relaxed text-base font-medium">
                     501, Pinnacle Pride, Lokmanya Bal Gangadhar Tilak Rd, Above Maharashtra Electronics, <strong>Pune, Maharashtra 411030</strong>
                   </p>
-                </div>
+                </div> */}
 
 
                 {/* Contact Details Card */}

@@ -17,11 +17,13 @@ import {
 import { courses, CourseSection } from '@/lib/courses';
 import Header from '@/components/common/Header';
 import CourseFeaturesCards from '@/components/courses/FeatureCard';
+import EnquiryModal from '@/components/common/EnquiryModal';
 
 export default function CourseDetailPage() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('intro');
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
 
   const course = courses.find(c => c.slug === slug);
 
@@ -112,7 +114,7 @@ export default function CourseDetailPage() {
       <Header />
 
       {/* Hero Banner Section */}
-      <div className="relative h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden">
+      <div className="relative h-[350px] md:h-[450px] w-full bg-gray-900 overflow-hidden">
         <img
           src={course.image}
           alt={course.title}
@@ -134,15 +136,15 @@ export default function CourseDetailPage() {
             {course.description.split('.')[0]}. Professional training for a successful career.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
-              href={`/purchase/${course.slug}`}
+            <button
+              onClick={() => setIsEnquiryModalOpen(true)}
               className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
             >
-              Apply Now
-            </Link>
-            <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
-              Download Syllabus
+              Enquire Now
             </button>
+            {/* <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
+              Download Syllabus
+            </button> */}
           </div>
         </div>
       </div>
@@ -153,7 +155,12 @@ export default function CourseDetailPage() {
           <div className="flex items-center gap-2">
             <span className="text-gray-900 font-bold">{course.title}</span>
           </div>
-          <button className="bg-[#13523f] text-white text-xs font-black px-3 py-1.5 rounded-sm">ENQUIRE</button>
+          <button
+            onClick={() => setIsEnquiryModalOpen(true)}
+            className="bg-[#13523f] text-white text-xs font-black px-3 py-1.5 rounded-sm"
+          >
+            ENQUIRE
+          </button>
         </div>
       </div>
 
@@ -218,7 +225,10 @@ export default function CourseDetailPage() {
               <div className="bg-gray-50 p-6 rounded-sm border border-gray-100 text-center">
                 <h4 className="font-bold text-gray-900 mb-2">Need Help?</h4>
                 <p className="text-sm text-gray-600 mb-4">Request a call back from our career expert.</p>
-                <button className="w-full bg-[#0A3D24] hover:bg-black text-white font-bold py-3 rounded-sm transition-colors text-sm uppercase tracking-wide">
+                <button
+                  onClick={() => setIsEnquiryModalOpen(true)}
+                  className="w-full bg-[#0A3D24] hover:bg-black text-white font-bold py-3 rounded-sm transition-colors text-sm uppercase tracking-wide"
+                >
                   Enquire Now
                 </button>
               </div>
@@ -260,23 +270,23 @@ export default function CourseDetailPage() {
                 </div>
 
                 {/* Specific Action Buttons for sections as seen in design */}
-                {(section.id === 'who-can-apply' || section.id === 'industries') && (
-                  <div className="mt-12">
-                    <button className="bg-[#0A3D24] hover:bg-black text-white font-black px-10 py-4 rounded-sm transition-all shadow-xl hover:-translate-y-1 uppercase tracking-wider text-sm">
-                      {section.title}
-                    </button>
-                  </div>
-                )}
+
               </section>
             ))}
 
             {/* Course Features Table Area */}
             {course.featuresTable && (
               <section id="features" className="scroll-mt-32">
-                <div className="flex flex-col items-center mb-12">
-                  <button className="bg-[#0A3D24] text-white font-black px-12 py-4 rounded-sm shadow-xl uppercase tracking-widest text-sm mb-6">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-2 h-10 bg-[#13523f] rounded-sm"></div>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
                     Course & Course Features
-                  </button>
+                  </h2>
+                </div>
+                <div className="flex flex-col items-center mb-12">
+                  {/* <button className="bg-[#0A3D24] text-white font-black px-12 py-4 rounded-sm shadow-xl uppercase tracking-widest text-sm mb-6">
+
+                  </button> */}
                   <p className="text-gray-500 font-medium text-center max-w-lg">
                     Compare our program versions and find the perfect curriculum for your professional goals.
                   </p>
@@ -347,12 +357,12 @@ export default function CourseDetailPage() {
                     <h3 className="text-xl font-black text-[#0A3D24] mb-1">Ready to start your journey?</h3>
                     <p className="text-gray-700 font-medium">Join 5000+ students who have successfully transformed their careers with Spruce.</p>
                   </div>
-                  <Link
-                    href={`/purchase/${course.slug}`}
+                  <button
+                    onClick={() => setIsEnquiryModalOpen(true)}
                     className="bg-[#0A3D24] hover:bg-black text-white px-10 py-4 rounded-sm font-black transition-all shadow-xl uppercase tracking-wider text-sm whitespace-nowrap inline-block"
                   >
-                    Apply for Admission
-                  </Link>
+                    Enquire for Admission
+                  </button>
                 </div>
               </section>
             )}
@@ -381,6 +391,11 @@ export default function CourseDetailPage() {
       </section>
 
       {/* Scroll to Top button could go here or in layout */}
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+        defaultCourseName={course?.title}
+      />
     </div>
   );
 }
@@ -447,12 +462,10 @@ function OtherCoursesSlider({ currentSlug }: { currentSlug: string }) {
                 {c.title}
               </h3>
               <div className="flex items-center justify-between">
-                <span className="text-[#0A3D24] font-black text-sm">
+                {/* <span className="text-[#0A3D24] font-black text-sm">
                   ₹{(c.discountPrice ?? c.price).toLocaleString()}
-                </span>
-                <span className="bg-[#0A3D24] text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-sm">
-                  Apply
-                </span>
+                </span> */}
+
               </div>
             </div>
           </Link>

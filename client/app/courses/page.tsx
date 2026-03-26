@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/common/Header';
+import EnquiryModal from '@/components/common/EnquiryModal';
 import ScrollReveal from '@/components/common/ScrollReveal';
 import { courses } from '@/lib/courses';
 import {
@@ -16,6 +17,14 @@ import {
 } from 'lucide-react';
 
 export default function CoursesPage() {
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+  const [selectedCourseName, setSelectedCourseName] = useState('');
+
+  const handleEnquiry = (courseName: string) => {
+    setSelectedCourseName(courseName);
+    setIsEnquiryModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <Header />
@@ -58,12 +67,12 @@ export default function CoursesPage() {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
+                    {/* 
                     {course.discountPrice && (
                       <div className="absolute top-6 right-6 bg-[#13523f] text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
                         Save {savingsPercentage}%
                       </div>
-                    )}
+                    )} */}
 
                     <div className="absolute bottom-6 left-6">
                       <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/30">
@@ -90,20 +99,8 @@ export default function CoursesPage() {
 
                     <div className="mt-auto">
                       <div className="flex items-end justify-between mb-8">
-                        <div>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Tuition Fee</p>
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-2xl font-black text-gray-900">
-                              ₹{(course.discountPrice || course.price).toLocaleString()}
-                            </span>
-                            {course.discountPrice && (
-                              <span className="text-sm text-gray-300 line-through font-bold">
-                                ₹{course.price.toLocaleString()}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="text-right">
+
+                        <div className="">
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Duration</p>
                           <span className="text-sm font-black text-[#0A3D24]">Variable Modules</span>
                         </div>
@@ -116,13 +113,13 @@ export default function CoursesPage() {
                         >
                           View Details
                         </Link>
-                        <Link
-                          href={`/purchase/${course.slug}`}
+                        <button
+                          onClick={() => handleEnquiry(course.title)}
                           className="flex-1 flex items-center justify-center gap-2 bg-[#0A3D24] hover:bg-black text-white font-black text-xs uppercase tracking-wider py-4 rounded-2xl shadow-lg shadow-[#0A3D24]/10 transition-all hover:-translate-y-1"
                         >
-                          Apply Now
+                          Enquire Now
                           <ChevronRight size={14} />
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -159,6 +156,11 @@ export default function CoursesPage() {
           </ScrollReveal>
         </div>
       </section>
+      <EnquiryModal 
+        isOpen={isEnquiryModalOpen} 
+        onClose={() => setIsEnquiryModalOpen(false)} 
+        defaultCourseName={selectedCourseName}
+      />
     </div>
   );
 }

@@ -61,8 +61,8 @@ export default function Footer() {
                 <li className="flex items-start gap-3">
                   <Phone className="w-5 h-5 shrink-0 mt-0.5 text-white/70" />
                   <span className="leading-relaxed">
-                    +91-9595025757<br />
-                    +91-8999499930
+                    <a href="tel:+919595025757" className="hover:text-white transition-colors">+91-9595025757</a><br />
+                    <a href="tel:+918999499930" className="hover:text-white transition-colors">+91-8999499930</a>
                   </span>
                 </li>
               </ul>
@@ -124,7 +124,10 @@ export default function Footer() {
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-[#1b5c3e] relative">
-            <button onClick={() => setEnquiryOpen(true)} className="bg-[#13523f] text-white text-xs font-bold py-2.5 px-6 hover:bg-[#1a6e4a] transition-colors mb-4 md:mb-0 md:-ml-4">
+            <button 
+              onClick={() => setEnquiryOpen(true)} 
+              className="bg-[#13523f] text-white text-xs font-bold py-2.5 px-6 hover:bg-[#1a6e4a] transition-colors mb-4 md:mb-0 md:-ml-4 md:hidden block"
+            >
               Enquire Now
             </button>
 
