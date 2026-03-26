@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import FeaturableWidget from "./FeaturableWidget";
 
 /* ─────────────────────────────────────────────
    PARTNER DATA  – swap img src with real logos
 ───────────────────────────────────────────── */
 const partners = [
-    
+
     { name: "Augustus Healthcare", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428463/iokrinaz7smub09rszbg.png" },
     { name: "Cognizant", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428535/hcwdtut5a8v5hhliyihi.png" },
-   { name: "GeBBS Healthcare", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428606/vlk5ss1xaipug5rw8oij.png" },
-    { name: "Wipro", img: "https://placehold.co/160x72/ffffff/6A1B9A?text=Wipro" },
+    { name: "GeBBS Healthcare", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428606/vlk5ss1xaipug5rw8oij.png" },
+    // { name: "Wipro", img: "https://placehold.co/160x72/ffffff/6A1B9A?text=Wipro" },
     { name: "TCS", img: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1774428799/vivysotsnnvq1zahpwvn.png" },
 ];
 
@@ -322,14 +323,12 @@ export default function WhatStudentsSays() {
             {/* ══ SECTION 2 — TESTIMONIALS ══ */}
             <section
                 className="relative py-16 overflow-hidden mb-10"
-                style={{
-                    background:
-                        "linear-gradient(160deg, rgb(16,75,57) 0%, rgb(24,98,70) 50%, rgb(19,82,63) 100%)",
-                }}
+
             >
-                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+                <div className="absolute inset-0   pointer-events-none" />
                 <div className="relative max-w-6xl mx-auto px-6">
-                    <TestimonialSlider />
+                    {/* <TestimonialSlider /> */}
+                    <FeaturableWidget />
                 </div>
             </section>
 

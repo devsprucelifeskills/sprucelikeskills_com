@@ -8,6 +8,7 @@ import CourseTest from "@/components/homepage/CourseTest";
 import BlogSection from "@/components/homepage/BlogSection";
 import HireFromSpruce from "@/components/homepage/HireFromSpruce";
 import WhatStudentsSays from "@/components/homepage/WhatStudentsSays";
+import FeaturableWidget from "@/components/homepage/FeaturableWidget";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <BlogSection />
       <HireFromSpruce />
       <WhatStudentsSays />
+      {/* <FeaturableWidget /> */}
     </div>
   );
 }
