@@ -67,7 +67,11 @@ export default function AdminSidebar() {
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = href === '/admin' ? pathname === '/admin' : pathname.startsWith(href);
+          const isActive = href === '/admin' 
+            ? pathname === '/admin' 
+            : href === '/admin/enrollments'
+                ? pathname === '/admin/enrollments' || pathname.startsWith('/admin/enrollments/new')
+                : pathname.startsWith(href);
           return (
             <Link
               key={href}

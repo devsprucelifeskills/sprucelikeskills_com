@@ -1,19 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { 
-    FileText, 
-    Search, 
-    CheckCircle2, 
-    Clock, 
-    ChevronRight, 
-    User, 
-    Mail, 
+import {
+    FileText,
+    Search,
+    CheckCircle2,
+    Clock,
+    ChevronRight,
+    User,
+    Mail,
     Phone,
     MoreVertical,
     Check,
     X
 } from 'lucide-react';
+import { courses } from '@/lib/courses';
 
 interface Application {
     _id: string;
@@ -56,38 +57,99 @@ export default function AdminApplicationsPage() {
         fetchApplications();
     }, []);
 
-    const updateStatus = async (id: string, status: string) => {
+    const updateStatus = async (app: Application, status: string) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${backend}/api/v2/applications/admin/${id}`, {
+
+            if (status === 'enrolled') {
+                if (!confirm(`Marking ${app.name} as Enrolled will automatically generate a full-payment invoice. Continue?`)) {
+                    return; // abort
+                }
+
+                // 1. Find User
+                const userRes = await fetch(`${backend}/api/v2/admin/users?search=${encodeURIComponent(app.email)}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const userData = await userRes.json();
+                if (!userData.success || userData.users.length === 0) {
+                    alert("Cannot enroll: Student has not registered an account with this email.");
+                    return;
+                }
+                const userId = userData.users[0]._id;
+
+                // 2. Find Course Fee
+                let totalFee = 0;
+                // Check static courses
+                const staticCourse = courses.find((c: any) => c.slug === app.courseSlug);
+                if (staticCourse) totalFee = staticCourse.price || 0;
+
+                // Check CourseSettings from DB
+                try {
+                    const settingsRes = await fetch(`${backend}/api/v2/enrollments/admin/course-settings/${app.courseSlug}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    const settingsData = await settingsRes.json();
+                    if (settingsData.success && settingsData.settings) {
+                        totalFee = settingsData.settings.defaultTotalFee || totalFee;
+                    }
+                } catch (e) { /* ignore */ }
+
+                // 3. Setup Enrollment (1 installment)
+                const setupRes = await fetch(`${backend}/api/v2/enrollments/admin/setup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                    body: JSON.stringify({
+                        userId,
+                        courseSlug: app.courseSlug,
+                        courseTitle: app.courseTitle,
+                        mode: 'auto',
+                        totalFee: totalFee,
+                        discountAmount: 0,
+                        discountTitle: 'Scholarship',
+                        installmentsCount: 1, // Full payment
+                        startDate: new Date().toISOString().split('T')[0],
+                        intervalDays: 30
+                    })
+                });
+
+                const setupData = await setupRes.json();
+                if (!setupData.success) {
+                    alert(`Failed to create enrollment: ${setupData.message}`);
+                    return;
+                }
+            }
+
+            // Finally, update the application status to whatever they chose
+            const res = await fetch(`${backend}/api/v2/applications/admin/${app._id}`, {
                 method: 'PUT',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}` 
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ status })
             });
             const data = await res.json();
             if (data.success) {
-                setApplications(prev => prev.map(app => 
-                    app._id === id ? { ...app, status: status as any } : app
+                setApplications(prev => prev.map(a =>
+                    a._id === app._id ? { ...a, status: status as any } : a
                 ));
             }
         } catch (err) {
             console.error("Error updating status:", err);
+            alert("An error occurred while updating status.");
         }
     };
 
     const filteredApplications = applications.filter(app => {
-        const matchesSearch = app.name.toLowerCase().includes(search.toLowerCase()) || 
-                             app.email.toLowerCase().includes(search.toLowerCase()) ||
-                             app.courseTitle.toLowerCase().includes(search.toLowerCase());
-        
+        const matchesSearch = app.name.toLowerCase().includes(search.toLowerCase()) ||
+            app.email.toLowerCase().includes(search.toLowerCase()) ||
+            app.courseTitle.toLowerCase().includes(search.toLowerCase());
+
         // Only show enrolled or rejected students if explicitly selected from the dropdown
-        const matchesStatus = selectedStatus === 'all' 
-            ? !['enrolled', 'rejected'].includes(app.status) 
+        const matchesStatus = selectedStatus === 'all'
+            ? !['enrolled', 'rejected'].includes(app.status)
             : app.status === selectedStatus;
-            
+
         return matchesSearch && matchesStatus;
     });
 
@@ -128,15 +190,15 @@ export default function AdminApplicationsPage() {
                 <div className="flex items-center gap-3 bg-white p-2 rounded-2xl shadow-sm border border-gray-100">
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                        <input 
-                            type="text" 
-                            placeholder="Search applications..." 
+                        <input
+                            type="text"
+                            placeholder="Search applications..."
                             className="pl-12 pr-6 py-3 bg-gray-50 rounded-xl outline-none border-2 border-transparent focus:border-[#FDB813] focus:bg-white transition-all text-sm font-bold min-w-[300px]"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    <select 
+                    <select
                         className="px-6 py-3 bg-gray-50 rounded-xl outline-none border-2 border-transparent focus:border-[#FDB813] focus:bg-white transition-all text-sm font-bold text-gray-600 cursor-pointer"
                         value={selectedStatus}
                         onChange={(e) => setSelectedStatus(e.target.value)}
@@ -151,13 +213,13 @@ export default function AdminApplicationsPage() {
             </div>
 
             {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[1, 2, 3].map(i => (
-                        <div key={i} className="bg-white rounded-[40px] p-8 border border-gray-100 shadow-sm animate-pulse h-64"></div>
-                    ))}
+                <div className="bg-white rounded-[40px] border border-gray-100 shadow-sm p-8">
+                    <div className="animate-pulse flex flex-col gap-4">
+                        {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-16 bg-gray-50 rounded-2xl w-full"></div>)}
+                    </div>
                 </div>
             ) : filteredApplications.length === 0 ? (
-                <div className="bg-white rounded-[40px] p-20 text-center border-2 border-dashed border-gray-100">
+                <div className="bg-white rounded-[40px] p-20 text-center border border-gray-100 shadow-sm">
                     <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <FileText size={40} className="text-gray-300" />
                     </div>
@@ -165,68 +227,81 @@ export default function AdminApplicationsPage() {
                     <p className="text-gray-400 font-medium font-sans">We couldn't find any applications matching your criteria.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredApplications.map((app) => (
-                        <div key={app._id} className="group bg-white rounded-[40px] p-1 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-[#0A3D24]/5 transition-all duration-500 overflow-hidden flex flex-col">
-                            <div className="bg-gray-50/50 p-8 rounded-[36px] flex-1">
-                                <div className="flex justify-between items-start mb-6">
-                                    <div className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ${getStatusClass(app.status)}`}>
-                                        {getStatusIcon(app.status)}
-                                        {app.status}
-                                    </div>
-                                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                                        {new Date(app.createdAt).toLocaleDateString()}
-                                    </div>
-                                </div>
+                <div className="bg-white rounded-[40px] border border-gray-100 shadow-sm overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-gray-50/50 border-b border-gray-100">
+                                    <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Applicant</th>
+                                    <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Course</th>
+                                    <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Date</th>
+                                    <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</th>
+                                    <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {filteredApplications.map((app) => (
+                                    <tr key={app._id} className="hover:bg-gray-50/50 transition-colors group">
+                                        <td className="p-6">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-[#0A3D24] font-black text-xs">
+                                                    {app.name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <p className="font-black text-gray-900 text-sm whitespace-nowrap group-hover:text-[#0A3D24] transition-colors">{app.name}</p>
+                                                    <div className="flex items-center gap-3 mt-1">
+                                                        <span className="text-[10px] text-gray-400 font-bold flex items-center gap-1"><Mail size={10} /> {app.email}</span>
+                                                        <span className="text-[10px] text-gray-400 font-bold flex items-center gap-1"><Phone size={10} /> {app.contact}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="p-6">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center text-gray-400">
+                                                    <GraduationCap size={14} />
+                                                </div>
+                                                <p className="font-bold text-[#0A3D24] text-sm whitespace-nowrap">{app.courseTitle}</p>
+                                            </div>
+                                        </td>
+                                        <td className="p-6">
+                                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest whitespace-nowrap">
+                                                {new Date(app.createdAt).toLocaleDateString()}
+                                            </p>
+                                        </td>
+                                        <td className="p-6">
+                                            <div className={`px-3 py-1.5 rounded-xl border text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-2 w-fit whitespace-nowrap ${getStatusClass(app.status)}`}>
+                                                {getStatusIcon(app.status)}
+                                                {app.status}
+                                            </div>
+                                        </td>
+                                        <td className="p-6">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <select
+                                                    className="bg-white border border-gray-100 text-gray-600 text-[10px] font-black uppercase tracking-widest px-3 py-2 rounded-xl outline-none focus:ring-2 focus:ring-[#0A3D24]/10 transition-all cursor-pointer shadow-sm hover:border-gray-300"
+                                                    value={app.status}
+                                                    onChange={(e) => updateStatus(app, e.target.value)}
+                                                >
+                                                    <option value="pending">Pending</option>
+                                                    <option value="reviewed">Reviewed</option>
+                                                    <option value="enrolled">Enrolled</option>
+                                                    <option value="rejected">Rejected</option>
+                                                </select>
 
-                                <h3 className="text-2xl font-black text-gray-900 mb-6 leading-tight group-hover:text-[#0A3D24] transition-colors">
-                                    {app.name}
-                                </h3>
-
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-center gap-3 text-gray-600">
-                                        <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm text-gray-400">
-                                            <Mail size={14} />
-                                        </div>
-                                        <span className="text-sm font-bold truncate">{app.email}</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-gray-600">
-                                        <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm text-gray-400">
-                                            <Phone size={14} />
-                                        </div>
-                                        <span className="text-sm font-bold">{app.contact}</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-gray-600">
-                                        <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm text-gray-400">
-                                            <GraduationCap size={14} />
-                                        </div>
-                                        <span className="text-sm font-bold text-[#0A3D24]">{app.courseTitle}</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-2 pt-2">
-                                    <select 
-                                        className="flex-1 bg-white border border-gray-200 text-gray-600 text-[10px] font-black uppercase tracking-widest px-4 py-3 rounded-xl outline-none focus:border-[#FDB813] transition-all cursor-pointer"
-                                        value={app.status}
-                                        onChange={(e) => updateStatus(app._id, e.target.value)}
-                                    >
-                                        <option value="pending">Mark Pending</option>
-                                        <option value="reviewed">Mark Reviewed</option>
-                                        <option value="enrolled">Mark Enrolled</option>
-                                        <option value="rejected">Mark Rejected</option>
-                                    </select>
-                                    
-                                    <a 
-                                        href={`/admin/enrollments/new?appId=${app._id}&name=${encodeURIComponent(app.name)}&email=${encodeURIComponent(app.email)}&course=${encodeURIComponent(app.courseTitle)}&slug=${app.courseSlug}`}
-                                        className="bg-[#0A3D24] hover:bg-black text-white p-3 rounded-xl shadow-lg transition-all hover:scale-105"
-                                        title="Setup Enrollment"
-                                    >
-                                        <Plus size={18} />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                                                <a
+                                                    href={`/admin/enrollments/new?appId=${app._id}&name=${encodeURIComponent(app.name)}&email=${encodeURIComponent(app.email)}&course=${encodeURIComponent(app.courseTitle)}&slug=${app.courseSlug}`}
+                                                    className="bg-[#0A3D24] hover:bg-[#0A3D24]/90 text-white p-2.5 rounded-xl shadow-md transition-all hover:scale-105 flex items-center justify-center"
+                                                    title="Setup Enrollment"
+                                                >
+                                                    EMI Option
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>
@@ -235,16 +310,16 @@ export default function AdminApplicationsPage() {
 
 // Simple icons not imported above
 const GraduationCap = ({ size, className }: { size?: number, className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width={size || 24} 
-        height={size || 24} 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 24}
+        height={size || 24}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className={className}
     >
         <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -253,16 +328,16 @@ const GraduationCap = ({ size, className }: { size?: number, className?: string 
 );
 
 const Plus = ({ size, className }: { size?: number, className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width={size || 24} 
-        height={size || 24} 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 24}
+        height={size || 24}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className={className}
     >
         <line x1="12" y1="5" x2="12" y2="19" />

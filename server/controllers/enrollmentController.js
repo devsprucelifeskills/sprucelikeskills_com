@@ -204,6 +204,30 @@ export const toggleBlockStatus = async (req, res) => {
     }
 };
 
+// @desc    Explicitly unblock a student (removes manual & auto block)
+// @route   PUT /api/v2/admin/enrollments/:id/unblock
+// @access  Private/Admin
+export const unblockStudent = async (req, res) => {
+    try {
+        const enrollment = await Enrollment.findById(req.params.id);
+        if (!enrollment) return res.status(404).json({ success: false, message: "Enrollment not found" });
+
+        enrollment.isBlocked = false;
+        enrollment.isAutoBlockEnabled = false;
+        await enrollment.save();
+
+        res.status(200).json({ 
+            success: true, 
+            message: "Student unblocked successfully",
+            isBlocked: false,
+            isAutoBlockEnabled: false
+        });
+    } catch (error) {
+        console.error("Error in unblockStudent:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 // @desc    Toggle auto-block status
 // @route   PUT /api/v2/admin/enrollments/:id/toggle-auto-block
 // @access  Private/Admin
@@ -222,6 +246,67 @@ export const toggleAutoBlockStatus = async (req, res) => {
         });
     } catch (error) {
         console.error("Error in toggleAutoBlockStatus:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+// @desc    Update EMI schedule for remaining balance
+// @route   PUT /api/v2/admin/enrollments/:id/update-emi
+// @access  Private/Admin
+export const updateEmiSchedule = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { newInstallments } = req.body;
+
+        if (!Array.isArray(newInstallments) || newInstallments.length === 0) {
+            return res.status(400).json({ success: false, message: "New installments array is required" });
+        }
+
+        const enrollment = await Enrollment.findById(id);
+        if (!enrollment) return res.status(404).json({ success: false, message: "Enrollment not found" });
+
+        // Calculate paid amount
+        const paidInstallments = enrollment.installments.filter(inst => inst.status === 'paid');
+        const paidAmount = paidInstallments.reduce((sum, inst) => sum + Number(inst.amount), 0);
+        
+        // Calculate remaining balance
+        const balance = enrollment.payableAmount - paidAmount;
+
+        // Calculate sum of new installments
+        const newTotal = newInstallments.reduce((sum, inst) => sum + Number(inst.amount), 0);
+
+        // Validate that newTotal makes sense against balance
+        if (Math.abs(newTotal - balance) > 1) { 
+            return res.status(400).json({ 
+                success: false, 
+                message: `Sum of new installments (${newTotal}) must exactly equal the remaining balance (${balance})` 
+            });
+        }
+
+        // Format new installments
+        const formattedNewInstallments = newInstallments.map(inst => ({
+            amount: Number(inst.amount),
+            dueDate: new Date(inst.dueDate),
+            status: 'pending'
+        }));
+
+        // Replace pending installments with the new ones, keeping paid ones intact
+        enrollment.installments = [...paidInstallments, ...formattedNewInstallments];
+
+        // If it was completed but now has new pending payments, switch back to active
+        if (enrollment.status === 'completed' && formattedNewInstallments.length > 0) {
+            enrollment.status = 'active';
+        }
+
+        await enrollment.save();
+
+        res.status(200).json({ 
+            success: true, 
+            message: "EMI schedule updated successfully",
+            enrollment 
+        });
+
+    } catch (error) {
+        console.error("Error in updateEmiSchedule:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };

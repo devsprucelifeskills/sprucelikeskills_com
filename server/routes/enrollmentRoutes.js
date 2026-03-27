@@ -8,7 +8,9 @@ import {
     getMyEnrollments,
     getCourseSettings,
     createInstallmentOrder,
-    verifyInstallmentPayment
+    verifyInstallmentPayment,
+    updateEmiSchedule,
+    unblockStudent
 } from '../controllers/enrollmentController.js';
 
 
@@ -38,8 +40,14 @@ router.put('/admin/:id/toggle-block', protect, authorize('admin'), toggleBlockSt
 // Admin: Toggle auto-block status
 router.put('/admin/:id/toggle-auto-block', protect, authorize('admin'), toggleAutoBlockStatus);
 
+// Admin: Unblock student (disables both manual and auto blocks)
+router.put('/admin/:id/unblock', protect, authorize('admin'), unblockStudent);
+
 // Admin: Get course settings
 router.get('/admin/course-settings/:slug', protect, authorize('admin'), getCourseSettings);
+
+// Admin: Update EMI Schedule (Remaining Balance)
+router.put('/admin/:id/update-emi', protect, authorize('admin'), updateEmiSchedule);
 
 
 export default router;
