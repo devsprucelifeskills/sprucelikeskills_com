@@ -42,7 +42,7 @@ export default function PopularCourses() {
           <div className="flex justify-between items-end mb-10">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-1.5 h-8 bg-[#eab308]"></div>
+                <div className="w-1.5 h-8 bg-[#13523f]"></div>
                 <h2 className="text-3xl sm:text-4xl text-black">
                   <span className="font-extrabold">Popular</span>{" "}
                   <span className="font-normal text-gray-800">Courses</span>
@@ -55,17 +55,17 @@ export default function PopularCourses() {
             <div className="hidden sm:flex gap-2">
               <button
                 onClick={scrollLeft}
-                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-all rounded shadow-sm"
+                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-all rounded shadow-sm"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-6 h-6 text-black" strokeWidth={3} />
+                <ChevronLeft className="w-6 h-6 text-white" strokeWidth={3} />
               </button>
               <button
                 onClick={scrollRight}
-                className="bg-[#eab308] p-2 hover:bg-[#ca8a04] transition-all rounded shadow-sm"
+                className="bg-[#13523f] p-2 hover:bg-[#1a6e4a] transition-all rounded shadow-sm"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-6 h-6 text-black" strokeWidth={3} />
+                <ChevronRight className="w-6 h-6 text-white" strokeWidth={3} />
               </button>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function PopularCourses() {
                   {/* Card Content */}
                   <div className="p-8 flex flex-col items-center text-center">
                     <div className="w-12 h-1 bg-[#2ecc71] mb-6 rounded-full group-hover:w-20 transition-all"></div>
-                    <h3 className="text-xl font-black text-gray-900 mb-4 leading-tight group-hover:text-[#2ecc71] transition-colors">
+                    <h3 className="text-xl font-black text-gray-900 mb-4 leading-tight   transition-colors">
                       {course.title}
                     </h3>
                     <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 font-medium">
@@ -123,17 +123,16 @@ export default function PopularCourses() {
                     <div className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1.5">AAPC Partner</div>
                     <div className="flex gap-0.5">
                       {[1, 2, 3, 4, 5].map((_, starIdx) => (
-                        <Star key={starIdx} className={`w-3.5 h-3.5 ${starIdx < 4 ? 'fill-[#eab308] text-[#eab308]' : 'fill-gray-100 text-gray-100'}`} />
+                        <Star key={starIdx} className={`w-3.5 h-3.5 ${starIdx < 4 ? 'fill-[#13523f] text-[#13523f]' : 'fill-gray-100 text-gray-100'}`} />
                       ))}
                     </div>
                   </div>
-                  <button
-                    onClick={() => handleApply(course)}
-                    className="bg-[#eab308] text-black text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-[#ca8a04] transition-colors shadow-lg"
+                  <Link
+                    href={`/courses/${course.slug}`}
+                    className="bg-[#13523f] text-white text-[10px] font-black uppercase tracking-widest py-3 px-6 rounded-sm hover:bg-[#1a6e4a] transition-colors shadow-lg"
                   >
-                    Apply Now
-                  </button>
-
+                    View Details
+                  </Link>
                 </div>
               </div>
             </ScrollReveal>
@@ -141,9 +140,9 @@ export default function PopularCourses() {
         </div>
       </div>
       {selectedCourse && (
-        <ApplyModal 
-          isOpen={isApplyModalOpen} 
-          onClose={() => setIsApplyModalOpen(false)} 
+        <ApplyModal
+          isOpen={isApplyModalOpen}
+          onClose={() => setIsApplyModalOpen(false)}
           courseTitle={selectedCourse.title}
           courseSlug={selectedCourse.slug}
         />

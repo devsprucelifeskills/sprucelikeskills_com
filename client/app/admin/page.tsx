@@ -90,7 +90,7 @@ export default function AdminDashboard() {
       label: 'Enquiries',
       value: stats?.enquiries ?? null,
       icon: MessageSquare,
-      color: 'bg-yellow-50 text-yellow-600',
+      color: 'bg-[#13523f]/10 text-[#13523f]',
       badge: stats?.newEnquiries,
     },
     {
@@ -124,8 +124,8 @@ export default function AdminDashboard() {
       {/* Quick tips */}
       <div className="bg-[#0A3D24] rounded-2xl p-6 text-white">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-[#FDB813] rounded-lg flex items-center justify-center">
-            <Bell size={16} className="text-[#0A3D24]" />
+          <div className="w-8 h-8 bg-[#13523f] rounded-lg flex items-center justify-center">
+            <Bell size={16} className="text-white" />
           </div>
           <h2 className="font-bold text-lg">Quick Actions</h2>
         </div>

@@ -2,7 +2,7 @@ import Enquiry from '../models/Enquiry.js';
 
 export const createEnquiry = async (req, res) => {
     try {
-        const { name, contact, message } = req.body;
+        const { name, contact, message, courseName } = req.body;
 
         if (!name || !contact || !message) {
             return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -11,7 +11,8 @@ export const createEnquiry = async (req, res) => {
         const newEnquiry = new Enquiry({
             name,
             contact,
-            message
+            message,
+            courseName: courseName || ''
         });
 
         await newEnquiry.save();

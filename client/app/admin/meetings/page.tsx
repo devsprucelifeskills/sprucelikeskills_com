@@ -72,7 +72,7 @@ export default function MeetingsPage() {
     try {
       const token = localStorage.getItem('token');
       const backend = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
-      
+
       const payload = {
         ...editingMeeting,
         startTime: new Date(editingMeeting.startTime as string).toISOString()
@@ -133,7 +133,7 @@ export default function MeetingsPage() {
         </div>
         <button
           onClick={() => setEditingMeeting({ courseId: '', courseTitle: '', meetingLink: '', startTime: '' })}
-          className="flex items-center gap-2 bg-[#0A3D24] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-black transition-all"
+          className="flex items-center gap-2 bg-[#13523f] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#1a6e4a] transition-all"
         >
           <Plus size={20} />
           Add New Meeting
@@ -141,9 +141,8 @@ export default function MeetingsPage() {
       </div>
 
       {status && (
-        <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 font-semibold ${
-          status.type === 'success' ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'
-        }`}>
+        <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 font-semibold ${status.type === 'success' ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'
+          }`}>
           {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
           {status.message}
         </div>
@@ -167,14 +166,14 @@ export default function MeetingsPage() {
                       onChange={(e) => {
                         const selected = courseOptions.find(c => c.courseId === e.target.value);
                         if (selected) {
-                          setEditingMeeting({ 
-                            ...editingMeeting, 
-                            courseId: selected.courseId, 
-                            courseTitle: selected.courseTitle 
+                          setEditingMeeting({
+                            ...editingMeeting,
+                            courseId: selected.courseId,
+                            courseTitle: selected.courseTitle
                           });
                         }
                       }}
-                      className="w-full appearance-none bg-white border border-gray-300 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/20 font-semibold text-gray-900 cursor-pointer shadow-sm"
+                      className="w-full appearance-none bg-white border border-gray-300 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#13523f]/20 font-semibold text-gray-900 cursor-pointer shadow-sm"
                       required
                     >
                       <option value="" disabled>Select a course...</option>
@@ -193,8 +192,8 @@ export default function MeetingsPage() {
                   </div>
                 </div>
                 {editingMeeting.courseId && (
-                  <div className="bg-[#0A3D24]/5 p-4 rounded-xl border border-[#0A3D24]/10">
-                    <p className="text-[10px] font-black uppercase text-[#0A3D24] tracking-widest mb-1">Selected Course ID</p>
+                  <div className="bg-[#13523f]/5 p-4 rounded-xl border border-[#13523f]/10">
+                    <p className="text-[10px] font-black uppercase text-[#13523f] tracking-widest mb-1">Selected Course ID</p>
                     <p className="text-sm font-mono text-gray-700 font-bold truncate">{editingMeeting.courseId}</p>
                   </div>
                 )}
@@ -220,7 +219,7 @@ export default function MeetingsPage() {
                       type="datetime-local"
                       value={editingMeeting.startTime ? new Date(new Date(editingMeeting.startTime).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
                       onChange={(e) => setEditingMeeting({ ...editingMeeting, startTime: e.target.value })}
-                      className="w-full bg-white border border-gray-300 rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/20 font-semibold text-gray-900 shadow-sm"
+                      className="w-full bg-white border border-gray-300 rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#13523f]/20 font-semibold text-gray-900 shadow-sm"
                       required
                     />
                   </div>
@@ -250,7 +249,7 @@ export default function MeetingsPage() {
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             {loading ? (
               <div className="flex items-center justify-center py-20">
-                <div className="w-8 h-8 border-4 border-[#0A3D24] border-t-transparent rounded-full animate-spin" />
+                <div className="w-8 h-8 border-4 border-[#13523f] border-t-transparent rounded-full animate-spin" />
               </div>
             ) : meetings.length === 0 ? (
               <div className="text-center py-20 text-gray-400">
@@ -278,7 +277,7 @@ export default function MeetingsPage() {
                         <td className="px-6 py-4">
                           <div className="flex flex-col gap-1">
                             <span className="flex items-center gap-1.5 text-gray-700 font-semibold">
-                              <Calendar size={14} className="text-[#0A3D24]" />
+                              <Calendar size={14} className="text-[#13523f]" />
                               {new Date(m.startTime).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}
                             </span>
                             <span className="flex items-center gap-1.5 text-gray-400 text-xs font-bold">
@@ -302,7 +301,7 @@ export default function MeetingsPage() {
                           <div className="flex items-center gap-3">
                             <button
                               onClick={() => setEditingMeeting(m)}
-                              className="p-2 text-gray-400 hover:text-[#0A3D24] hover:bg-gray-50 rounded-lg transition-colors"
+                              className="p-2 text-gray-400 hover:text-[#13523f] hover:bg-gray-50 rounded-lg transition-colors"
                               title="Edit"
                             >
                               <Pencil size={18} />

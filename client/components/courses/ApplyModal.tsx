@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { X, CheckCircle2, Loader2, Send } from 'lucide-react';
+import { X, CheckCircle2, Loader2, Send, User, Mail, Phone, GraduationCap } from 'lucide-react';
 
 interface ApplyModalProps {
     isOpen: boolean;
@@ -38,12 +38,30 @@ export default function ApplyModal({ isOpen, onClose, courseTitle, courseSlug }:
         }
     }, [isOpen]);
 
+    // Lock body scroll when modal is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+
+        // Basic phone validation
+        const phoneRegex = /^[+]?[\d\s-]{10,15}$/;
+        if (!phoneRegex.test(formData.contact.replace(/\s/g, ''))) {
+            setError('Please enter a valid contact number.');
+            setLoading(false);
+            return;
+        }
 
         try {
             const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
@@ -80,98 +98,132 @@ export default function ApplyModal({ isOpen, onClose, courseTitle, courseSlug }:
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity">
-            <div className="bg-white rounded-[40px] w-full max-w-lg overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-300">
-                <button 
-                    onClick={onClose}
-                    className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-900"
-                >
-                    <X size={24} />
-                </button>
+        <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+        >
+            <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-300">
+
+                {/* Header strip */}
+                <div className="bg-[#0A3D24] px-8 pt-8 pb-6 relative">
+                    <button
+                        onClick={onClose}
+                        className="absolute top-4 right-4 p-1.5 hover:bg-white/10 rounded-full transition-colors text-white/60 hover:text-white"
+                    >
+                        <X size={20} />
+                    </button>
+
+                    <div className="flex items-center gap-2 mb-3">
+                        <GraduationCap className="w-5 h-5 text-[#2ecc71]" />
+                        <span className="text-[#2ecc71] text-xs font-black uppercase tracking-widest">
+                            Course Application
+                        </span>
+                    </div>
+                    <h3 className="text-2xl font-black text-white leading-tight">
+                        Apply for {courseTitle}
+                    </h3>
+                    <p className="text-white/60 mt-2 text-sm font-medium">
+                        Fill in your details and we'll get back to you with next steps.
+                    </p>
+                </div>
 
                 {success ? (
-                    <div className="p-12 text-center">
-                        <div className="w-20 h-20 bg-[#2ecc71]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <CheckCircle2 size={40} className="text-[#2ecc71]" />
+                    <div className="p-10 text-center">
+                        <div className="w-16 h-16 bg-[#2ecc71]/10 rounded-full flex items-center justify-center mx-auto mb-5">
+                            <CheckCircle2 size={32} className="text-[#2ecc71]" />
                         </div>
-                        <h3 className="text-3xl font-black text-gray-900 mb-4">Success!</h3>
-                        <p className="text-gray-500 font-medium text-lg leading-relaxed">
-                            Your application for <span className="text-[#0A3D24] font-bold">{courseTitle}</span> has been submitted successfully. Our team will contact you shortly!
+                        <h3 className="text-2xl font-black text-gray-900 mb-3">Application Submitted!</h3>
+                        <p className="text-gray-500 font-medium leading-relaxed">
+                            Your application for <span className="text-[#0A3D24] font-bold">{courseTitle}</span> has been received. Our team will contact you shortly!
                         </p>
                     </div>
                 ) : (
-                    <div className="p-8 md:p-12">
-                        <div className="mb-8">
-                            <span className="inline-block px-4 py-1.5 bg-[#0A3D24]/5 text-[#0A3D24] rounded-full text-xs font-black uppercase tracking-wider mb-4">
-                                Course Application
-                            </span>
-                            <h3 className="text-3xl font-black text-gray-900 leading-tight">
-                                Apply for {courseTitle}
-                            </h3>
-                            <p className="text-gray-500 mt-2 font-medium">
-                                Fill in your details below and we'll get back to you with the next steps.
-                            </p>
+                    <form onSubmit={handleSubmit} className="p-8 space-y-5">
+
+                        {/* Full Name */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                                Full Name
+                            </label>
+                            <div className="relative">
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
+                                    required
+                                    type="text"
+                                    placeholder="Enter your full name"
+                                    className="w-full bg-gray-50 border border-gray-200 focus:border-[#0A3D24] focus:ring-2 focus:ring-[#0A3D24]/10 focus:bg-white pl-11 pr-5 py-3.5 rounded-xl outline-none transition-all font-semibold text-gray-900 text-sm"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
+                            </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Full Name</label>
-                                <input 
+                        {/* Email */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                                Email Address
+                            </label>
+                            <div className="relative">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
                                     required
-                                    type="text" 
-                                    placeholder="Enter your name"
-                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all font-bold text-gray-900 shadow-sm"
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Email Address</label>
-                                <input 
-                                    required
-                                    type="email" 
+                                    type="email"
                                     placeholder="name@example.com"
-                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all font-bold text-gray-900 shadow-sm"
+                                    className="w-full bg-gray-50 border border-gray-200 focus:border-[#0A3D24] focus:ring-2 focus:ring-[#0A3D24]/10 focus:bg-white pl-11 pr-5 py-3.5 rounded-xl outline-none transition-all font-semibold text-gray-900 text-sm"
                                     value={formData.email}
-                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
-                            <div>
-                                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Contact Number</label>
-                                <input 
+                        </div>
+
+                        {/* Contact Number */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                                Contact Number
+                            </label>
+                            <div className="relative">
+                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
                                     required
-                                    type="tel" 
+                                    type="tel"
                                     placeholder="+91 XXXXX XXXXX"
-                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all font-bold text-gray-900 shadow-sm"
+                                    className="w-full bg-gray-50 border border-gray-200 focus:border-[#0A3D24] focus:ring-2 focus:ring-[#0A3D24]/10 focus:bg-white pl-11 pr-5 py-3.5 rounded-xl outline-none transition-all font-semibold text-gray-900 text-sm"
                                     value={formData.contact}
-                                    onChange={(e) => setFormData({...formData, contact: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                                 />
                             </div>
+                        </div>
 
-                            {error && (
-                                <p className="text-red-500 text-sm font-bold bg-red-50 p-4 rounded-2xl border border-red-100 animate-shake">
-                                    {error}
-                                </p>
+                        {/* Error Message */}
+                        {error && (
+                            <div className="flex items-start gap-3 text-red-600 text-sm font-semibold bg-red-50 p-4 rounded-xl border border-red-100">
+                                <X className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                <span>{error}</span>
+                            </div>
+                        )}
+
+                        {/* Submit Button */}
+                        <button
+                            disabled={loading}
+                            className="w-full bg-[#0A3D24] hover:bg-[#072d1a] text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#0A3D24]/15 flex items-center justify-center gap-2.5 text-sm mt-2 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                        >
+                            {loading ? (
+                                <>
+                                    <Loader2 className="animate-spin" size={18} />
+                                    Processing...
+                                </>
+                            ) : (
+                                <>
+                                    Submit Application
+                                    <Send size={16} />
+                                </>
                             )}
+                        </button>
 
-                            <button 
-                                disabled={loading}
-                                className="w-full bg-[#0A3D24] hover:bg-black text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-[#0A3D24]/10 flex items-center justify-center gap-3 uppercase tracking-widest text-sm mt-4 disabled:opacity-50"
-                            >
-                                {loading ? (
-                                    <>
-                                        <Loader2 className="animate-spin" size={20} />
-                                        Processing...
-                                    </>
-                                ) : (
-                                    <>
-                                        Submit Application
-                                        <Send size={18} />
-                                    </>
-                                )}
-                            </button>
-                        </form>
-                    </div>
+                        <p className="text-center text-xs text-gray-400 font-medium pt-1">
+                            By applying, you agree to be contacted by our admissions team.
+                        </p>
+                    </form>
                 )}
             </div>
         </div>

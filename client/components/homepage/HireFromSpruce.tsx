@@ -260,7 +260,7 @@ export default function HireFromSpruce() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-[#eab308] hover:bg-[#ca8a04] disabled:opacity-60 text-black font-bold py-3.5 text-base rounded-sm transition-colors mt-2 flex items-center justify-center gap-2"
+                    className="w-full bg-[#13523f] hover:bg-[#1a6e4a] disabled:opacity-60 text-white font-bold py-3.5 text-base rounded-sm transition-colors mt-2 flex items-center justify-center gap-2"
                   >
                     {isLoading ? <><Loader2 className="animate-spin" size={18} /> Submitting...</> : 'Submit Enquiry'}
                   </button>

@@ -49,8 +49,8 @@ export default function AdminSidebar() {
       {/* Logo */}
       {/* <div className="px-6 py-5 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#FDB813] flex items-center justify-center shrink-0">
-            <span className="text-[#0A3D24] font-black text-sm">S</span>
+          <div className="w-9 h-9 rounded-xl bg-[#13523f] flex items-center justify-center shrink-0">
+            <span className="text-white font-black text-sm">S</span>
           </div>
           <div>
             <p className="font-bold text-white text-sm leading-tight">Spruce Lifeskills</p>
@@ -78,8 +78,8 @@ export default function AdminSidebar() {
               href={href}
               onClick={() => setOpen(false)}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${isActive
-                  ? 'bg-[#FDB813] text-[#0A3D24]'
-                  : 'text-white/70 hover:bg-white/10 hover:text-white'
+                ? 'bg-[#13523f] text-white'
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
                 }`}
             >
               <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />

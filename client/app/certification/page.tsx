@@ -40,23 +40,23 @@ export default function CertificationPage() {
           <div className="flex items-center gap-3 mb-6 text-white/70 text-sm font-medium">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#FDB813] font-bold">Certification</span>
+            <span className="text-[#13523f] font-bold">Certification</span>
           </div>
 
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
-              Global <span className="text-[#FDB813]">Recognition</span> <br />
+              Global <span className="text-[#13523f]">Recognition</span> <br />
               Expert Status.
             </h1>
             <p className="text-white/80 text-lg md:text-2xl font-medium leading-relaxed mb-8">
               Transform your career with internationally recognized CPC® certifications. Join the elite league of healthcare professionals certified by AAPC.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-[#FDB813] hover:bg-white text-black font-black px-10 py-4 rounded-sm transition-all shadow-2xl uppercase tracking-widest text-sm">
+              <button className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black px-10 py-4 rounded-sm transition-all shadow-2xl uppercase tracking-widest text-sm">
                 Get Certified
               </button>
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-4 rounded-sm border border-white/20">
-                <Star className="w-6 h-6 text-[#FDB813] fill-[#FDB813]" />
+                <Star className="w-6 h-6 text-[#13523f] fill-[#13523f]" />
                 <span className="text-white font-bold">AAPC Accredited Partner</span>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function CertificationPage() {
             <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6">
               Why <span className="text-[#0A3D24]">Certifications</span> Matter?
             </h2>
-            <div className="w-20 h-1.5 bg-[#FDB813] mx-auto"></div>
+            <div className="w-20 h-1.5 bg-[#13523f] mx-auto"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -95,8 +95,8 @@ export default function CertificationPage() {
                 desc: "Certified professionals earn up to 40% more than their non-certified peers and enjoy faster promotions and job security."
               }
             ].map((item, i) => (
-              <div key={i} className="group p-10 bg-gray-50 rounded-2xl hover:bg-[#0A3D24] transition-all duration-500 border border-gray-100">
-                <div className="w-16 h-16 bg-[#FDB813]/20 text-[#0A3D24] rounded-xl flex items-center justify-center mb-8 group-hover:bg-white/10 group-hover:text-[#FDB813] transition-colors">
+              <div key={i} className="group p-10 bg-gray-50 rounded-2xl hover:bg-[#13523f] transition-all duration-500 border border-gray-100">
+                <div className="w-16 h-16 bg-[#13523f]/20 text-[#13523f] rounded-xl flex items-center justify-center mb-8 group-hover:bg-white/10 group-hover:text-white transition-colors">
                   {item.icon}
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-4 group-hover:text-white transition-colors">
@@ -120,7 +120,7 @@ export default function CertificationPage() {
           <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
               <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-                Our CPC <span className="text-[#FDB813]">Certified</span> <br />
+                Our CPC <span className="text-[#13523f]">Certified</span> <br />
                 Success Stories
               </h2>
               <p className="text-white/60 text-lg font-medium">
@@ -129,8 +129,8 @@ export default function CertificationPage() {
             </div>
             <div className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#FDB813] rounded-full flex items-center justify-center">
-                  <Trophy className="w-6 h-6 text-black" />
+                <div className="w-12 h-12 bg-[#13523f] rounded-full flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <div className="text-white font-black text-2xl">98%</div>
@@ -147,12 +147,12 @@ export default function CertificationPage() {
                 style={{ animationDelay: `${(index % 8) * 100}ms` }}
               >
                 {/* Premium Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FDB813]/0 via-[#FDB813]/0 to-[#FDB813]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#13523f]/0 via-[#13523f]/0 to-[#13523f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
                 {/* Certification Badge - Floating */}
                 <div className="absolute top-6 right-6 z-20">
                   <div className="flex flex-col items-end">
-                    <div className="bg-[#FDB813] text-black font-black px-4 py-1 rounded-full text-[10px] uppercase tracking-tighter shadow-xl group-hover:scale-110 transition-transform duration-500">
+                    <div className="bg-[#13523f] text-white font-black px-4 py-1 rounded-full text-[10px] uppercase tracking-tighter shadow-xl group-hover:scale-110 transition-transform duration-500">
                       {student.score} Score
                     </div>
                   </div>
@@ -161,8 +161,8 @@ export default function CertificationPage() {
                 <div className="relative z-10 flex flex-col items-center">
                   {/* Executive Photo Frame */}
                   <div className="relative mb-8">
-                    <div className="absolute inset-0 bg-[#FDB813]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div className="relative w-28 h-28 rounded-3xl overflow-hidden border-[3px] border-white/10 group-hover:border-[#FDB813] p-1.5 transition-all duration-500 transform group-hover:rotate-3">
+                    <div className="absolute inset-0 bg-[#13523f]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="relative w-28 h-28 rounded-3xl overflow-hidden border-[3px] border-white/10 group-hover:border-[#13523f] p-1.5 transition-all duration-500 transform group-hover:rotate-3">
                       <img
                         src={student.image || `https://i.pravatar.cc/150?u=${student.id}`}
                         alt={student.name}
@@ -171,8 +171,8 @@ export default function CertificationPage() {
                     </div>
                     {/* Official Checkmark */}
                     <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-2xl scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
-                      <div className="w-7 h-7 bg-[#0A3D24] rounded-xl flex items-center justify-center">
-                        <CheckCircle2 className="w-4 h-4 text-[#FDB813]" />
+                      <div className="w-7 h-7 bg-[#13523f] rounded-xl flex items-center justify-center">
+                        <CheckCircle2 className="w-4 h-4 text-white" />
                       </div>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ export default function CertificationPage() {
                     </h3>
 
                     <div className="inline-flex items-center gap-2 bg-white/5 group-hover:bg-gray-50 px-4 py-1.5 rounded-full transition-colors duration-500 mb-6 max-w-full">
-                      <Award className="w-3.5 h-3.5 text-[#FDB813] shrink-0" />
+                      <Award className="w-3.5 h-3.5 text-[#13523f] shrink-0" />
                       <p className="text-[11px] font-bold text-white/40 group-hover:text-gray-400 truncate uppercase tracking-wider">
                         {student.institution}
                       </p>
@@ -194,11 +194,11 @@ export default function CertificationPage() {
                   <div className="w-full pt-6 border-t border-white/5 group-hover:border-gray-100 flex items-center justify-between gap-4">
                     <div className="flex gap-0.5">
                       {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className="w-3 h-3 text-[#FDB813] fill-[#FDB813]" />
+                        <Star key={s} className="w-3 h-3 text-[#13523f] fill-[#13523f]" />
                       ))}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-[#FDB813] opacity-40 group-hover:opacity-100 transition-opacity" />
+                      <ShieldCheck className="w-4 h-4 text-[#13523f] opacity-40 group-hover:opacity-100 transition-opacity" />
                       <span className="text-[9px] font-black uppercase tracking-[0.15em] text-white/30 group-hover:text-[#0d754f]">
                         AAPC Verified
                       </span>
@@ -242,7 +242,7 @@ export default function CertificationPage() {
                 <button
                   onClick={loadMore}
                   disabled={isLoading}
-                  className="group relative bg-white hover:bg-[#FDB813] text-black font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 disabled:opacity-50 min-w-[280px]"
+                  className="group relative bg-white hover:bg-[#13523f] text-black hover:text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 disabled:opacity-50 min-w-[280px]"
                 >
                   {isLoading ? (
                     <div className="flex items-center justify-center gap-3">
@@ -257,7 +257,7 @@ export default function CertificationPage() {
             ) : (
               <button
                 onClick={showLess}
-                className="group relative bg-[#0A3D24] border-2 border-[#FDB813] text-[#FDB813] hover:bg-[#FDB813] hover:text-black font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 min-w-[280px]"
+                className="group relative bg-[#0A3D24] border-2 border-[#13523f] text-[#13523f] hover:bg-[#13523f] hover:text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 min-w-[280px]"
               >
                 Show Less Achievers
               </button>
@@ -281,8 +281,8 @@ export default function CertificationPage() {
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#FDB813]/20 rounded-lg flex items-center justify-center shrink-0 mt-1">
-                    <CheckCircle2 className="w-5 h-5 text-[#0A3D24]" />
+                  <div className="w-10 h-10 bg-[#13523f]/20 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                    <CheckCircle2 className="w-5 h-5 text-[#13523f]" />
                   </div>
                   <div>
                     <h4 className="text-xl font-extrabold text-gray-900 mb-1">AAPC Certified Instructors</h4>
@@ -290,8 +290,8 @@ export default function CertificationPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#FDB813]/20 rounded-lg flex items-center justify-center shrink-0 mt-1">
-                    <CheckCircle2 className="w-5 h-5 text-[#0A3D24]" />
+                  <div className="w-10 h-10 bg-[#13523f]/20 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                    <CheckCircle2 className="w-5 h-5 text-[#13523f]" />
                   </div>
                   <div>
                     <h4 className="text-xl font-extrabold text-gray-900 mb-1">Comprehensive Study Material</h4>
@@ -316,7 +316,7 @@ export default function CertificationPage() {
                   <p className="text-white/70 text-lg font-medium leading-relaxed mb-8">
                     Spruce Life Skills is proud to be a designated training partner, ensuring our students receive the most authentic and up-to-date certification training possible.
                   </p>
-                  <div className="inline-block bg-[#FDB813] text-black px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest">
+                  <div className="inline-block bg-[#13523f] text-white px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest">
                     Verified Training Site
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function CertificationPage() {
       {/* Final CTA */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-          <Trophy className="w-16 h-16 text-[#FDB813] mx-auto mb-8 animate-bounce" />
+          <Trophy className="w-16 h-16 text-[#13523f] mx-auto mb-8 animate-bounce" />
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
             Ready to become <br />
             <span className="text-[#0A3D24]">Global Certified?</span>

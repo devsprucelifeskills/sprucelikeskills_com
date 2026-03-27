@@ -32,9 +32,9 @@ const features = [
     title: 'Support and Guidance',
     description: '',
     icon: UserCheck,
-    iconColor: 'text-yellow-700',
-    bgColor: 'bg-yellow-50',
-    borderCol: 'border-yellow-200'
+    iconColor: 'text-[#13523f]',
+    bgColor: 'bg-[#13523f]/10',
+    borderCol: 'border-[#13523f]/20'
   },
 ];
 
@@ -66,7 +66,7 @@ export default function AuthorizedPartner() {
               <div className="mt-8">
                 <Link
                   href="/about"
-                  className="inline-block bg-[#eab308] text-black font-bold text-sm px-8 py-3.5 hover:bg-[#ca8a04] transition-colors rounded-sm shadow-sm"
+                  className="inline-block bg-[#13523f] text-white font-bold text-sm px-8 py-3.5 hover:bg-[#1a6e4a] transition-colors rounded-sm shadow-sm"
                 >
                   Read More
                 </Link>

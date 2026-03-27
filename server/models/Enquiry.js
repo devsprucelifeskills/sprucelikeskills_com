@@ -16,6 +16,11 @@ const enquirySchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    courseName: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     status: {
         type: String,
         enum: ['new', 'contacted', 'closed'],

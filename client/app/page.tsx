@@ -8,6 +8,8 @@ import CourseTest from "@/components/homepage/CourseTest";
 import BlogSection from "@/components/homepage/BlogSection";
 import HireFromSpruce from "@/components/homepage/HireFromSpruce";
 import WhatStudentsSays from "@/components/homepage/WhatStudentsSays";
+import StudentEnquiry from "@/components/homepage/StudentEnquiry";
+import FeaturableWidget from "@/components/homepage/FeaturableWidget";
 
 export default function Home() {
   return (
@@ -15,6 +17,7 @@ export default function Home() {
       <Header />
       <div className="relative">
         <HeroSection />
+        <WhatStudentsSays />
         <PopularCourses />
         {/* Negative margin to pull cards up over the hero section */}
         <div className="relative z-20 -mt-24 pb-12 sm:-mt-28 md:-mt-32">
@@ -24,10 +27,16 @@ export default function Home() {
       <AuthorizedPartner />
 
       <SuccessCorner />
-      <CourseTest />
+      <FeaturableWidget />
+      {/* <CourseTest /> */}
       <BlogSection />
-      <HireFromSpruce />
-      <WhatStudentsSays />
+
+      <StudentEnquiry />
+      {/* <HireFromSpruce /> */}
+
+
+
+      {/* <FeaturableWidget /> */}
     </div>
   );
 }

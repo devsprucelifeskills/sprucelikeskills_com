@@ -30,15 +30,15 @@ export default function BlogSection() {
   const { prev, current, next } = getVisibleBlogs();
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="pb-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Title Section */}
         <ScrollReveal animation="fade-up">
           <div className="flex flex-col items-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 text-center mb-4 tracking-tight">
-              Spruce's <span className="text-[#2ecc71]">Blogs</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 text-center mb-4 tracking-tight font-bold">
+              Spruce's <span className="text-green-900 font-normal">Blogs</span>
             </h2>
-            <div className="w-24 h-1.5 bg-[#eab308] rounded-full"></div>
+            <div className="w-24 h-1.5 bg-[#13523f] rounded-full"></div>
           </div>
         </ScrollReveal>
 
@@ -49,17 +49,17 @@ export default function BlogSection() {
             <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 flex justify-between px-2 md:px-0">
               <button
                 onClick={scrollLeft}
-                className="bg-white p-3 rounded-full shadow-xl hover:bg-[#eab308] transition-all group border border-gray-100"
+                className="bg-white p-3 rounded-full shadow-xl hover:bg-[#13523f] transition-all group border border-gray-100"
                 aria-label="Previous blog"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-800 group-hover:text-black" strokeWidth={3} />
+                <ChevronLeft className="w-6 h-6 text-gray-800 group-hover:text-white" strokeWidth={3} />
               </button>
               <button
                 onClick={scrollRight}
-                className="bg-white p-3 rounded-full shadow-xl hover:bg-[#eab308] transition-all group border border-gray-100"
+                className="bg-white p-3 rounded-full shadow-xl hover:bg-[#13523f] transition-all group border border-gray-100"
                 aria-label="Next blog"
               >
-                <ChevronRight className="w-6 h-6 text-gray-800 group-hover:text-black" strokeWidth={3} />
+                <ChevronRight className="w-6 h-6 text-gray-800 group-hover:text-white" strokeWidth={3} />
               </button>
             </div>
 
@@ -86,7 +86,7 @@ export default function BlogSection() {
                       alt={current.title}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                     />
-                    <div className="absolute top-3 left-3 bg-[#eab308] text-black text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-tighter">
+                    <div className="absolute top-3 left-3 bg-[#13523f] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-tighter">
                       Featured
                     </div>
                   </div>
@@ -94,9 +94,9 @@ export default function BlogSection() {
                   {/* Content Area - Tighter Padding */}
                   <div className="bg-gradient-to-br from-[#0A3D24] via-[#0D5232] to-[#126B41] p-6 text-white text-center">
                     <div className="flex items-center justify-center gap-2 mb-3">
-                      <span className="w-6 h-0.5 bg-[#eab308]"></span>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-[#eab308]">{current.category}</span>
-                      <span className="w-6 h-0.5 bg-[#eab308]"></span>
+                      <span className="w-6 h-0.5 bg-[#13523f]"></span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-[#13523f]">{current.category}</span>
+                      <span className="w-6 h-0.5 bg-[#13523f]"></span>
                     </div>
                     <h3 className="text-xl md:text-2xl font-black mb-3 leading-tight tracking-tight">{current.title}</h3>
                     <p className="text-white/80 text-xs md:text-sm leading-relaxed mb-5 font-medium italic">
@@ -116,7 +116,7 @@ export default function BlogSection() {
                   {/* Footer Info - Compact */}
                   <div className="p-4 bg-white border-t border-gray-100 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="bg-[#eab308] text-black w-12 h-12 rounded-xl flex flex-col items-center justify-center shadow-md">
+                      <div className="bg-[#13523f] text-white w-12 h-12 rounded-xl flex flex-col items-center justify-center shadow-md">
                         <span className="text-lg font-black leading-none">{current.date.split(' ')[0]}</span>
                         <span className="text-[8px] font-bold uppercase whitespace-nowrap">{current.date.split(' ')[1]}</span>
                       </div>
@@ -128,8 +128,8 @@ export default function BlogSection() {
                         </div>
                       </div>
                     </div>
-                    <Link href={`/blog/${current.slug}`} className="p-2.5 bg-gray-50 hover:bg-[#eab308] rounded-full transition-colors group shadow-sm">
-                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-black" />
+                    <Link href={`/blog/${current.slug}`} className="p-2.5 bg-gray-50 hover:bg-[#13523f] rounded-full transition-colors group shadow-sm">
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white" />
                     </Link>
                   </div>
                 </div>

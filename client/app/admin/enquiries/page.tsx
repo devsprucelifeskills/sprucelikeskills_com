@@ -7,6 +7,7 @@ interface Enquiry {
   _id: string;
   name: string;
   contact: string;
+  courseName?: string;
   message: string;
   status: 'new' | 'contacted' | 'closed';
   createdAt: string;
@@ -14,7 +15,7 @@ interface Enquiry {
 
 const statusStyles = {
   new: 'bg-blue-100 text-blue-700',
-  contacted: 'bg-yellow-100 text-yellow-700',
+  contacted: 'bg-[#13523f]/10 text-[#13523f]',
   closed: 'bg-gray-100 text-gray-500',
 };
 
@@ -84,11 +85,10 @@ export default function EnquiriesPage() {
           <button
             key={tab}
             onClick={() => setFilter(tab)}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize transition-all ${
-              filter === tab
-                ? 'bg-[#0A3D24] text-white'
-                : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0A3D24]/40'
-            }`}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize transition-all ${filter === tab
+                ? 'bg-[#13523f] text-white'
+                : 'bg-white text-gray-500 border border-gray-200 hover:border-[#13523f]/40'
+              }`}
           >
             {tab} ({counts[tab]})
           </button>
@@ -98,7 +98,7 @@ export default function EnquiriesPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-[#0A3D24] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#13523f] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -119,6 +119,11 @@ export default function EnquiriesPage() {
                       </span>
                     </div>
                     <p className="text-sm text-gray-500 mb-2">📞 {enq.contact}</p>
+                    {enq.courseName && (
+                      <p className="text-xs font-bold text-[#13523f] bg-[#13523f]/5 border border-[#13523f]/10 px-2 py-1 rounded-md mb-2 inline-block">
+                        Course: {enq.courseName}
+                      </p>
+                    )}
                     <p className="text-sm text-gray-600 bg-gray-50 rounded-xl p-3 leading-relaxed">{enq.message}</p>
                     <p className="text-xs text-gray-300 mt-2">
                       {new Date(enq.createdAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
@@ -129,7 +134,7 @@ export default function EnquiriesPage() {
                       value={enq.status}
                       onChange={(e) => handleStatusChange(enq._id, e.target.value)}
                       disabled={updating === enq._id}
-                      className="appearance-none bg-gray-100 text-gray-700 text-xs font-semibold pl-3 pr-8 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A3D24]/30 cursor-pointer hover:bg-gray-200 transition disabled:opacity-50"
+                      className="appearance-none bg-gray-100 text-gray-700 text-xs font-semibold pl-3 pr-8 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#13523f]/30 cursor-pointer hover:bg-gray-200 transition disabled:opacity-50"
                     >
                       <option value="new">New</option>
                       <option value="contacted">Contacted</option>

@@ -21,7 +21,7 @@ export default function GalleryPage() {
       <Header />
 
       {/* Hero Section */}
-      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-[#0A3D24] overflow-hidden ">
+      <div className="relative h-[280px] sm:h-[350px] md:h-[450px] w-full bg-gray-900 overflow-hidden ">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87')] bg-cover bg-center "></div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D24]/10 via-[#0A3D24]/40 to-[#0A3D24]"></div>
 
@@ -30,12 +30,12 @@ export default function GalleryPage() {
           <div className="flex items-center gap-2 mb-4 text-white/70 text-xs sm:text-sm font-medium">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-50" />
-            <span className="text-[#FDB813] font-bold">Gallery</span>
+            <span className="text-[#13523f] font-bold">Gallery</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl md:text-6xl font-black text-white leading-tight mb-3 sm:mb-4">
             Visual Journey of <br />
-            <span className="text-[#FDB813]">Spruce Excellence</span>
+            <span className="text-[#13523f]">Spruce Excellence</span>
           </h1>
           <p className="text-white/80 text-sm sm:text-base md:text-xl max-w-xl sm:max-w-2xl font-medium leading-relaxed">
             Explore our vibrant campus life, educational workshops, and the milestones that define our success.
@@ -84,7 +84,7 @@ export default function GalleryPage() {
                 {/* Overlay — always partially visible on mobile, full on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-3 sm:p-6">
                   <div className="transform sm:translate-y-4 sm:group-hover:translate-y-0 transition-transform duration-500">
-                    <span className="inline-block bg-[#FDB813] text-black text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-2 py-0.5 sm:px-3 sm:py-1 rounded-sm mb-1 sm:mb-2">
+                    <span className="inline-block bg-[#13523f] text-white text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-2 py-0.5 sm:px-3 sm:py-1 rounded-sm mb-1 sm:mb-2">
                       {item.category}
                     </span>
                     <h3 className="text-xs sm:text-base md:text-lg font-black text-white leading-tight line-clamp-2">
