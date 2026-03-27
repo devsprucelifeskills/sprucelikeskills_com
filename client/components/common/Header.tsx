@@ -525,7 +525,7 @@ export default function Header() {
 
                 {/* Drawer header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-emerald-600 to-teal-600">
-                    <img src="/spruseLogo.png" alt="Spruce" className="h-8 w-auto object-contain brightness-0 invert" />
+                    <img src="/Group 10.svg" alt="Spruce" className="h-8 w-auto object-contain brightness-0 invert" />
                     <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-colors">
                         <X className="w-4 h-4" />
                     </button>
