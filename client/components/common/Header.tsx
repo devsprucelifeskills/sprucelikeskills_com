@@ -305,7 +305,7 @@ export default function Header() {
 
             {/* ══ TOP BAR ══════════════════════════════════════════════════════════ */}
             <div className={`spruce-header relative lg:sticky top-0 z-[101] transition-all duration-300 ${scrolled ? 'lg:bg-transparent lg:border-transparent lg:pointer-events-none bg-white border-b border-gray-100' : 'bg-white border-b border-gray-100 pointer-events-auto'}`}>
-                <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-2 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto     py-3 lg:py-2 flex items-center justify-between">
 
                     {/* LEFT SIDE: Logo and Accreditation Text (Desktop Only) */}
                     <div className="hidden lg:flex items-center gap-4">
