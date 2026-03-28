@@ -35,7 +35,7 @@ export default function FacultySection() {
               title: "Quality Training",
               desc: "Comprehensive theoretical and quality live onsite technical training for all students.",
               icon: Award,
-              accent: "bg-emerald-600"
+              accent: "bg-[#13523f]"
             }
           ].map((item, i) => (
             <div key={i} className="group p-10 bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 text-left border border-white">

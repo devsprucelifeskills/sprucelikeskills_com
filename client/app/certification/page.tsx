@@ -33,30 +33,31 @@ export default function CertificationPage() {
 
       {/* Hero Section */}
       <div className="relative h-[450px] md:h-[550px] w-full bg-[#0A3D24] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4')] bg-cover bg-center opacity-20 scale-110"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D24]/10 via-[#0A3D24]/20 to-[#0A3D24]"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4')] bg-cover bg-center opacity-40 scale-110"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A3D24] to-transparent opacity-90"></div>
 
         <div className="relative container mx-auto px-4 h-full flex flex-col justify-center max-w-7xl">
-          <div className="flex items-center gap-3 mb-6 text-white/70 text-sm font-medium">
+          <div className="flex items-center gap-3 mb-6 text-white/80 text-sm font-medium">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#13523f] font-bold">Certification</span>
+            <span className="text-white font-bold">Certification</span>
           </div>
 
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
-              Global <span className="text-[#13523f]">Recognition</span> <br />
+              Global <span className="text-[#34d399]">Recognition</span> <br />
               Expert Status.
             </h1>
-            <p className="text-white/80 text-lg md:text-2xl font-medium leading-relaxed mb-8">
+            <p className="text-white/90 text-lg md:text-2xl font-medium leading-relaxed mb-8">
               Transform your career with internationally recognized CPC® certifications. Join the elite league of healthcare professionals certified by AAPC.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black px-10 py-4 rounded-sm transition-all shadow-2xl uppercase tracking-widest text-sm">
+              <Link href="/contact" className="bg-[#13523f] hover:bg-[#1a6e4a] text-white font-black px-10 py-4 rounded-sm transition-all shadow-2xl uppercase tracking-widest text-sm">
                 Get Certified
-              </button>
+              </Link>
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-4 rounded-sm border border-white/20">
-                <Star className="w-6 h-6 text-[#13523f] fill-[#13523f]" />
+                <Star className="w-6 h-6 text-[#34d399] fill-[#34d399]" />
                 <span className="text-white font-bold">AAPC Accredited Partner</span>
               </div>
             </div>
@@ -115,26 +116,26 @@ export default function CertificationPage() {
       </section>
 
       {/* CPC Students Hall of Fame */}
-      <section className="py-24 bg-[#1cb067]" id="hall-of-fame-grid">
+      <section className="py-24 bg-[#0A3D24]" id="hall-of-fame-grid">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
               <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-                Our CPC <span className="text-[#13523f]">Certified</span> <br />
+                Our CPC <span className="text-[#34d399]">Certified</span> <br />
                 Success Stories
               </h2>
-              <p className="text-white/60 text-lg font-medium">
+              <p className="text-white/80 text-lg font-medium">
                 Meet the extraordinary achievers who have mastered the world's most rigorous medical coding examination with flying colors.
               </p>
             </div>
-            <div className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+            <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-2xl">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#13523f] rounded-full flex items-center justify-center">
-                  <Trophy className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 bg-[#34d399] rounded-full flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-[#0A3D24]" />
                 </div>
                 <div>
                   <div className="text-white font-black text-2xl">98%</div>
-                  <div className="text-white/50 text-xs font-bold uppercase tracking-wider">Pass rate at Spruce</div>
+                  <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Pass rate at Spruce</div>
                 </div>
               </div>
             </div>
@@ -143,16 +144,16 @@ export default function CertificationPage() {
             {certifiedStudents.slice(0, visibleCount).map((student, index) => (
               <div
                 key={student.id}
-                className="group relative bg-gradient-to-br from-[#0A3D24] to-[#062c1a] border border-white/10 rounded-[2.5rem] p-8 transition-all duration-700 hover:bg-white hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] hover:-translate-y-4 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                className="group relative bg-white rounded-[2rem] p-8 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.4)] hover:-translate-y-2 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
                 style={{ animationDelay: `${(index % 8) * 100}ms` }}
               >
                 {/* Premium Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#13523f]/0 via-[#13523f]/0 to-[#13523f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#34d399]/0 via-[#34d399]/0 to-[#34d399]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
                 {/* Certification Badge - Floating */}
                 <div className="absolute top-6 right-6 z-20">
                   <div className="flex flex-col items-end">
-                    <div className="bg-[#13523f] text-white font-black px-4 py-1 rounded-full text-[10px] uppercase tracking-tighter shadow-xl group-hover:scale-110 transition-transform duration-500">
+                    <div className="bg-gradient-to-r from-[#0A3D24] to-[#13523f] text-[#34d399] border border-[#34d399]/20 font-black px-4 py-1.5 rounded-full text-sm uppercase tracking-tighter shadow-xl group-hover:scale-110 transition-transform duration-500">
                       {student.score} Score
                     </div>
                   </div>
@@ -160,54 +161,54 @@ export default function CertificationPage() {
 
                 <div className="relative z-10 flex flex-col items-center">
                   {/* Executive Photo Frame */}
-                  <div className="relative mb-8">
-                    <div className="absolute inset-0 bg-[#13523f]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div className="relative w-28 h-28 rounded-3xl overflow-hidden border-[3px] border-white/10 group-hover:border-[#13523f] p-1.5 transition-all duration-500 transform group-hover:rotate-3">
+                  <div className="relative mb-8 mt-2">
+                    <div className="absolute inset-0 bg-[#34d399]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="relative w-28 h-28 rounded-[2rem] overflow-hidden border-[3px] border-gray-100 group-hover:border-[#34d399] p-1.5 transition-all duration-500 transform group-hover:rotate-3 bg-white shadow-sm">
                       <img
                         src={student.image || `https://i.pravatar.cc/150?u=${student.id}`}
                         alt={student.name}
-                        className="w-full h-full object-cover rounded-2xl grayscale-[30%] group-hover:grayscale-0 transition-all duration-500"
+                        className="w-full h-full object-cover rounded-[1.5rem] grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
                     {/* Official Checkmark */}
-                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-2xl scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
-                      <div className="w-7 h-7 bg-[#13523f] rounded-xl flex items-center justify-center">
-                        <CheckCircle2 className="w-4 h-4 text-white" />
+                    <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-xl scale-0 group-hover:scale-100 transition-transform duration-500 delay-100 border border-gray-50">
+                      <div className="w-8 h-8 bg-gradient-to-br from-[#34d399] to-[#10b981] rounded-[0.8rem] flex items-center justify-center shadow-inner">
+                        <CheckCircle2 className="w-5 h-5 text-white" />
                       </div>
                     </div>
                   </div>
 
                   <div className="text-center w-full">
-                    <h3 className="text-2xl font-black text-white mb-2 group-hover:text-gray-400 transition-colors duration-500 tracking-tight">
+                    <h3 className="text-2xl font-black text-gray-900 mb-3 group-hover:text-[#0A3D24] transition-colors duration-500 tracking-tight">
                       {student.name}
                     </h3>
 
-                    <div className="inline-flex items-center gap-2 bg-white/5 group-hover:bg-gray-50 px-4 py-1.5 rounded-full transition-colors duration-500 mb-6 max-w-full">
-                      <Award className="w-3.5 h-3.5 text-[#13523f] shrink-0" />
-                      <p className="text-[11px] font-bold text-white/40 group-hover:text-gray-400 truncate uppercase tracking-wider">
+                    <div className="inline-flex items-center gap-2 bg-gray-50 group-hover:bg-[#f0fdf4] px-4 py-2 rounded-full transition-colors duration-500 mb-6 max-w-full border border-gray-100 group-hover:border-[#34d399]/30">
+                      <Award className="w-4 h-4 text-[#10b981] shrink-0" />
+                      <p className="text-[11px] font-bold text-gray-500 group-hover:text-[#0A3D24] truncate uppercase tracking-wider">
                         {student.institution}
                       </p>
                     </div>
                   </div>
 
                   {/* Trust Footer */}
-                  <div className="w-full pt-6 border-t border-white/5 group-hover:border-gray-100 flex items-center justify-between gap-4">
-                    <div className="flex gap-0.5">
+                  <div className="w-full pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+                    <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className="w-3 h-3 text-[#13523f] fill-[#13523f]" />
+                        <Star key={s} className="w-4 h-4 text-[#f59e0b] fill-[#f59e0b]" />
                       ))}
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-[#13523f] opacity-40 group-hover:opacity-100 transition-opacity" />
-                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-white/30 group-hover:text-[#0d754f]">
-                        AAPC Verified
+                    <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-lg group-hover:bg-[#f0fdf4] transition-colors border border-transparent group-hover:border-[#34d399]/20">
+                      <ShieldCheck className="w-4 h-4 text-[#10b981] opacity-80 group-hover:opacity-100 transition-opacity" />
+                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-gray-500 group-hover:text-[#0A3D24]">
+                        Verified
                       </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Subtle light sweep animation on hover */}
-                <div className="absolute -inset-x-full top-0 h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:animate-[sweep_2s_infinite]"></div>
+                <div className="absolute -inset-x-full top-0 h-full w-1/2 bg-gradient-to-r from-transparent via-gray-100/50 to-transparent skew-x-[-25deg] group-hover:animate-[sweep_2s_infinite]"></div>
               </div>
             ))}
           </div>
@@ -236,17 +237,17 @@ export default function CertificationPage() {
           <div className="mt-20 text-center">
             {visibleCount < certifiedStudents.length ? (
               <>
-                <p className="text-white/40 text-sm font-bold mb-8 italic">
+                <p className="text-white/60 text-sm font-bold mb-8 italic">
                   ...and {certifiedStudents.length - visibleCount}+ more certified professionals
                 </p>
                 <button
                   onClick={loadMore}
                   disabled={isLoading}
-                  className="group relative bg-white hover:bg-[#13523f] text-black hover:text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 disabled:opacity-50 min-w-[280px]"
+                  className="group relative bg-white hover:bg-gray-100 text-[#0A3D24] font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 disabled:opacity-50 min-w-[280px]"
                 >
                   {isLoading ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                     <div className="flex items-center justify-center gap-3">
+                      <div className="w-4 h-4 border-2 border-[#0A3D24]/40 border-t-[#0A3D24] rounded-full animate-spin"></div>
                       <span>Loading Excellence...</span>
                     </div>
                   ) : (
@@ -257,7 +258,7 @@ export default function CertificationPage() {
             ) : (
               <button
                 onClick={showLess}
-                className="group relative bg-[#0A3D24] border-2 border-[#13523f] text-[#13523f] hover:bg-[#13523f] hover:text-white font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 min-w-[280px]"
+                className="group relative bg-[#13523f] border-2 border-white/20 text-white hover:bg-white hover:text-[#0A3D24] font-black px-12 py-5 rounded-full transition-all text-sm uppercase tracking-widest shadow-2xl hover:-translate-y-1 min-w-[280px]"
               >
                 Show Less Achievers
               </button>
@@ -338,10 +339,10 @@ export default function CertificationPage() {
             Don't wait for opportunity. Create it. Apply for our mission-driven certification program and secure your future in healthcare.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button className="bg-[#0A3D24] text-white font-black px-12 py-5 rounded-full shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 uppercase tracking-widest text-sm">
+            <Link href="/contact" className="bg-[#0A3D24] text-white font-black px-12 py-5 rounded-full shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 uppercase tracking-widest text-sm inline-block">
               Apply for Certification
-            </button>
-            <button className="bg-white border-2 border-gray-200 text-gray-900 font-black px-12 py-5 rounded-full transition-all uppercase tracking-widest text-sm">
+            </Link>
+            <button className="bg-white border-2 border-gray-200 text-gray-900 font-black px-12 py-5 rounded-full transition-all hover:bg-gray-50 uppercase tracking-widest text-sm inline-block">
               Download Brochure
             </button>
           </div>
