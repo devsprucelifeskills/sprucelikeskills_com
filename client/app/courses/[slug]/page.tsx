@@ -12,44 +12,64 @@ import {
   UserCircle,
   Table as TableIcon,
   ChevronLeft,
-  Star
+  Star,
+  Clock,
+  CheckCircle2
 } from 'lucide-react';
 import { courses, CourseSection } from '@/lib/courses';
 import Header from '@/components/common/Header';
 import CourseFeaturesCards from '@/components/courses/FeatureCard';
 import EnquiryModal from '@/components/common/EnquiryModal';
+import ApplyModal from '@/components/courses/ApplyModal';
 
 export default function CourseDetailPage() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('intro');
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+  const [application, setApplication] = useState<any>(null);
+  const [checkingStatus, setCheckingStatus] = useState(true);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   const course = courses.find(c => c.slug === slug);
 
   useEffect(() => {
-    // Check enrollment status from backend
-    const checkEnrollment = async () => {
+    const fetchStatus = async () => {
       const token = localStorage.getItem('token');
-      if (!token) return;
+      if (!token) {
+        setCheckingStatus(false);
+        return;
+      }
 
+      setCheckingStatus(true);
       try {
         const backend_url = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
-        const res = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+
+        // 1. Check enrollment
+        const enrollRes = await fetch(`${backend_url}/api/v2/course/check-enrollment/${slug}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
         });
-        const data = await res.json();
-        if (data.success && data.isEnrolled) {
+        const enrollData = await enrollRes.json();
+        if (enrollData.success && enrollData.isEnrolled) {
           setIsEnrolled(true);
         }
+
+        // 2. Check application status
+        const appRes = await fetch(`${backend_url}/api/v2/applications/check-status/${slug}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const appData = await appRes.json();
+        if (appData.success) {
+          setApplication(appData.application);
+        }
       } catch (err) {
-        console.error("Error checking enrollment:", err);
+        console.error("Error fetching status:", err);
+      } finally {
+        setCheckingStatus(false);
       }
     };
 
-    checkEnrollment();
+    fetchStatus();
   }, [slug]);
 
   useEffect(() => {
@@ -127,7 +147,7 @@ export default function CourseDetailPage() {
             <ChevronRight className="w-4 h-4 opacity-50" />
             <span className="text-white">Our Courses</span>
             <ChevronRight className="w-4 h-4 opacity-50" />
-            <span className="text-[#13523f] font-bold">{course.title}</span>
+            <span className="text-[#2ecc71] font-bold">{course.title}</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
             {course.title}
@@ -142,27 +162,44 @@ export default function CourseDetailPage() {
             >
               Enquire Now
             </button>
-            {/* <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-8 py-3.5 rounded-sm transition-all">
-              Download Syllabus
-            </button> */}
+
+            {isEnrolled ? (
+              <Link
+                href="/profile/my-courses"
+                className="bg-[#2ecc71] hover:bg-[#27ae60] text-white font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+              >
+                Go to Classroom
+              </Link>
+            ) : checkingStatus ? (
+              <div className="bg-white/10 px-8 py-3.5 rounded-sm animate-pulse text-white/50 font-bold">
+                Checking status...
+              </div>
+            ) : application?.status === 'pending' ? (
+              <div className="bg-yellow-500 text-black font-extrabold px-8 py-3.5 rounded-sm shadow-xl flex items-center gap-2 cursor-default">
+                <Clock className="w-5 h-5" />
+                Application Pending
+              </div>
+            ) : application?.status === 'reviewed' ? (
+              <Link
+                href="/profile/my-courses"
+                className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-flex items-center gap-2"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                Complete Payment
+              </Link>
+            ) : (
+              <button
+                onClick={() => setIsApplyModalOpen(true)}
+                className="bg-[#FDB813] hover:bg-[#E5A511] text-black font-extrabold px-8 py-3.5 rounded-sm transition-all shadow-xl hover:-translate-y-1 inline-block"
+              >
+                {application?.status === 'rejected' ? 'Re-apply Now' : 'Apply Now'}
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Breadcrumbs (Mobile only or redundant desktop) */}
-      <div className="lg:hidden bg-gray-50 border-b border-gray-100 sticky top-16 z-30 shadow-sm">
-        <div className="container mx-auto px-4 py-3 max-w-7xl flex items-center justify-between text-sm overflow-x-auto whitespace-nowrap scrollbar-hide">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-900 font-bold">{course.title}</span>
-          </div>
-          <button
-            onClick={() => setIsEnquiryModalOpen(true)}
-            className="bg-[#13523f] text-white text-xs font-black px-3 py-1.5 rounded-sm"
-          >
-            ENQUIRE
-          </button>
-        </div>
-      </div>
+
 
       {/* Main Content Area */}
       <div className="container mx-auto px-4 py-16 max-w-7xl">
@@ -269,8 +306,6 @@ export default function CourseDetailPage() {
                   )}
                 </div>
 
-                {/* Specific Action Buttons for sections as seen in design */}
-
               </section>
             ))}
 
@@ -283,14 +318,9 @@ export default function CourseDetailPage() {
                     Course & Course Features
                   </h2>
                 </div>
-                <div className="flex flex-col items-center mb-12">
-                  {/* <button className="bg-[#0A3D24] text-white font-black px-12 py-4 rounded-sm shadow-xl uppercase tracking-widest text-sm mb-6">
-
-                  </button> */}
-                  <p className="text-gray-500 font-medium text-center max-w-lg">
-                    Compare our program versions and find the perfect curriculum for your professional goals.
-                  </p>
-                </div>
+                <p className="text-gray-500 font-medium text-center max-w-lg mb-12">
+                  Compare our program versions and find the perfect curriculum for your professional goals.
+                </p>
 
                 <div className="lg:hidden">
                   <CourseFeaturesCards
@@ -390,7 +420,15 @@ export default function CourseDetailPage() {
         </div>
       </section>
 
-      {/* Scroll to Top button could go here or in layout */}
+      {/* Apply Modal */}
+      <ApplyModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        courseTitle={course.title}
+        courseSlug={course.slug}
+      />
+
+
       <EnquiryModal
         isOpen={isEnquiryModalOpen}
         onClose={() => setIsEnquiryModalOpen(false)}
@@ -461,12 +499,7 @@ function OtherCoursesSlider({ currentSlug }: { currentSlug: string }) {
               <h3 className="text-sm font-black text-gray-900 leading-snug mb-3 group-hover:text-[#0A3D24] transition-colors line-clamp-2">
                 {c.title}
               </h3>
-              <div className="flex items-center justify-between">
-                {/* <span className="text-[#0A3D24] font-black text-sm">
-                  ₹{(c.discountPrice ?? c.price).toLocaleString()}
-                </span> */}
 
-              </div>
             </div>
           </Link>
         ))}

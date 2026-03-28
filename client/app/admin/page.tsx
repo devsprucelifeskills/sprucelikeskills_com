@@ -132,6 +132,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           {[
             { label: 'Manage Users', href: '/admin/users', desc: 'View, role-change, or delete users' },
+            { label: 'Manage EMI', href: '/admin/enrollments/emi', desc: 'Track installments and student access' },
             { label: 'Review Enquiries', href: '/admin/enquiries', desc: 'Update and close incoming enquiries' },
             { label: 'Partner Enquiries', href: '/admin/partner-enquiries', desc: 'Handle placement partner leads' },
           ].map((item) => (

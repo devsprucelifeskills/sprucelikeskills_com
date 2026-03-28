@@ -11,15 +11,25 @@ import {
   LogOut,
   Menu,
   X,
+  Clock,
+  User,
   ChevronRight,
   Video,
+  FileText,
+  Settings
 } from 'lucide-react';
+
+
 import { useState } from 'react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/applications', label: 'Applications', icon: FileText },
+  { href: '/admin/enrollments/quick', label: 'Direct Registration', icon: User },
   { href: '/admin/users', label: 'Users', icon: Users },
+
   { href: '/admin/enrollments', label: 'Enrollments', icon: BookOpen },
+  { href: '/admin/enrollments/emi', label: 'EMI Enrollments', icon: Clock },
   { href: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare },
   { href: '/admin/partner-enquiries', label: 'Partner Enquiries', icon: Handshake },
   { href: '/admin/meetings', label: 'Meetings', icon: Video },
@@ -59,7 +69,11 @@ export default function AdminSidebar() {
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = href === '/admin' ? pathname === '/admin' : pathname.startsWith(href);
+          const isActive = href === '/admin'
+            ? pathname === '/admin'
+            : href === '/admin/enrollments'
+              ? pathname === '/admin/enrollments' || pathname.startsWith('/admin/enrollments/new')
+              : pathname.startsWith(href);
           return (
             <Link
               key={href}

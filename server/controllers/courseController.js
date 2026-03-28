@@ -8,8 +8,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
+    key_id: process.env.RAZORPAY_KEY_ID?.trim(),
+    key_secret: process.env.RAZORPAY_KEY_SECRET?.trim(),
 });
 
 export const createOrder = async (req, res) => {
@@ -64,7 +64,7 @@ export const enrollCourse = async (req, res) => {
         } = req.body;
 
         // Verify signature
-        const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
+        const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET?.trim());
         hmac.update(orderId + "|" + paymentId);
         const generatedSignature = hmac.digest('hex');
 
@@ -115,15 +115,28 @@ export const getMyCourses = async (req, res) => {
 export const checkEnrollment = async (req, res) => {
     try {
         const { courseId } = req.params;
-        const enrollment = await CourseEnrollment.findOne({
+        
+        // Check one-time enrollment
+        const oneTimeEnrollment = await CourseEnrollment.findOne({
             userId: req.user._id,
             courseId: courseId,
             status: 'completed'
         });
+
+        if (oneTimeEnrollment) {
+            return res.status(200).json({ success: true, isEnrolled: true });
+        }
+
+        // Check EMI enrollment (must be 'active')
+        const emiEnrollment = await Enrollment.findOne({
+            userId: req.user._id,
+            courseSlug: courseId,
+            status: 'active'
+        });
         
         res.status(200).json({
             success: true,
-            isEnrolled: !!enrollment
+            isEnrolled: !!emiEnrollment
         });
     } catch (error) {
         console.error("Error checking enrollment:", error);
@@ -131,9 +144,47 @@ export const checkEnrollment = async (req, res) => {
     }
 };
 
+import Enrollment from '../models/Enrollment.js';
+
 export const getCourseMeeting = async (req, res) => {
     try {
         const { courseId } = req.params;
+        
+        // 1. Check if user is blocked or has overdue EMI
+        // We'll search by courseSlug (which is usually the courseId in this project's context)
+        const enrollment = await Enrollment.findOne({ 
+            userId: req.user._id,
+            $or: [
+                { courseSlug: courseId },
+                { courseTitle: courseId } // Fallback if courseId is passed as title
+            ]
+        });
+
+        if (enrollment) {
+            // Check manual block
+            if (enrollment.isBlocked) {
+                return res.status(403).json({ 
+                    success: false, 
+                    message: "Your access has been blocked by Admin. Please contact support." 
+                });
+            }
+
+            // Check auto-block if enabled
+            if (enrollment.isAutoBlockEnabled) {
+                const now = new Date();
+                const hasOverdue = enrollment.installments.some(inst => 
+                    inst.status === 'pending' && new Date(inst.dueDate) < now
+                );
+
+                if (hasOverdue) {
+                    return res.status(403).json({ 
+                        success: false, 
+                        message: "Access blocked due to overdue EMI. Please complete your payment to continue." 
+                    });
+                }
+            }
+        }
+
         const meeting = await Meeting.findOne({ courseId });
         
         if (!meeting) {
@@ -153,4 +204,5 @@ export const getCourseMeeting = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
+
 

@@ -13,6 +13,7 @@ import {
     upsertMeeting,
     deleteMeeting,
     getUniqueCourses,
+    createUserWithApplication,
 } from '../controllers/adminController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
 
@@ -39,5 +40,6 @@ router.get('/meetings', getAllMeetings);
 router.post('/meetings', upsertMeeting);
 router.delete('/meetings/:id', deleteMeeting);
 router.get('/unique-courses', getUniqueCourses);
+router.post('/users/create-with-application', createUserWithApplication);
 
 export default router;

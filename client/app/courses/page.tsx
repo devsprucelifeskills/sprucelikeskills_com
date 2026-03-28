@@ -5,7 +5,9 @@ import Link from 'next/link';
 import Header from '@/components/common/Header';
 import EnquiryModal from '@/components/common/EnquiryModal';
 import ScrollReveal from '@/components/common/ScrollReveal';
-import { courses } from '@/lib/courses';
+import { courses, Course } from '@/lib/courses';
+import ApplyModal from '@/components/courses/ApplyModal';
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -26,6 +28,7 @@ export default function CoursesPage() {
   };
 
   return (
+
     <div className="min-h-screen bg-[#F8FAFC]">
       <Header />
 
@@ -156,9 +159,9 @@ export default function CoursesPage() {
           </ScrollReveal>
         </div>
       </section>
-      <EnquiryModal 
-        isOpen={isEnquiryModalOpen} 
-        onClose={() => setIsEnquiryModalOpen(false)} 
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
         defaultCourseName={selectedCourseName}
       />
     </div>
