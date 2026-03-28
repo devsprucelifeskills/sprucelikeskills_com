@@ -103,83 +103,83 @@ export const courses: Course[] = [
             ]
         }
     },
-    // {
-    //     slug: "medical-coding ",
-    //     title: "Foundation in Medical Coding",
-    //     description:
-    //         "Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into standardized alphanumeric codes used in medical records and billing systems.",
-    //     image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218282/y03cggrcglzgr7cnkddv.webp",
-    //     price: 45000,
-    //     discountPrice: 39999,
-    //     sections: [
-    //         {
-    //             id: "intro",
-    //             title: "Foundation in Medical Coding",
-    //             content: "Medical coding is the transformation of healthcare diagnosis, procedures, medical services, and equipment into universal medical alphanumeric codes. The diagnoses and procedure codes are taken from medical record documentation, such as transcription of physician's notes, laboratory and radiologic results, etc.\n\nMedical coding professionals help ensure the codes are applied correctly during the medical billing process, which includes abstracting the information from documentation, assigning the appropriate codes, and creating a claim to be paid by insurance carriers."
-    //         },
-    //         {
-    //             id: "job-roles",
-    //             title: "Job Roles in Medical Coding",
-    //             list: [
-    //                 "Medical Coder",
-    //                 "Coding Assistant",
-    //                 "Certified Professional Coder (CPC)",
-    //                 "Medical Coding Specialist",
-    //                 "Coding Auditor",
-    //                 "Coding Manager",
-    //                 "Medical Coding Manager",
-    //                 "Revenue Cycle Manager"
-    //             ]
-    //         },
-    //         {
-    //             id: "industries",
-    //             title: "Industries Hiring Medical Coders",
-    //             list: [
-    //                 "Hospitals and Clinics",
-    //                 "Insurance Companies",
-    //                 "Medical Billing Companies",
-    //                 "Government Agencies",
-    //                 "Remote Work Opportunities"
-    //             ]
-    //         },
-    //         {
-    //             id: "who-can-apply",
-    //             title: "Who Can Apply",
-    //             content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
-    //         }
-    //     ],
-    //     featuresTable: {
-    //         headers: [
-    //             "Duration",
-    //             "Spruce® LMS",
-    //             "AAPC LMS",
-    //             "RTMNU Certificate",
-    //             "NEP Credits (3)",
-    //             "AAPC 2026 Books",
-    //             "650+ Practice Questions",
-    //             "Regular Tests",
-    //             "Placement Support"
-    //         ],
-    //         columns: [
-    //             {
-    //                 title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-    //                 features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
-    //             },
-    //             {
-    //                 title: "Advance Diploma in Medical Coding",
-    //                 features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
-    //             },
-    //             {
-    //                 title: "Diploma In Medical Coding (Foundation)",
-    //                 features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
-    //             },
-    //             {
-    //                 title: "Diploma In Certified Professional Coder (CPC)",
-    //                 features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
-    //             }
-    //         ]
-    //     }
-    // },
+    {
+        slug: "medical-coding-foundation-medical-coding",
+        title: "Foundation in Medical Coding",
+        description:
+            "Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into standardized alphanumeric codes used in medical records and billing systems.",
+        image: "https://res.cloudinary.com/dxsz4pcbj/image/upload/v1773218282/y03cggrcglzgr7cnkddv.webp",
+        price: 45000,
+        discountPrice: 39999,
+        sections: [
+            {
+                id: "intro",
+                title: "Foundation in Medical Coding",
+                content: "Medical coding is the transformation of healthcare diagnosis, procedures, medical services, and equipment into universal medical alphanumeric codes. The diagnoses and procedure codes are taken from medical record documentation, such as transcription of physician's notes, laboratory and radiologic results, etc.\n\nMedical coding professionals help ensure the codes are applied correctly during the medical billing process, which includes abstracting the information from documentation, assigning the appropriate codes, and creating a claim to be paid by insurance carriers."
+            },
+            {
+                id: "job-roles",
+                title: "Job Roles in Medical Coding",
+                list: [
+                    "Medical Coder",
+                    "Coding Assistant",
+                    "Certified Professional Coder (CPC)",
+                    "Medical Coding Specialist",
+                    "Coding Auditor",
+                    "Coding Manager",
+                    "Medical Coding Manager",
+                    "Revenue Cycle Manager"
+                ]
+            },
+            {
+                id: "industries",
+                title: "Industries Hiring Medical Coders",
+                list: [
+                    "Hospitals and Clinics",
+                    "Insurance Companies",
+                    "Medical Billing Companies",
+                    "Government Agencies",
+                    "Remote Work Opportunities"
+                ]
+            },
+            {
+                id: "who-can-apply",
+                title: "Who Can Apply",
+                content: "Anyone with a background in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or a strong interest in the healthcare industry and coding can apply for these programs."
+            }
+        ],
+        featuresTable: {
+            headers: [
+                "Duration",
+                "Spruce® LMS",
+                "AAPC LMS",
+                "RTMNU Certificate",
+                "NEP Credits (3)",
+                "AAPC 2026 Books",
+                "650+ Practice Questions",
+                "Regular Tests",
+                "Placement Support"
+            ],
+            columns: [
+                {
+                    title: "Post Graduate Diploma in Clinical Research & Medical Coding",
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Advance Diploma in Medical Coding",
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Medical Coding (Foundation)",
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                },
+                {
+                    title: "Diploma In Certified Professional Coder (CPC)",
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                }
+            ]
+        }
+    },
     {
         slug: "medical-coding-certified-proffesional-coder",
         title: "Certified Professional Coder (CPC)",

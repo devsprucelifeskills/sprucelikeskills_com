@@ -36,7 +36,7 @@ const NAV_LINKS = [
                 children: [
                     { label: "Foundation Medical Coding", href: "/courses/medical-coding-foundation-medical-coding" },
                     { label: "Certified Professional Coder (CPC) Training", href: "/courses/medical-coding-certified-proffesional-coder" },
-                    { label: "Advance Diploma in Medical Coding", href: "/courses/medical-coding-advance-diploma-in-medical-coding" },
+                    { label: "Advance Diploma in Medical Coding (CPC + University)", href: "/courses/medical-coding-advance-diploma-in-medical-coding" },
                     { label: "Post Graduate Diploma in Clinical Research & Medical Coding", href: "/courses/medical-coding-post-graduate-diploma" },
                 ],
             },
