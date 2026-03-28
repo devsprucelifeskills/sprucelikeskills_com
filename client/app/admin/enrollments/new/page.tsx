@@ -37,7 +37,8 @@ function EnrollmentSetupForm() {
         discountTitle: 'Scholarship',
         installmentsCount: 3,
         startDate: new Date().toISOString().split('T')[0],
-        intervalDays: 30
+        intervalDays: 30,
+        reviewMessage: ''
     });
     const [manualInstallments, setManualInstallments] = useState<any[]>([
         { amount: 0, dueDate: new Date().toISOString().split('T')[0] },
@@ -370,7 +371,7 @@ function EnrollmentSetupForm() {
                                 </div>
                             </div>
 
-                            {formData.discountAmount === 0 && (
+                            {formData.discountAmount > 0 && (
                                 <div className="animate-in fade-in slide-in-from-top-2 duration-300">
                                     <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Scholarship / Discount Type</label>
                                     <div className="relative">
@@ -381,9 +382,7 @@ function EnrollmentSetupForm() {
                                             onChange={(e) => setFormData({ ...formData, discountTitle: e.target.value })}
                                         >
                                             <option value="Scholarship">Scholarship</option>
-                                            {/* <option value="Promotion">Seasonal Promotion</option>
-                                            <option value="Early Bird">Early Bird Offer</option>
-                                            <option value="Referral">Referral Bonus</option> */}
+                                            <option value="Custom Discount">Custom Discount</option>
                                             <option value="Other">Other Discount</option>
                                         </select>
                                         <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
@@ -472,6 +471,16 @@ function EnrollmentSetupForm() {
                                 ))}
                             </div>
                         </div>
+                    </div>
+
+                    <div className="mt-8">
+                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Review Note (Optional)</label>
+                        <textarea
+                            className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all font-bold text-gray-900 text-sm resize-y min-h-[100px]"
+                            placeholder="Add a review note for this enrollment setup..."
+                            value={formData.reviewMessage}
+                            onChange={(e) => setFormData({ ...formData, reviewMessage: e.target.value })}
+                        ></textarea>
                     </div>
 
                     <div className="mt-12 bg-[#FDB813]/5 border-2 border-dashed border-[#FDB813]/20 rounded-[30px] p-8 flex flex-col md:flex-row items-center justify-between gap-6">

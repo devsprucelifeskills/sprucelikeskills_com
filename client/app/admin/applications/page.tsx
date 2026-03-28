@@ -290,10 +290,10 @@ export default function AdminApplicationsPage() {
 
                                                 <a
                                                     href={`/admin/enrollments/new?appId=${app._id}&name=${encodeURIComponent(app.name)}&email=${encodeURIComponent(app.email)}&course=${encodeURIComponent(app.courseTitle)}&slug=${app.courseSlug}`}
-                                                    className="bg-[#0A3D24] hover:bg-[#0A3D24]/90 text-white p-2.5 rounded-xl shadow-md transition-all hover:scale-105 flex items-center justify-center"
+                                                    className="bg-[#0A3D24] hover:bg-[#0A3D24]/90 text-white p-2.5 rounded-xl shadow-md transition-all hover:scale-105 flex items-center justify-center w-[150px]"
                                                     title="Setup Enrollment"
                                                 >
-                                                    EMI Option
+                                                    Generate EMI
                                                 </a>
                                             </div>
                                         </td>

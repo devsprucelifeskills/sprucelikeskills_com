@@ -19,7 +19,7 @@ const installmentSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['online', 'offline', 'razorpay'],
+        enum: ['online', 'offline', 'razorpay', 'system_auto'],
         default: 'online'
     },
     razorpayOrderId: {
@@ -28,6 +28,13 @@ const installmentSchema = new mongoose.Schema({
     razorpayPaymentId: {
         type: String
     }
+});
+
+const reviewSchema = new mongoose.Schema({
+    message: { type: String, required: true },
+    date: { type: Date, default: Date.now },
+    addedBy: { type: String, default: 'Admin' },
+    action: { type: String } // e.g., 'Created', 'Marked Paid', 'Updated EMI'
 });
 
 const enrollmentSchema = new mongoose.Schema({
@@ -57,6 +64,7 @@ const enrollmentSchema = new mongoose.Schema({
         required: true
     },
     installments: [installmentSchema],
+    reviews: [reviewSchema],
     isBlocked: {
         type: Boolean,
         default: false
