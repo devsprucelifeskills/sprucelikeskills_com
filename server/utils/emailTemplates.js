@@ -90,3 +90,66 @@ export const getEnrollmentTemplate = (userName, courseTitle, installments, total
 </html>
     `;
 };
+
+export const getCourseFullyPaidTemplate = (userName, courseTitle, totalPaid, websiteUrl = "https://sprucelifeskills.com") => {
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Fully Paid - Spruce Life Skills</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fafc; color: #2d3748;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <!-- Header -->
+        <tr>
+            <td style="padding: 40px 30px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); text-align: center;">
+                <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">Payment Complete! 🎉</h1>
+                <p style="margin: 10px 0 0 0; color: rgba(255, 255, 255, 0.9); font-size: 16px;">${courseTitle}</p>
+            </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+            <td style="padding: 40px 30px;">
+                <h2 style="margin: 0 0 20px 0; font-size: 22px; font-weight: 600; color: #1a202c;">Hi ${userName},</h2>
+                <p style="margin: 0 0 20px 0; line-height: 1.6; color: #4a5568;">This email is to confirm that the total fee for your enrollment in <strong>${courseTitle}</strong> has been successfully and completely paid off!</p>
+                
+                <!-- Stats Box -->
+                <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin-bottom: 30px; text-align: center;">
+                    <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.05em;">Total Amount Paid</p>
+                    <p style="margin: 0; font-size: 32px; font-weight: 800; color: #15803d;">₹${Number(totalPaid).toLocaleString('en-IN')}</p>
+                    <p style="margin: 10px 0 0 0; font-size: 14px; font-weight: 600; color: #166534; background-color: #dcfce7; display: inline-block; padding: 4px 12px; border-radius: 20px;">✓ 0 Pending Dues</p>
+                </div>
+
+                <p style="margin: 0 0 30px 0; line-height: 1.6; color: #4a5568;">You have no remaining EMI installments for this course. Your access is fully secured. Keep learning and keep growing!</p>
+
+                <!-- Action Button -->
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <a href="${websiteUrl}/profile/my-courses" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 16px; transition: background-color 0.2s;">Go to My Courses</a>
+                </div>
+
+                <p style="margin: 0 0 10px 0; line-height: 1.6; color: #4a5568;">If you have any questions or need assistance, feel free to reply to this email or visit our website.</p>
+                
+                <hr style="border: 0; border-top: 1px solid #edf2f7; margin: 30px 0;">
+                
+                <p style="margin: 0; font-size: 13px; color: #a0aec0; line-height: 1.6;">
+                    <strong>Spruce Life Skills</strong><br>
+                    Website: <a href="${websiteUrl}" style="color: #10b981; text-decoration: none;">${websiteUrl.replace('https://', '')}</a><br>
+                    Transforming Skills into Success.
+                </p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="padding: 20px 30px; background-color: #f7fafc; text-align: center; font-size: 12px; color: #a0aec0;">
+                &copy; ${new Date().getFullYear()} Spruce Life Skills. All rights reserved.
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+};

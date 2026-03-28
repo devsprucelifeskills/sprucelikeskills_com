@@ -41,6 +41,7 @@ interface Enrollment {
     blockReason?: string;
     hasOverdue?: boolean;
     createdAt: string;
+    reviews?: { message: string, date: string, addedBy: string, action?: string }[];
 }
 
 export default function AdminEMIManagementPage() {
@@ -55,6 +56,7 @@ export default function AdminEMIManagementPage() {
     const [editInstallments, setEditInstallments] = useState<{ amount: string; dueDate: string }[]>([]);
     const [editSaving, setEditSaving] = useState(false);
     const [editError, setEditError] = useState('');
+    const [editReviewMessage, setEditReviewMessage] = useState('');
 
     // Pay EMI Modal State
     const [payModalOpen, setPayModalOpen] = useState(false);
@@ -64,6 +66,11 @@ export default function AdminEMIManagementPage() {
     const [paySaving, setPaySaving] = useState(false);
     const [payError, setPayError] = useState('');
     const [originalEMIAmount, setOriginalEMIAmount] = useState<number>(0);
+    const [payReviewMessage, setPayReviewMessage] = useState('');
+
+    // Reviews Modal State
+    const [viewReviewsModalOpen, setViewReviewsModalOpen] = useState(false);
+    const [selectedEnrollmentForReviews, setSelectedEnrollmentForReviews] = useState<Enrollment | null>(null);
 
     const backend = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
 
@@ -128,6 +135,7 @@ export default function AdminEMIManagementPage() {
         setOriginalEMIAmount(installment.amount);
         setPayModalOpen(true);
         setPayError('');
+        setPayReviewMessage('');
     };
 
     const handlePaySubmit = async () => {
@@ -142,7 +150,7 @@ export default function AdminEMIManagementPage() {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ amountPaid: Number(paidAmountInput) })
+                body: JSON.stringify({ amountPaid: Number(paidAmountInput), reviewMessage: payReviewMessage })
             });
             const data = await res.json();
             if (data.success) {
@@ -166,6 +174,7 @@ export default function AdminEMIManagementPage() {
             dueDate: i.dueDate.split('T')[0]
         })));
         setEditError('');
+        setEditReviewMessage('');
         setEditModalOpen(true);
     };
 
@@ -286,7 +295,7 @@ export default function AdminEMIManagementPage() {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ newInstallments: editInstallments })
+                body: JSON.stringify({ newInstallments: editInstallments, reviewMessage: editReviewMessage })
             });
             const data = await res.json();
             if (data.success) {
@@ -442,6 +451,16 @@ export default function AdminEMIManagementPage() {
                                                                         Block Access
                                                                     </button>
                                                                 )}
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setSelectedEnrollmentForReviews(e);
+                                                                        setViewReviewsModalOpen(true);
+                                                                    }}
+                                                                    className="flex items-center gap-2 px-4 py-2 rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all bg-blue-50 text-blue-700 border-blue-100 hover:bg-blue-100"
+                                                                >
+                                                                    <BookOpen size={12} />
+                                                                    View Reviews
+                                                                </button>
                                                             </div>
                                                         </div>
                                                         <div className="flex items-center justify-between mb-6 px-4">
@@ -576,6 +595,16 @@ export default function AdminEMIManagementPage() {
                                             + Add Another Installment
                                         </button>
 
+                                        <div className="mt-6">
+                                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block ml-1">Review / Update Note (Optional)</label>
+                                            <textarea
+                                                value={editReviewMessage}
+                                                onChange={(e) => setEditReviewMessage(e.target.value)}
+                                                className="w-full bg-gray-50 border-2 border-gray-100 rounded-xl px-4 py-3 outline-none focus:border-[#0A3D24]/20 transition-all text-sm font-bold text-gray-900 resize-y min-h-[80px]"
+                                                placeholder="Add context for this schedule change..."
+                                            ></textarea>
+                                        </div>
+
                                         <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-4">
                                             <button
                                                 onClick={() => setEditModalOpen(false)}
@@ -632,6 +661,16 @@ export default function AdminEMIManagementPage() {
                                         autoFocus
                                     />
                                 </div>
+                            </div>
+
+                            <div className="mt-6">
+                                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Payment Review Note (Optional)</label>
+                                <textarea
+                                    value={payReviewMessage}
+                                    onChange={(e) => setPayReviewMessage(e.target.value)}
+                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white border-gray-100 rounded-2xl px-6 py-4 outline-none transition-all text-sm font-bold text-gray-900 resize-y min-h-[80px]"
+                                    placeholder="Add any notes about this payment..."
+                                ></textarea>
                             </div>
 
                             {(() => {
@@ -691,6 +730,79 @@ export default function AdminEMIManagementPage() {
                                     {paySaving ? 'Saving...' : 'Confirm Payment'}
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* View Reviews Modal */}
+            {viewReviewsModalOpen && selectedEnrollmentForReviews && (
+                <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white rounded-[32px] w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+                        <div className="p-8 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                            <div>
+                                <h2 className="text-xl font-black text-gray-900">Review History</h2>
+                                <p className="text-xs font-bold text-gray-400 mt-1">{selectedEnrollmentForReviews.userId?.name}'s Enrollment Timeline</p>
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                <div className="bg-gray-50 px-4 py-2 rounded-xl text-center border border-gray-100 flex-1 lg:flex-none">
+                                    <p className="text-[9px] uppercase font-black tracking-widest text-gray-400">Total Fee</p>
+                                    <p className="font-black text-gray-900 text-sm">₹{(selectedEnrollmentForReviews?.payableAmount || 0).toLocaleString()}</p>
+                                </div>
+                                <div className="bg-green-50 px-4 py-2 rounded-xl text-center border border-green-100 flex-1 lg:flex-none">
+                                    <p className="text-[9px] uppercase font-black tracking-widest text-green-600">Paid Total</p>
+                                    <p className="font-black text-green-700 text-sm">₹{(selectedEnrollmentForReviews?.installments.filter(i => i.status === 'paid').reduce((sum, i) => sum + i.amount, 0) || 0).toLocaleString()}</p>
+                                </div>
+                                <div className="bg-red-50 px-4 py-2 rounded-xl text-center border border-red-100 flex-1 lg:flex-none">
+                                    <p className="text-[9px] uppercase font-black tracking-widest text-red-600">Balance</p>
+                                    <p className="font-black text-red-700 text-sm">₹{((selectedEnrollmentForReviews?.payableAmount || 0) - (selectedEnrollmentForReviews?.installments.filter(i => i.status === 'paid').reduce((sum, i) => sum + i.amount, 0) || 0)).toLocaleString()}</p>
+                                </div>
+                                <button onClick={() => setViewReviewsModalOpen(false)} className="px-4 py-3 font-bold text-gray-400 hover:text-gray-600 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors whitespace-nowrap lg:ml-4">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                        <div className="p-8 max-h-[60vh] overflow-y-auto bg-slate-50">
+                            {(!selectedEnrollmentForReviews.reviews || selectedEnrollmentForReviews.reviews.length === 0) ? (
+                                <div className="text-center py-12 text-gray-400">
+                                    <BookOpen size={40} className="mx-auto mb-4 opacity-20" />
+                                    <p className="font-bold">No reviews or notes recorded for this enrollment.</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-6">
+                                    {selectedEnrollmentForReviews.reviews.map((rev, idx) => (
+                                        <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative group transition-all hover:border-[#0A3D24]/20 hover:shadow-md">
+                                            <div className="absolute top-6 left-0 w-1 h-[calc(100%-48px)] bg-gray-200 rounded-r-full group-hover:bg-[#FDB813] transition-colors"></div>
+                                            
+                                            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
+                                                <div>
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <span className="px-2 py-1 bg-gray-100 text-gray-500 rounded-md text-[9px] font-black uppercase tracking-widest flex items-center gap-1">
+                                                            <User size={10} /> {rev.addedBy}
+                                                        </span>
+                                                        <span className="text-xs font-bold text-gray-400 flex items-center gap-1">
+                                                            <Clock size={12} /> {new Date(rev.date).toLocaleString()}
+                                                        </span>
+                                                    </div>
+                                                    {rev.action && (
+                                                        <div className="inline-block px-3 py-1.5 bg-blue-50 border border-blue-100 text-blue-700 rounded-lg text-xs font-black uppercase tracking-wider">
+                                                            {rev.action}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="bg-gray-50/80 rounded-xl p-5 border border-gray-200/60 mt-2">
+                                                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Specific Review Note</p>
+                                                <p className="text-sm font-bold text-gray-800 leading-relaxed whitespace-pre-wrap">
+                                                    {rev.message}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

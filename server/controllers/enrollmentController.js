@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import User from '../models/User.js';
 import CourseSettings from '../models/CourseSettings.js';
 import Razorpay from 'razorpay';
-import { sendEnrollmentEmail } from '../utils/emailService.js';
+import { sendEnrollmentEmail, sendCourseFullyPaidEmail } from '../utils/emailService.js';
 
 import crypto from 'crypto';
 import dotenv from 'dotenv';
@@ -32,7 +32,8 @@ export const setupEnrollment = async (req, res) => {
             startDate,
             intervalDays,
             mode = 'auto',
-            manualInstallments = []
+            manualInstallments = [],
+            reviewMessage
         } = req.body;
 
         if (!userId || !courseSlug || !totalFee) {
@@ -96,7 +97,11 @@ export const setupEnrollment = async (req, res) => {
             },
             payableAmount,
             installments,
-            status: 'awaiting-payment'
+            status: 'awaiting-payment',
+            reviews: [{ 
+                message: reviewMessage || 'System: Enrollment schedule initially generated.', 
+                action: `Created Enrollment (Fee: ₹${payableAmount}, EMIs: ${installments.length})` 
+            }]
         });
 
         await newEnrollment.save();
@@ -134,10 +139,29 @@ export const getAllEnrollments = async (req, res) => {
     try {
         const enrollments = await Enrollment.find().populate('userId', 'name email').sort({ createdAt: -1 });
 
-        // Add calculated status for UI convenience
-        const enhancedEnrollments = enrollments.map(e => {
+        // Self-healing and calculation
+        const enhancedEnrollments = [];
+        for (let e of enrollments) {
+            const hasPaid = e.installments.some(inst => inst.status === 'paid');
+            let needsSave = false;
+
+            // Fix any stuck awaiting-payment statuses
+            if (e.status === 'awaiting-payment' && hasPaid) {
+                e.status = 'active';
+                needsSave = true;
+            }
+
+            // Fix any missing completed statuses
+            const hasPending = e.installments.some(inst => inst.status === 'pending');
+            if (hasPaid && !hasPending && e.status !== 'completed') {
+                e.status = 'completed';
+                needsSave = true;
+            }
+
+            if (needsSave) await e.save();
+
             const now = new Date();
-            const hasOverdue = e.installments.some(inst =>
+            const hasOverdue = e.installments.some(inst => 
                 inst.status === 'pending' && new Date(inst.dueDate) < now
             );
 
@@ -152,13 +176,14 @@ export const getAllEnrollments = async (req, res) => {
                 reason = 'Overdue EMI';
             }
 
-            return {
+            enhancedEnrollments.push({
                 ...e.toObject(),
                 calculatedStatus: calcStatus,
                 blockReason: reason,
-                hasOverdue
-            };
-        });
+                hasOverdue,
+                somePaid: hasPaid // Convenient for UI
+            });
+        }
 
         res.status(200).json({ success: true, enrollments: enhancedEnrollments });
     } catch (error) {
@@ -173,7 +198,7 @@ export const getAllEnrollments = async (req, res) => {
 export const markPaidManual = async (req, res) => {
     try {
         const { id, installmentId } = req.params;
-        const { amountPaid } = req.body;
+        const { amountPaid, reviewMessage } = req.body;
         const enrollment = await Enrollment.findById(id);
 
         if (!enrollment) return res.status(404).json({ success: false, message: "Enrollment not found" });
@@ -207,7 +232,47 @@ export const markPaidManual = async (req, res) => {
             }
         }
 
+        // If this is the first payment and enrollment is awaiting-payment, activate it
+        if (enrollment.status === 'awaiting-payment') {
+            enrollment.status = 'active';
+        }
+
+        // Auto-clear any 0 amount installments (e.g. from overpayment redistribution)
+        enrollment.installments.forEach(i => {
+            if (i.amount === 0 && i.status === 'pending') {
+                i.status = 'paid';
+                i.paidAt = new Date();
+                i.paymentMethod = 'system_auto';
+            }
+        });
+
+        const wasAlreadyCompleted = enrollment.status === 'completed';
+
+        // Check if all installments are paid to mark as completed
+        const allPaid = enrollment.installments.every(inst => inst.status === 'paid');
+        if (allPaid) {
+            enrollment.status = 'completed';
+        }
+
+        const currentIdx = enrollment.installments.findIndex(i => i._id.toString() === installmentId);
+
+        const actionText = diff !== 0 
+            ? `Marked EMI #${currentIdx + 1} paid: ₹${actualPaid} (Original: ₹${originalAmount})`
+            : `Marked EMI #${currentIdx + 1} paid: ₹${actualPaid}`;
+
+        enrollment.reviews.push({
+            message: reviewMessage || 'System: Payment recorded by admin without additional notes.',
+            action: actionText
+        });
+
         await enrollment.save();
+
+        if (allPaid && !wasAlreadyCompleted) {
+            const user = await User.findById(enrollment.userId);
+            if (user && user.email) {
+                sendCourseFullyPaidEmail(user.email, user.name, enrollment).catch(console.error);
+            }
+        }
 
         res.status(200).json({ success: true, message: "Installment marked as paid and balance redistributed", enrollment });
     } catch (error) {
@@ -289,7 +354,7 @@ export const toggleAutoBlockStatus = async (req, res) => {
 export const updateEmiSchedule = async (req, res) => {
     try {
         const { id } = req.params;
-        const { newInstallments } = req.body;
+        const { newInstallments, reviewMessage } = req.body;
 
         if (!Array.isArray(newInstallments) || newInstallments.length === 0) {
             return res.status(400).json({ success: false, message: "New installments array is required" });
@@ -326,12 +391,40 @@ export const updateEmiSchedule = async (req, res) => {
         // Replace pending installments with the new ones, keeping paid ones intact
         enrollment.installments = [...paidInstallments, ...formattedNewInstallments];
 
-        // If it was completed but now has new pending payments, switch back to active
-        if (enrollment.status === 'completed' && formattedNewInstallments.length > 0) {
+        // Auto-clear any 0 amount installments just in case admin manually configured a 0 amount
+        enrollment.installments.forEach(i => {
+            if (i.amount === 0 && i.status === 'pending') {
+                i.status = 'paid';
+                i.paidAt = new Date();
+                i.paymentMethod = 'system_auto';
+            }
+        });
+
+        const wasAlreadyCompleted = enrollment.status === 'completed';
+
+        // If it was completed/awaiting-payment but now has new pending payments AND some paid ones, switch to active
+        const hasPaid = enrollment.installments.some(inst => inst.status === 'paid');
+        const hasPending = enrollment.installments.some(inst => inst.status === 'pending');
+
+        if (hasPaid && !hasPending) {
+            enrollment.status = 'completed';
+        } else if (hasPaid && (enrollment.status === 'completed' || enrollment.status === 'awaiting-payment')) {
             enrollment.status = 'active';
         }
 
+        enrollment.reviews.push({
+            message: reviewMessage || 'System: EMI schedule was restructured by admin without additional notes.',
+            action: `Updated Schedule (Reconfigured Balance: ₹${newTotal} into ${newInstallments.length} EMIs)`
+        });
+
         await enrollment.save();
+
+        if (enrollment.status === 'completed' && !wasAlreadyCompleted) {
+            const user = await User.findById(enrollment.userId);
+            if (user && user.email) {
+                sendCourseFullyPaidEmail(user.email, user.name, enrollment).catch(console.error);
+            }
+        }
 
         res.status(200).json({
             success: true,
@@ -352,7 +445,24 @@ export const getMyEnrollments = async (req, res) => {
     try {
         const enrollments = await Enrollment.find({ userId: req.user._id });
 
-        const enhancedEnrollments = enrollments.map(e => {
+        const enhancedEnrollments = [];
+        for (let e of enrollments) {
+            const hasPaid = e.installments.some(inst => inst.status === 'paid');
+            let needsSave = false;
+
+            // Fix stuck status
+            if (e.status === 'awaiting-payment' && hasPaid) {
+                e.status = 'active';
+                needsSave = true;
+            }
+            const hasPending = e.installments.some(inst => inst.status === 'pending');
+            if (hasPaid && !hasPending && e.status !== 'completed') {
+                e.status = 'completed';
+                needsSave = true;
+            }
+
+            if (needsSave) await e.save();
+
             const now = new Date();
             const hasOverdue = e.installments.some(inst =>
                 inst.status === 'pending' && new Date(inst.dueDate) < now
@@ -361,13 +471,13 @@ export const getMyEnrollments = async (req, res) => {
             // Override `isBlocked` to true if auto-blocked so frontend catches it naturally
             const effectivelyBlocked = e.isBlocked || (e.isAutoBlockEnabled && hasOverdue);
 
-            return {
+            enhancedEnrollments.push({
                 ...e.toObject(),
                 isBlocked: effectivelyBlocked,
                 manualBlock: e.isBlocked,
                 autoBlockTriggered: (e.isAutoBlockEnabled && hasOverdue)
-            };
-        });
+            });
+        }
 
         res.status(200).json({ success: true, enrollments: enhancedEnrollments });
     } catch (error) {
@@ -477,7 +587,31 @@ export const verifyInstallmentPayment = async (req, res) => {
             enrollment.status = 'active';
         }
 
+        // Auto-clear any 0 amount installments
+        enrollment.installments.forEach(i => {
+            if (i.amount === 0 && i.status === 'pending') {
+                i.status = 'paid';
+                i.paidAt = new Date();
+                i.paymentMethod = 'system_auto';
+            }
+        });
+        
+        const wasAlreadyCompleted = enrollment.status === 'completed';
+
+        // Check if all installments are paid to mark as completed
+        const allPaid = enrollment.installments.every(inst => inst.status === 'paid');
+        if (allPaid) {
+            enrollment.status = 'completed';
+        }
+
         await enrollment.save();
+
+        if (allPaid && !wasAlreadyCompleted) {
+            const user = await User.findById(enrollment.userId);
+            if (user && user.email) {
+                sendCourseFullyPaidEmail(user.email, user.name, enrollment).catch(console.error);
+            }
+        }
 
         res.status(200).json({ success: true, message: "Payment verified and installment updated", enrollment });
     } catch (error) {
