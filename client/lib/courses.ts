@@ -458,10 +458,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -545,10 +541,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -632,10 +624,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -719,10 +707,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -806,10 +790,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Graduates or Post-graduates in Life Sciences (Biology, Pharmacy, Nursing, Medical, etc.) or professionals seeking to enter the pharmaceutical and clinical research industry can apply for these programs."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -886,10 +866,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -957,10 +933,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -1028,10 +1000,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Any graduate with strong communication skills and basic computer knowledge can apply for these programs. Life science background is preferred but not mandatory for billing roles."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -1099,10 +1067,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -1168,10 +1132,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {
@@ -1237,10 +1197,6 @@ export const courses: Course[] = [
                 id: "who-can-apply",
                 title: "Who Can Apply",
                 content: "Ideal for fresh graduates looking for a career in Revenue Cycle Management (RCM) who wish to apply for healthcare finance roles. Requires good analytical skills and persistency."
-            },
-            {
-                id: "features-table",
-                title: "Courses & Course Features"
             }
         ],
         featuresTable: {

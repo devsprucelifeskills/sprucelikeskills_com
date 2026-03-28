@@ -79,7 +79,7 @@ export default function MissionVisionContent() {
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mt-1">Placements</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-emerald-400">15+</p>
+                <p className="text-3xl font-bold text-emerald-400">13+</p>
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mt-1">Years Legacy</p>
               </div>
               <div className="text-center">
