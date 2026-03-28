@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   Clock,
+  User,
   ChevronRight,
   Video,
   FileText,
@@ -24,6 +25,7 @@ import { useState } from 'react';
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/applications', label: 'Applications', icon: FileText },
+  { href: '/admin/enrollments/quick', label: 'Direct Registration', icon: User },
   { href: '/admin/users', label: 'Users', icon: Users },
 
   { href: '/admin/enrollments', label: 'Enrollments', icon: BookOpen },
@@ -67,11 +69,11 @@ export default function AdminSidebar() {
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = href === '/admin' 
-            ? pathname === '/admin' 
+          const isActive = href === '/admin'
+            ? pathname === '/admin'
             : href === '/admin/enrollments'
-                ? pathname === '/admin/enrollments' || pathname.startsWith('/admin/enrollments/new')
-                : pathname.startsWith(href);
+              ? pathname === '/admin/enrollments' || pathname.startsWith('/admin/enrollments/new')
+              : pathname.startsWith(href);
           return (
             <Link
               key={href}

@@ -4,6 +4,8 @@ import Enrollment from '../models/Enrollment.js';
 import Enquiry from '../models/Enquiry.js';
 import PartnerEnquiry from '../models/PartnerEnquiry.js';
 import Meeting from '../models/Meeting.js';
+import Application from '../models/Application.js';
+import bcrypt from 'bcrypt';
 
 // GET /api/v2/admin/stats
 export const getStats = async (req, res) => {
@@ -254,4 +256,67 @@ export const getUniqueCourses = async (req, res) => {
     }
 };
 
+// @desc    Create new user and application in one go
+// @route   POST /api/v2/admin/users/create-with-application
+// @access  Private/Admin
+export const createUserWithApplication = async (req, res) => {
+    try {
+        const { name, email, contact, courseSlug, courseTitle, password } = req.body;
 
+        if (!name || !email || !courseSlug || !courseTitle) {
+            return res.status(400).json({ success: false, message: "Missing required fields" });
+        }
+
+        let user = await User.findOne({ email });
+        let userWasCreated = false;
+
+        if (!user) {
+            // Create New User
+            const defaultPassword = password || 'Spruce@123';
+            const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
+            user = await User.create({
+                name,
+                email,
+                password: hashedPassword,
+                role: 'student'
+            });
+            userWasCreated = true;
+        }
+
+        // Check if application exists
+        const existingApp = await Application.findOne({ email, courseSlug });
+        if (existingApp) {
+            return res.status(400).json({
+                success: false,
+                message: userWasCreated
+                    ? `User created, but an application for this course already exists.`
+                    : `Application for this course already exists for this user.`
+            });
+        }
+
+        // Create Reviewed Application (since admin is creating it manually)
+        const application = new Application({
+            name,
+            email,
+            contact: contact || 'N/A',
+            courseSlug,
+            courseTitle,
+            status: 'reviewed' // This matches the enum ['pending', 'reviewed', 'enrolled', 'rejected']
+        });
+
+        await application.save();
+
+        res.status(201).json({
+            success: true,
+            message: userWasCreated
+                ? `User created and application submitted successfully!`
+                : `Application created for existing user successfully!`,
+            user: { _id: user._id, name: user.name, email: user.email },
+            application
+        });
+    } catch (error) {
+        console.error('Error in createUserWithApplication:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};

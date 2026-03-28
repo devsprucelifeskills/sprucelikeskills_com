@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import User from '../models/User.js';
 import CourseSettings from '../models/CourseSettings.js';
 import Razorpay from 'razorpay';
+import { sendEnrollmentEmail } from '../utils/emailService.js';
 
 import crypto from 'crypto';
 import dotenv from 'dotenv';
@@ -20,12 +21,12 @@ const razorpay = new Razorpay({
 // @access  Private/Admin
 export const setupEnrollment = async (req, res) => {
     try {
-        const { 
-            userId, 
-            courseSlug, 
-            courseTitle, 
-            totalFee, 
-            discountAmount, 
+        const {
+            userId,
+            courseSlug,
+            courseTitle,
+            totalFee,
+            discountAmount,
             discountTitle,
             installmentsCount,
             startDate,
@@ -46,9 +47,9 @@ export const setupEnrollment = async (req, res) => {
         });
 
         if (existingEnrollment) {
-            return res.status(400).json({ 
-                success: false, 
-                message: "An active or pending enrollment already exists for this user and course." 
+            return res.status(400).json({
+                success: false,
+                message: "An active or pending enrollment already exists for this user and course."
             });
         }
 
@@ -74,7 +75,7 @@ export const setupEnrollment = async (req, res) => {
             for (let i = 0; i < (installmentsCount || 1); i++) {
                 installments.push({
                     dueDate: new Date(currentDueDate),
-                    amount: i === (installmentsCount - 1) 
+                    amount: i === (installmentsCount - 1)
                         ? payableAmount - (installmentAmount * (installmentsCount - 1)) // Adjustment for rounding
                         : installmentAmount,
                     status: 'pending'
@@ -101,14 +102,24 @@ export const setupEnrollment = async (req, res) => {
         await newEnrollment.save();
 
         // Optionally update User model's enrolledCourses if not already present
-        await User.findByIdAndUpdate(userId, {
+        const user = await User.findByIdAndUpdate(userId, {
             $addToSet: { enrolledCourses: courseSlug }
-        });
+        }, { new: true });
 
-        res.status(201).json({ 
-            success: true, 
+        // Send enrollment confirmation email
+        if (user && user.email) {
+            try {
+                await sendEnrollmentEmail(user.email, user.name, newEnrollment);
+            } catch (emailError) {
+                console.error("Non-blocking error sending enrollment email:", emailError);
+                // We don't fail the response if the email fails
+            }
+        }
+
+        res.status(201).json({
+            success: true,
             message: "Enrollment created successfully with EMI schedule",
-            enrollment: newEnrollment 
+            enrollment: newEnrollment
         });
     } catch (error) {
         console.error("Error in setupEnrollment:", error);
@@ -122,17 +133,17 @@ export const setupEnrollment = async (req, res) => {
 export const getAllEnrollments = async (req, res) => {
     try {
         const enrollments = await Enrollment.find().populate('userId', 'name email').sort({ createdAt: -1 });
-        
+
         // Add calculated status for UI convenience
         const enhancedEnrollments = enrollments.map(e => {
             const now = new Date();
-            const hasOverdue = e.installments.some(inst => 
+            const hasOverdue = e.installments.some(inst =>
                 inst.status === 'pending' && new Date(inst.dueDate) < now
             );
-            
+
             let calcStatus = 'active';
             let reason = '';
-            
+
             if (e.isBlocked) {
                 calcStatus = 'blocked';
                 reason = 'Manual Block';
@@ -162,6 +173,7 @@ export const getAllEnrollments = async (req, res) => {
 export const markPaidManual = async (req, res) => {
     try {
         const { id, installmentId } = req.params;
+        const { amountPaid } = req.body;
         const enrollment = await Enrollment.findById(id);
 
         if (!enrollment) return res.status(404).json({ success: false, message: "Enrollment not found" });
@@ -169,13 +181,35 @@ export const markPaidManual = async (req, res) => {
         const inst = enrollment.installments.id(installmentId);
         if (!inst) return res.status(404).json({ success: false, message: "Installment not found" });
 
+        const originalAmount = inst.amount;
+        const actualPaid = amountPaid !== undefined ? Number(amountPaid) : originalAmount;
+        const diff = originalAmount - actualPaid;
+
+        // Mark as paid
         inst.status = 'paid';
         inst.paidAt = new Date();
         inst.paymentMethod = 'offline';
+        inst.amount = actualPaid;
+
+        // If there's a difference and there are remaining pending installments, redistribute it
+        if (diff !== 0) {
+            const currentIdx = enrollment.installments.findIndex(i => i._id.toString() === installmentId);
+            const remainingPending = enrollment.installments.slice(currentIdx + 1).filter(i => i.status === 'pending');
+
+            if (remainingPending.length > 0) {
+                const perEMI = Math.floor(diff / remainingPending.length);
+                remainingPending.forEach((p, idx) => {
+                    const adjustment = idx === remainingPending.length - 1
+                        ? diff - (perEMI * (remainingPending.length - 1))
+                        : perEMI;
+                    p.amount = Math.max(0, p.amount + adjustment);
+                });
+            }
+        }
 
         await enrollment.save();
 
-        res.status(200).json({ success: true, message: "Installment marked as paid manually", enrollment });
+        res.status(200).json({ success: true, message: "Installment marked as paid and balance redistributed", enrollment });
     } catch (error) {
         console.error("Error in markPaidManual:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
@@ -193,10 +227,10 @@ export const toggleBlockStatus = async (req, res) => {
         enrollment.isBlocked = !enrollment.isBlocked;
         await enrollment.save();
 
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             message: `User ${enrollment.isBlocked ? 'blocked' : 'unblocked'} successfully`,
-            isBlocked: enrollment.isBlocked 
+            isBlocked: enrollment.isBlocked
         });
     } catch (error) {
         console.error("Error in toggleBlockStatus:", error);
@@ -216,8 +250,8 @@ export const unblockStudent = async (req, res) => {
         enrollment.isAutoBlockEnabled = false;
         await enrollment.save();
 
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             message: "Student unblocked successfully",
             isBlocked: false,
             isAutoBlockEnabled: false
@@ -239,10 +273,10 @@ export const toggleAutoBlockStatus = async (req, res) => {
         enrollment.isAutoBlockEnabled = !enrollment.isAutoBlockEnabled;
         await enrollment.save();
 
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             message: `Auto-block ${enrollment.isAutoBlockEnabled ? 'enabled' : 'disabled'} successfully`,
-            isAutoBlockEnabled: enrollment.isAutoBlockEnabled 
+            isAutoBlockEnabled: enrollment.isAutoBlockEnabled
         });
     } catch (error) {
         console.error("Error in toggleAutoBlockStatus:", error);
@@ -267,7 +301,7 @@ export const updateEmiSchedule = async (req, res) => {
         // Calculate paid amount
         const paidInstallments = enrollment.installments.filter(inst => inst.status === 'paid');
         const paidAmount = paidInstallments.reduce((sum, inst) => sum + Number(inst.amount), 0);
-        
+
         // Calculate remaining balance
         const balance = enrollment.payableAmount - paidAmount;
 
@@ -275,10 +309,10 @@ export const updateEmiSchedule = async (req, res) => {
         const newTotal = newInstallments.reduce((sum, inst) => sum + Number(inst.amount), 0);
 
         // Validate that newTotal makes sense against balance
-        if (Math.abs(newTotal - balance) > 1) { 
-            return res.status(400).json({ 
-                success: false, 
-                message: `Sum of new installments (${newTotal}) must exactly equal the remaining balance (${balance})` 
+        if (Math.abs(newTotal - balance) > 1) {
+            return res.status(400).json({
+                success: false,
+                message: `Sum of new installments (${newTotal}) must exactly equal the remaining balance (${balance})`
             });
         }
 
@@ -299,10 +333,10 @@ export const updateEmiSchedule = async (req, res) => {
 
         await enrollment.save();
 
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             message: "EMI schedule updated successfully",
-            enrollment 
+            enrollment
         });
 
     } catch (error) {
@@ -320,10 +354,10 @@ export const getMyEnrollments = async (req, res) => {
 
         const enhancedEnrollments = enrollments.map(e => {
             const now = new Date();
-            const hasOverdue = e.installments.some(inst => 
+            const hasOverdue = e.installments.some(inst =>
                 inst.status === 'pending' && new Date(inst.dueDate) < now
             );
-            
+
             // Override `isBlocked` to true if auto-blocked so frontend catches it naturally
             const effectivelyBlocked = e.isBlocked || (e.isAutoBlockEnabled && hasOverdue);
 
@@ -360,7 +394,7 @@ export const getCourseSettings = async (req, res) => {
 export const createInstallmentOrder = async (req, res) => {
     try {
         const { id, installmentId } = req.params;
-        
+
         // Validate IDs
         if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(installmentId)) {
             return res.status(400).json({ success: false, message: "Invalid enrollment or installment ID" });

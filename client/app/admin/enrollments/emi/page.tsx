@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { 
-    BookOpen, 
-    Search, 
-    CheckCircle2, 
-    Clock, 
-    AlertCircle, 
+import {
+    BookOpen,
+    Search,
+    CheckCircle2,
+    Clock,
+    AlertCircle,
     MoreVertical,
     Unlock,
     Lock,
@@ -56,6 +56,15 @@ export default function AdminEMIManagementPage() {
     const [editSaving, setEditSaving] = useState(false);
     const [editError, setEditError] = useState('');
 
+    // Pay EMI Modal State
+    const [payModalOpen, setPayModalOpen] = useState(false);
+    const [selectedEnrollmentForPay, setSelectedEnrollmentForPay] = useState<Enrollment | null>(null);
+    const [selectedInstallmentId, setSelectedInstallmentId] = useState<string | null>(null);
+    const [paidAmountInput, setPaidAmountInput] = useState<string>('');
+    const [paySaving, setPaySaving] = useState(false);
+    const [payError, setPayError] = useState('');
+    const [originalEMIAmount, setOriginalEMIAmount] = useState<number>(0);
+
     const backend = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:5000';
 
     const fetchEnrollments = async () => {
@@ -89,7 +98,7 @@ export default function AdminEMIManagementPage() {
             });
             const data = await res.json();
             if (data.success) {
-                setEnrollments(prev => prev.map(e => 
+                setEnrollments(prev => prev.map(e =>
                     e._id === id ? { ...e, isBlocked: false, isAutoBlockEnabled: false, calculatedStatus: 'active' } : e
                 ));
             }
@@ -105,40 +114,56 @@ export default function AdminEMIManagementPage() {
             });
             const data = await res.json();
             if (data.success) {
-                setEnrollments(prev => prev.map(e => 
+                setEnrollments(prev => prev.map(e =>
                     e._id === id ? { ...e, isBlocked: true, calculatedStatus: 'blocked' } : e
                 ));
             }
         } catch (err) { /* ignore */ }
     };
 
-    const markPaid = async (enrollmentId: string, installmentId: string) => {
-        if (!confirm("Mark this installment as paid manually?")) return;
+    const markPaid = (enrollment: Enrollment, installment: Installment) => {
+        setSelectedEnrollmentForPay(enrollment);
+        setSelectedInstallmentId(installment._id);
+        setPaidAmountInput(installment.amount.toString());
+        setOriginalEMIAmount(installment.amount);
+        setPayModalOpen(true);
+        setPayError('');
+    };
+
+    const handlePaySubmit = async () => {
+        if (!selectedEnrollmentForPay || !selectedInstallmentId) return;
+        setPayError('');
+        setPaySaving(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${backend}/api/v2/enrollments/admin/${enrollmentId}/installments/${installmentId}/pay`, {
+            const res = await fetch(`${backend}/api/v2/enrollments/admin/${selectedEnrollmentForPay._id}/installments/${selectedInstallmentId}/pay`, {
                 method: 'PUT',
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amountPaid: Number(paidAmountInput) })
             });
             const data = await res.json();
             if (data.success) {
-                setEnrollments(prev => prev.map(e => 
-                    e._id === enrollmentId 
-                    ? { ...e, installments: e.installments.map(inst => 
-                        inst._id === installmentId ? { ...inst, status: 'paid', paidAt: new Date().toISOString() } : inst
-                      ) } 
-                    : e
-                ));
+                setPayModalOpen(false);
+                fetchEnrollments();
+            } else {
+                setPayError(data.message || 'Failed to mark as paid');
             }
-        } catch (err) { /* ignore */ }
+        } catch (err: any) {
+            setPayError(err.message || 'An error occurred');
+        } finally {
+            setPaySaving(false);
+        }
     };
 
     const openEditModal = (e: Enrollment) => {
         setEditingEnrollment(e);
         const pendingInsts = e.installments.filter(i => i.status === 'pending');
-        setEditInstallments(pendingInsts.map(i => ({ 
-            amount: i.amount.toString(), 
-            dueDate: i.dueDate.split('T')[0] 
+        setEditInstallments(pendingInsts.map(i => ({
+            amount: i.amount.toString(),
+            dueDate: i.dueDate.split('T')[0]
         })));
         setEditError('');
         setEditModalOpen(true);
@@ -148,8 +173,105 @@ export default function AdminEMIManagementPage() {
         setEditInstallments(prev => {
             const newInsts = [...prev];
             newInsts[index] = { ...newInsts[index], [field]: value };
+
+            // Redistribution logic for Edit Schedule
+            if (field === 'amount' && editingEnrollment) {
+                const newAmount = Number(value) || 0;
+
+                // 1. Calculate the total that must be covered by pending installments
+                const paidAmount = editingEnrollment.installments
+                    .filter(i => i.status === 'paid')
+                    .reduce((sum, i) => sum + i.amount, 0);
+                const pendingTotal = editingEnrollment.payableAmount - paidAmount;
+
+                if (index < newInsts.length - 1) {
+                    // Changing a non-last EMI: Adjust subsequent pending ones
+                    const sumBeforeAndCurrent = newInsts
+                        .slice(0, index + 1)
+                        .reduce((sum, inst) => sum + (Number(inst.amount) || 0), 0);
+
+                    const remainingBalance = pendingTotal - sumBeforeAndCurrent;
+                    const remainingCount = newInsts.length - (index + 1);
+
+                    if (remainingCount > 0) {
+                        const amountPerRemaining = Math.floor(remainingBalance / remainingCount);
+                        for (let i = index + 1; i < newInsts.length; i++) {
+                            const newVal = i === newInsts.length - 1
+                                ? remainingBalance - (amountPerRemaining * (remainingCount - 1))
+                                : amountPerRemaining;
+                            newInsts[i] = { ...newInsts[i], amount: newVal.toString() };
+                        }
+                    }
+                } else if (newInsts.length > 1) {
+                    // Changing the LAST pending EMI: Adjust preceding pending ones
+                    const targetPrecedingSum = pendingTotal - newAmount;
+                    const precedingCount = newInsts.length - 1;
+
+                    const amountPerPreceding = Math.floor(targetPrecedingSum / precedingCount);
+                    for (let i = 0; i < precedingCount; i++) {
+                        const newVal = i === precedingCount - 1
+                            ? targetPrecedingSum - (amountPerPreceding * (precedingCount - 1))
+                            : amountPerPreceding;
+                        newInsts[i] = { ...newInsts[i], amount: newVal.toString() };
+                    }
+                }
+            }
             return newInsts;
         });
+    };
+
+    const addEditInstallment = () => {
+        if (!editingEnrollment) return;
+        const paidAmount = editingEnrollment.installments
+            .filter(i => i.status === 'paid')
+            .reduce((sum, i) => sum + i.amount, 0);
+        const pendingTotal = editingEnrollment.payableAmount - paidAmount;
+
+        const newCount = editInstallments.length + 1;
+        const amountPerEMI = Math.floor(pendingTotal / newCount);
+
+        const lastDate = editInstallments.length > 0
+            ? new Date(editInstallments[editInstallments.length - 1].dueDate)
+            : new Date();
+        const nextDate = new Date(lastDate);
+        nextDate.setDate(nextDate.getDate() + 30);
+
+        setEditInstallments(Array.from({ length: newCount }, (_, i) => {
+            const dueDate = i < editInstallments.length
+                ? editInstallments[i].dueDate
+                : nextDate.toISOString().split('T')[0];
+
+            return {
+                amount: (i === newCount - 1
+                    ? pendingTotal - (amountPerEMI * (newCount - 1))
+                    : amountPerEMI).toString(),
+                dueDate
+            };
+        }));
+    };
+
+    const removeEditInstallment = (index: number) => {
+        if (!editingEnrollment) return;
+        const filtered = editInstallments.filter((_, i) => i !== index);
+        const newCount = filtered.length;
+
+        if (newCount === 0) {
+            setEditInstallments([]);
+            return;
+        }
+
+        const paidAmount = editingEnrollment.installments
+            .filter(i => i.status === 'paid')
+            .reduce((sum, i) => sum + i.amount, 0);
+        const pendingTotal = editingEnrollment.payableAmount - paidAmount;
+        const amountPerEMI = Math.floor(pendingTotal / newCount);
+
+        setEditInstallments(filtered.map((inst, i) => ({
+            ...inst,
+            amount: (i === newCount - 1
+                ? pendingTotal - (amountPerEMI * (newCount - 1))
+                : amountPerEMI).toString()
+        })));
     };
 
     const handleEditSubmit = async () => {
@@ -160,7 +282,7 @@ export default function AdminEMIManagementPage() {
             const token = localStorage.getItem('token');
             const res = await fetch(`${backend}/api/v2/enrollments/admin/${editingEnrollment._id}/update-emi`, {
                 method: 'PUT',
-                headers: { 
+                headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
@@ -180,8 +302,8 @@ export default function AdminEMIManagementPage() {
         }
     };
 
-    const filtered = enrollments.filter(e => 
-        (e.userId?.name || '').toLowerCase().includes(search.toLowerCase()) || 
+    const filtered = enrollments.filter(e =>
+        (e.userId?.name || '').toLowerCase().includes(search.toLowerCase()) ||
         e.courseTitle.toLowerCase().includes(search.toLowerCase()) ||
         (e.userId?.email || '').toLowerCase().includes(search.toLowerCase())
     );
@@ -201,9 +323,9 @@ export default function AdminEMIManagementPage() {
 
                 <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input 
-                        type="text" 
-                        placeholder="Search by student or course..." 
+                    <input
+                        type="text"
+                        placeholder="Search by student or course..."
                         className="pl-12 pr-6 py-3.5 bg-white border border-gray-100 rounded-2xl outline-none focus:ring-4 focus:ring-[#0A3D24]/5 transition-all text-sm font-bold min-w-[350px] shadow-sm"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -261,7 +383,7 @@ export default function AdminEMIManagementPage() {
                                             <td className="p-6">
                                                 <div className="flex items-center gap-4">
                                                     <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden min-w-[100px]">
-                                                        <div 
+                                                        <div
                                                             className={`h-full transition-all duration-1000 ${progress === 100 ? 'bg-[#2ecc71]' : 'bg-[#FDB813]'}`}
                                                             style={{ width: `${progress}%` }}
                                                         />
@@ -273,15 +395,14 @@ export default function AdminEMIManagementPage() {
                                             </td>
                                             <td className="p-6">
                                                 <div className="flex flex-col gap-2">
-                                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all w-fit ${
-                                                        e.calculatedStatus === 'blocked' 
-                                                            ? 'bg-red-50 text-red-600 border-red-100' 
-                                                            : e.calculatedStatus === 'auto-blocked'
+                                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all w-fit ${e.calculatedStatus === 'blocked'
+                                                        ? 'bg-red-50 text-red-600 border-red-100'
+                                                        : e.calculatedStatus === 'auto-blocked'
                                                             ? 'bg-orange-50 text-orange-600 border-orange-100'
                                                             : 'bg-green-50 text-green-600 border-green-100'
-                                                    }`}>
+                                                        }`}>
                                                         {e.calculatedStatus === 'active' ? <Unlock size={12} /> : <Lock size={12} />}
-                                                        {e.calculatedStatus === 'active' ? 'Active' : e.calculatedStatus === 'blocked' ? 'Manually Blocked' : 'Auto-Blocked'}
+                                                        {e.calculatedStatus === 'active' ? 'Active' : e.calculatedStatus === 'blocked' ? 'Blocked' : 'Blocked'}
                                                     </div>
                                                     {e.calculatedStatus !== 'active' && (
                                                         <p className="text-[9px] text-gray-400 font-bold ml-1">{e.blockReason || 'Access Restricted'}</p>
@@ -289,7 +410,7 @@ export default function AdminEMIManagementPage() {
                                                 </div>
                                             </td>
                                             <td className="p-6 text-center">
-                                                <button 
+                                                <button
                                                     onClick={() => setExpandedRow(isExpanded ? null : e._id)}
                                                     className={`p-2 rounded-xl transition-all ${isExpanded ? 'bg-[#0A3D24] text-white shadow-lg shadow-[#0A3D24]/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
                                                 >
@@ -305,7 +426,7 @@ export default function AdminEMIManagementPage() {
                                                             <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Enrollment Controls</h4>
                                                             <div className="flex items-center gap-4">
                                                                 {e.calculatedStatus !== 'active' ? (
-                                                                    <button 
+                                                                    <button
                                                                         onClick={() => unblockUser(e._id)}
                                                                         className="flex items-center gap-2 px-4 py-2 rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all bg-green-50 text-green-700 border-green-100 hover:bg-green-100"
                                                                     >
@@ -313,7 +434,7 @@ export default function AdminEMIManagementPage() {
                                                                         Unblock Access
                                                                     </button>
                                                                 ) : (
-                                                                    <button 
+                                                                    <button
                                                                         onClick={() => blockUser(e._id)}
                                                                         className="flex items-center gap-2 px-4 py-2 rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all bg-red-50 text-red-600 border-red-100 hover:bg-red-100"
                                                                     >
@@ -324,13 +445,13 @@ export default function AdminEMIManagementPage() {
                                                             </div>
                                                         </div>
                                                         <div className="flex items-center justify-between mb-6 px-4">
-                                                            <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Installment Schedule</h4>
+                                                            <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">EMI Schedule</h4>
                                                             {e.status !== 'completed' && (
-                                                                <button 
+                                                                <button
                                                                     onClick={() => openEditModal(e)}
                                                                     className="px-4 py-2 bg-yellow-50 text-yellow-600 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-yellow-100 transition-colors border border-yellow-100"
                                                                 >
-                                                                    Edit Schedule
+                                                                    Edit EMI
                                                                 </button>
                                                             )}
                                                         </div>
@@ -354,8 +475,8 @@ export default function AdminEMIManagementPage() {
                                                                             <span className="text-[8px] text-gray-400 mt-1">{new Date(inst.paidAt || '').toLocaleDateString()}</span>
                                                                         </div>
                                                                     ) : (
-                                                                        <button 
-                                                                            onClick={() => markPaid(e._id, inst._id)}
+                                                                        <button
+                                                                            onClick={() => markPaid(e, inst)}
                                                                             className="bg-white hover:bg-[#0A3D24] hover:text-white border border-gray-100 text-[#0A3D24] text-[9px] font-black uppercase tracking-widest px-3 py-2 rounded-lg transition-all shadow-sm opacity-0 group-hover/inst:opacity-100"
                                                                         >
                                                                             Mark Paid
@@ -403,7 +524,7 @@ export default function AdminEMIManagementPage() {
                                                 <p className="text-2xl font-black text-[#0A3D24]">₹{balance.toLocaleString()}</p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">New Schedule Total</p>
+                                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">New EMI Total</p>
                                                 <p className={`text-2xl font-black ${diff === 0 ? 'text-green-600' : 'text-red-500'}`}>
                                                     ₹{newTotal.toLocaleString()}
                                                 </p>
@@ -421,25 +542,25 @@ export default function AdminEMIManagementPage() {
                                                 <div key={idx} className="flex flex-col sm:flex-row gap-4 sm:items-end bg-white p-4 rounded-2xl border border-gray-100">
                                                     <div className="flex-1">
                                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block ml-1">Amount (₹)</label>
-                                                        <input 
+                                                        <input
                                                             type="number"
                                                             value={inst.amount}
                                                             onChange={(e) => handleEditInstallmentChange(idx, 'amount', e.target.value)}
-                                                            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0A3D24]/20 transition-all font-bold"
+                                                            className="w-full bg-gray-50 border-2 border-gray-100 rounded-xl px-4 py-3 outline-none focus:border-[#0A3D24]/20 transition-all font-black text-gray-900 text-sm"
                                                             placeholder="0"
                                                         />
                                                     </div>
                                                     <div className="flex-1">
                                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block ml-1">Due Date</label>
-                                                        <input 
+                                                        <input
                                                             type="date"
                                                             value={inst.dueDate}
                                                             onChange={(e) => handleEditInstallmentChange(idx, 'dueDate', e.target.value)}
-                                                            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0A3D24]/20 transition-all font-bold text-gray-700"
+                                                            className="w-full bg-gray-50 border-2 border-gray-100 rounded-xl px-4 py-3 outline-none focus:border-[#0A3D24]/20 transition-all font-black text-gray-900 text-sm"
                                                         />
                                                     </div>
-                                                    <button 
-                                                        onClick={() => setEditInstallments(prev => prev.filter((_, i) => i !== idx))}
+                                                    <button
+                                                        onClick={() => removeEditInstallment(idx)}
                                                         className="h-[46px] px-6 bg-red-50 text-red-600 rounded-xl font-bold hover:bg-red-100 transition-colors w-full sm:w-auto"
                                                     >
                                                         Remove
@@ -448,32 +569,128 @@ export default function AdminEMIManagementPage() {
                                             ))}
                                         </div>
 
-                                        <button 
-                                            onClick={() => setEditInstallments(prev => [...prev, { amount: '', dueDate: '' }])}
+                                        <button
+                                            onClick={addEditInstallment}
                                             className="mt-6 w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400 font-bold hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2"
                                         >
                                             + Add Another Installment
                                         </button>
 
                                         <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-4">
-                                            <button 
+                                            <button
                                                 onClick={() => setEditModalOpen(false)}
                                                 className="px-8 py-3.5 rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition-colors"
                                             >
                                                 Cancel
                                             </button>
-                                            <button 
+                                            <button
                                                 onClick={handleEditSubmit}
                                                 disabled={editSaving || diff !== 0 || editInstallments.length === 0}
                                                 className="px-8 py-3.5 bg-[#0A3D24] text-white rounded-xl font-bold hover:bg-[#0A3D24]/90 disabled:opacity-50 transition-all shadow-lg shadow-[#0A3D24]/20 flex items-center justify-center gap-2"
                                             >
-                                                {editSaving ? 'Saving...' : 'Save Updated Schedule'}
+                                                {editSaving ? 'Saving...' : 'Save Updated EMI'}
                                                 {diff === 0 && !editSaving && editInstallments.length > 0 && <CheckCircle2 size={18} />}
                                             </button>
                                         </div>
                                     </>
                                 );
                             })()}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Mark Paid Modal */}
+            {payModalOpen && selectedEnrollmentForPay && (
+                <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white rounded-[32px] w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+                        <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+                            <h2 className="text-xl font-black text-gray-900">Mark EMI as Paid</h2>
+                            <button onClick={() => setPayModalOpen(false)} className="px-4 py-2 font-bold text-gray-400 hover:text-gray-600 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                                Close
+                            </button>
+                        </div>
+                        <div className="p-8">
+                            <p className="text-sm font-bold text-gray-500 mb-6">
+                                Specify the amount received for this payment. Any difference will be redistributed into future EMIs.
+                            </p>
+
+                            {payError && (
+                                <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm font-bold flex items-center gap-2 border border-red-100">
+                                    <AlertCircle size={16} /> {payError}
+                                </div>
+                            )}
+
+                            <div>
+                                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Paid Amount (₹)</label>
+                                <div className="relative">
+                                    <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-black">₹</span>
+                                    <input
+                                        type="number"
+                                        className="w-full bg-gray-50 border-2 border-transparent focus:border-[#FDB813] focus:bg-white pl-10 pr-6 py-5 rounded-2xl outline-none transition-all font-black text-gray-900 text-lg"
+                                        value={paidAmountInput}
+                                        onChange={(e) => setPaidAmountInput(e.target.value)}
+                                        autoFocus
+                                    />
+                                </div>
+                            </div>
+
+                            {(() => {
+                                const currentIdx = selectedEnrollmentForPay.installments.findIndex(inst => inst._id === selectedInstallmentId);
+                                const futurePendingCount = selectedEnrollmentForPay.installments.slice(currentIdx + 1).filter(inst => inst.status === 'pending').length;
+                                const isNoFuturePending = futurePendingCount === 0;
+
+                                const currentAmount = Number(paidAmountInput);
+                                const diff = originalEMIAmount - currentAmount;
+
+                                if (isNoFuturePending && diff !== 0) {
+                                    return (
+                                        <div className="mt-4 p-4 rounded-xl bg-red-50 border border-red-100">
+                                            <p className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1 flex items-center gap-1">
+                                                <AlertCircle size={10} /> Full Payment Required
+                                            </p>
+                                            <p className="text-xs font-bold text-red-800">
+                                                There are no future pending installments after this one. You must pay the full scheduled amount of ₹{originalEMIAmount.toLocaleString()} to keep the total balanced.
+                                            </p>
+                                        </div>
+                                    );
+                                }
+
+                                if (!isNoFuturePending && diff !== 0 && originalEMIAmount > 0) {
+                                    return (
+                                        <div className="mt-4 p-4 rounded-xl bg-orange-50 border border-orange-100">
+                                            <p className="text-[10px] font-black text-orange-600 uppercase tracking-widest mb-1 flex items-center gap-1">
+                                                <AlertCircle size={10} /> Amount Mismatch
+                                            </p>
+                                            <p className="text-xs font-bold text-orange-800">
+                                                The difference (₹{diff.toLocaleString()}) will be redistributed to remaining installments.
+                                            </p>
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            })()}
+
+                            <div className="mt-8 flex gap-4">
+                                <button
+                                    onClick={() => setPayModalOpen(false)}
+                                    className="flex-1 py-4 rounded-2xl font-bold text-gray-500 hover:bg-gray-50 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handlePaySubmit}
+                                    disabled={(() => {
+                                        if (paySaving || !paidAmountInput) return true;
+                                        const currentIdx = selectedEnrollmentForPay.installments.findIndex(inst => inst._id === selectedInstallmentId);
+                                        const futurePendingCount = selectedEnrollmentForPay.installments.slice(currentIdx + 1).filter(inst => inst.status === 'pending').length;
+                                        const diff = originalEMIAmount - Number(paidAmountInput);
+                                        return futurePendingCount === 0 && diff !== 0; // Block partial if no future EMI
+                                    })()}
+                                    className="flex-1 py-4 bg-[#0A3D24] text-white rounded-2xl font-black hover:bg-black transition-all shadow-xl shadow-[#0A3D24]/10 disabled:opacity-50"
+                                >
+                                    {paySaving ? 'Saving...' : 'Confirm Payment'}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
