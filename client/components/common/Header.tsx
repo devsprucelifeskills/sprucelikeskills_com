@@ -299,92 +299,54 @@ export default function Header() {
         }
         .mobile-drawer { transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s; }
         .mobile-overlay { transition: opacity 0.3s; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
             {/* ══ TOP BAR ══════════════════════════════════════════════════════════ */}
-            <div className="spruce-header bg-gray-950 text-white hidden lg:block border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-9">
-                    <div className="flex items-center gap-5">
-                        <a href="mailto:sprucelifeskills@gmail.com"
-                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
-                            <Mail className="w-3 h-3" />
-                            sprucelifeskills@gmail.com
-                        </a>
-                        <a href="tel:+919595025757"
-                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
-                            <Phone className="w-3 h-3" />
-                            +91 9595025757
-                        </a>
-                        <Link href="/faq"
-                            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors">
-                            <HelpCircle className="w-3 h-3" />
-                            Ask a Question
+            <div className={`spruce-header relative lg:sticky top-0 z-[101] transition-all duration-300 ${scrolled ? 'lg:bg-transparent lg:border-transparent lg:pointer-events-none bg-white border-b border-gray-100' : 'bg-white border-b border-gray-100 pointer-events-auto'}`}>
+                <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-2 flex items-center justify-between">
+
+                    {/* LEFT SIDE: Logo and Accreditation Text (Desktop Only) */}
+                    <div className="hidden lg:flex items-center gap-4">
+                        <Link href="/" className={`flex-shrink-0 inline-block pointer-events-auto transition-transform duration-300 origin-top-left ${scrolled ? 'translate-y-[4px] lg:-translate-y-[10px]' : ''}`}>
+                            <img src="/Group 10 (1).svg" alt="Spruce Lifeskills" className="h-[60px] xl:h-[68px] w-auto object-contain" />
                         </Link>
+                        <div className={`flex items-center gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                            <div className="h-10 w-px bg-gray-200" />
+                            <div className="flex flex-col justify-center">
+                                <p className="text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
+                                    Authorized Education Partner
+                                </p>
+                                <p className="text-[11px] font-bold text-emerald-600 tracking-[0.1em] uppercase mt-0.5 whitespace-nowrap">
+                                    Skill • Empower • Excel
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-1">
-                        {user ? (
-                            <div className="flex items-center gap-3">
-                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
-                                    className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-emerald-400 transition-colors px-2 py-1">
-                                    {user?.role === "admin"
-                                        ? <><LayoutDashboard className="w-3 h-3 text-emerald-400" /> Dashboard</>
-                                        : <><BookOpen className="w-3 h-3 text-emerald-400" /> My Courses</>}
-                                </Link>
-                                {/* Avatar dropdown */}
-                                <div className="relative group py-1">
-                                    <button className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-[10px] uppercase overflow-hidden">
-                                        {user?.avatar
-                                            ? <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                            : (user?.name?.charAt(0) || user?.email?.charAt(0) || "U")}
-                                    </button>
-                                    <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
-                                        <div className="w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
-                                            <div className="bg-gray-50 px-4 py-3 border-b border-gray-100">
-                                                <p className="text-sm font-bold text-gray-900 truncate">{user?.name || "User"}</p>
-                                                <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
-                                            </div>
-                                            <div className="p-2">
-                                                <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
-                                                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors">
-                                                    {user?.role === "admin" ? <LayoutDashboard size={14} /> : <BookOpen size={14} />}
-                                                    {user?.role === "admin" ? "Dashboard" : "My Courses"}
-                                                </Link>
-                                            </div>
-                                            <div className="p-2 border-t border-gray-100">
-                                                <button onClick={handleLogout}
-                                                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                                    <LogOut size={14} /> Logout
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            TOP_BAR_RIGHT.map((link) => (
-                                <Link key={link.label} href={link.href}
-                                    className="text-[11px] font-medium text-gray-400 hover:text-white px-3 py-1 rounded hover:bg-white/5 transition-all">
-                                    {link.label}
-                                </Link>
-                            ))
-                        )}
+                    {/* RIGHT SIDE / MOBILE FULL: Partner Logos */}
+                    <div className={`flex items-center justify-between lg:justify-end gap-2 md:gap-3 lg:gap-6 w-full lg:w-auto transition-all duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                        <img src="/partner-logo/AAPC logo.png" alt="AAPC" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[28%] object-contain" />
+                        <img src="/partner-logo/Lifelong Learning.png" alt="Lifelong Learning" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[22%] object-contain" />
+                        <img src="/partner-logo/RTMNU logo.png" alt="RTMNU" className="h-12 sm:h-14 md:h-16 lg:h-[72px] w-auto max-w-[22%] object-contain" />
+                        <img src="/partner-logo/Final_ISO_Grey-2015-Registered-sign.png" alt="MSME" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[22%] object-contain" />
                     </div>
                 </div>
             </div>
 
             {/* ══ MAIN HEADER ══════════════════════════════════════════════════════ */}
-            <header className={`spruce-header sticky top-0 left-0 right-0 z-[100] transition-all duration-300
+            <header className={`spruce-header transition-all duration-300 sticky top-0 left-0 right-0 z-[100] flex flex-col shadow-sm
         ${scrolled
                     ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
                     : "bg-white border-b border-gray-100"}`}>
 
-                <div className="max-w-7xl mx-auto px-4 xl:px-6 h-[68px] flex items-center justify-between gap-4">
+                <div className="max-w-7xl mx-auto w-full px-4 xl:px-6 h-[68px] flex items-center justify-between gap-4">
 
-                    {/* ── Logo ── */}
-                    <Link href="/" className="flex-shrink-0 flex items-center gap-3">
+                    {/* ── Logo (Visible on Mobile, Placeholder on Desktop) ── */}
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-3 lg:opacity-0 lg:pointer-events-none">
                         <img src="/Group 10 (1).svg" alt="Spruce Lifeskills"
-                            className="h-10 w-auto object-contain" />
+                            className="h-[52px] md:h-[60px] w-auto object-contain" />
                     </Link>
 
                     {/* ── Desktop Nav (floating pill strip) ── */}
@@ -499,15 +461,10 @@ export default function Header() {
 
                     {/* ── Mobile actions ── */}
                     <div className="flex lg:hidden items-center gap-2">
-                        <a href="tel:+919595025757"
-                            className="flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-2 rounded-lg border border-emerald-200">
-                            <Phone className="w-3.5 h-3.5" />
-                            Call
-                        </a>
                         <button onClick={() => setMobileOpen(!mobileOpen)}
                             className="p-2 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors"
                             aria-label="Toggle menu">
-                            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6 text-emerald-800" />}
                         </button>
                     </div>
                 </div>
@@ -519,8 +476,8 @@ export default function Header() {
                 className={`lg:hidden fixed inset-0 bg-black/40 z-[90] mobile-overlay ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} />
 
             {/* Drawer */}
-            <div className={`spruce-header lg:hidden fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white z-[95]
-                       shadow-2xl mobile-drawer flex flex-col
+            <div className={`spruce-header lg:hidden fixed top-0 right-0 h-[100dvh] w-80 max-w-[90vw] bg-white z-[95]
+                       shadow-2xl mobile-drawer flex flex-col pb-[72px]
                        ${mobileOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
 
                 {/* Drawer header */}
@@ -565,26 +522,32 @@ export default function Header() {
                 </div>
 
                 {/* Nav items */}
-                <div className="flex-1 overflow-y-auto px-4 py-3">
+                <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 overscroll-contain">
                     {NAV_LINKS.map((link) => (
                         <MobileNavItem key={link.label} link={link} onClose={() => setMobileOpen(false)} />
                     ))}
                 </div>
 
-                {/* Contact footer */}
-                <div className="px-4 py-4 border-t border-gray-100 bg-gray-50 space-y-2">
-                    <a href="tel:+919595025757" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-emerald-600 font-medium transition-colors">
-                        <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
-                            <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                        </div>
-                        +91 9595025757
-                    </a>
-                    <a href="mailto:sprucelifeskills@gmail.com" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-emerald-600 font-medium transition-colors">
-                        <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
-                            <Mail className="w-3.5 h-3.5 text-emerald-600" />
-                        </div>
-                        sprucelifeskills@gmail.com
-                    </a>
+                {/* User Action (Admin/My Courses) */}
+                <div className="px-4 py-4 border-t border-gray-100 bg-gray-50 flex flex-col gap-2">
+                    {user ? (
+                        <Link href={user.role === "admin" ? "/admin" : "/profile/my-courses"} onClick={() => setMobileOpen(false)}
+                            className="flex items-center justify-center gap-2 w-full text-sm font-bold text-emerald-800 bg-emerald-100/50 border border-emerald-200 
+                                     px-4 py-3 rounded-xl hover:bg-emerald-100 transition-colors">
+                            {user.role === "admin" ? (
+                                <><LayoutDashboard size={18} className="text-emerald-700" /> Go to Dashboard</>
+                            ) : (
+                                <><BookOpen size={18} className="text-emerald-700" /> My Courses</>
+                            )}
+                        </Link>
+                    ) : (
+                        <Link href="/login" onClick={() => setMobileOpen(false)}
+                            className="flex items-center justify-center gap-2 w-full text-sm font-bold text-gray-700 bg-white border border-gray-200 
+                                     px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors">
+                            <LayoutDashboard size={18} className="text-gray-400" />
+                            Login to Dashboard
+                        </Link>
+                    )}
                 </div>
             </div>
 
