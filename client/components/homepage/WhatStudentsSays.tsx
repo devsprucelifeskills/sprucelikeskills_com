@@ -78,13 +78,16 @@ function useVisibleCount() {
    INFINITE MARQUEE
 ───────────────────────────────────────────── */
 function PartnerMarquee() {
-    const track = [...partners, ...partners]; // duplicate for seamless loop
+    // Duplicate enough times to ensure the container is much wider than any screen,
+    // avoiding the empty snap effect at the end.
+    const track = [...partners, ...partners, ...partners, ...partners, ...partners, ...partners, ...partners, ...partners];
     return (
         <>
             <style>{`
         @keyframes spruce-marquee {
           from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          /* Translating by 12.5% shifts exactly 1 of the 8 copies, creating a seamless loop */
+          to   { transform: translateX(-12.5%); }
         }
         .spruce-marquee {
           display: flex;
