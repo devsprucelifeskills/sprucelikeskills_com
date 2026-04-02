@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
     enrolledCourses: [{
         type: String // Slugs of courses enrolled
     }],
+    resetPasswordOTP: {
+        type: String,
+        default: null
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: null
+    },
     createdAt: {
         type: Date,
         default: Date.now

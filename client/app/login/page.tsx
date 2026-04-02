@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github } from 'lucide-react';
 import Header from '@/components/common/Header';
+import ForgotPasswordModal from '@/components/auth/ForgotPasswordModal';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -76,7 +78,13 @@ export default function LoginPage() {
               <div>
                 <div className="flex items-center justify-between mb-2 ml-1">
                   <label className="block text-sm font-bold text-gray-700 uppercase tracking-widest">Password</label>
-                  <Link href="#" className="text-xs font-bold text-green-600 hover:text-green-700">Forgot Password?</Link>
+                  <button 
+                    type="button"
+                    onClick={() => setIsForgotPasswordOpen(true)}
+                    className="text-xs font-bold text-green-600 hover:text-green-700 transition-colors"
+                  >
+                    Forgot Password?
+                  </button>
                 </div>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-green-600 transition-colors">
@@ -146,6 +154,11 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      <ForgotPasswordModal 
+        isOpen={isForgotPasswordOpen} 
+        onClose={() => setIsForgotPasswordOpen(false)} 
+      />
     </div>
   );
 }
