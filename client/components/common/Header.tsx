@@ -305,16 +305,16 @@ export default function Header() {
 
             {/* ══ TOP BAR ══════════════════════════════════════════════════════════ */}
             <div className={`spruce-header relative lg:sticky top-0 z-[101] transition-all duration-300 ${scrolled ? 'lg:bg-transparent lg:border-transparent lg:pointer-events-none bg-white border-b border-gray-100' : 'bg-white border-b border-gray-100 pointer-events-auto'}`}>
-                <div className="max-w-7xl mx-auto py-3 lg:py-2 flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-0">
+                <div className="max-w-7xl mx-auto px-4 xl:px-6 py-3 lg:py-2 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-0">
 
                     {/* LEFT SIDE: Logo and Accreditation Text */}
-                    <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
-                        <Link href="/" className={`flex-shrink-0 inline-block pointer-events-auto transition-transform duration-300 origin-top-left ${scrolled ? 'lg:-translate-y-[10px]' : ''}`}>
+                    <div className="flex w-full lg:w-auto flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-4">
+                        <Link href="/" className={`hidden lg:inline-block flex-shrink-0 pointer-events-auto transition-transform duration-300 origin-top-left ${scrolled ? 'lg:-translate-y-[10px]' : ''}`}>
                             <img src="/Group 10 (1).svg" alt="Spruce Lifeskills" className="h-[50px] md:h-[60px] lg:h-[60px] xl:h-[68px] w-auto object-contain" />
                         </Link>
-                        <div className={`flex flex-col lg:flex-row items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                        <div className={`flex flex-col lg:flex-row items-start lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
                             <div className="hidden lg:block h-10 w-px bg-gray-200" />
-                            <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
+                            <div className="flex flex-col justify-center items-start text-left">
                                 <p className="text-[11px] sm:text-[12px] lg:text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
                                     Authorized Education Partner
                                 </p>
@@ -341,13 +341,13 @@ export default function Header() {
                     ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
                     : "bg-white border-b border-gray-100"}`}>
 
-                <div className="max-w-7xl mx-auto w-full px-4 xl:px-6 h-[68px] flex items-center justify-end lg:justify-between gap-4">
+                <div className="max-w-7xl mx-auto w-full px-4 xl:px-6 h-[68px] flex items-center justify-between gap-4">
 
-                    {/* ── Logo (Placeholder on Desktop, hidden on Mobile) ── */}
-                    <div className="hidden lg:flex flex-shrink-0 items-center gap-3 opacity-0 pointer-events-none">
+                    {/* ── Logo (Visible on Mobile, Placeholder on Desktop) ── */}
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-3 lg:opacity-0 lg:pointer-events-none">
                         <img src="/Group 10 (1).svg" alt="Spruce Lifeskills"
-                            className="h-[60px] w-auto object-contain" />
-                    </div>
+                            className="h-[52px] md:h-[60px] w-auto object-contain" />
+                    </Link>
 
                     {/* ── Desktop Nav (floating pill strip) ── */}
                     <nav className="hidden lg:flex items-center">
