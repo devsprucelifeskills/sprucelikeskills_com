@@ -31,10 +31,19 @@ export default function LoginPage() {
       if (data.success) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data));
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+            transaction_id: Date.now().toString()
+          });
+        }
         router.push('/');
       } else {
         alert(data.message || 'Login failed');
       }
+
+
+
     } catch (err) {
       console.error(err);
       alert('An error occurred during login');

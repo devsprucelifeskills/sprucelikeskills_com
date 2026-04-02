@@ -48,7 +48,7 @@ export default function PlacementPage() {
             </div>
             <div className="w-px h-16 bg-white/10 hidden md:block"></div>
             <div className="flex flex-col items-center">
-              <span className="text-4xl md:text-5xl font-black text-[#2ecc71]">50+</span>
+              <span className="text-4xl md:text-5xl font-black text-[#2ecc71]">32+</span>
               <span className="text-xs uppercase tracking-[0.2em] font-black opacity-60 mt-2">Hiring Partners</span>
             </div>
           </div>

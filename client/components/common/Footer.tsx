@@ -6,6 +6,14 @@ import { MapPin, Phone, ChevronUp, Facebook, Linkedin, Instagram, MessageCircle 
 import EnquiryModal from './EnquiryModal';
 
 export default function Footer() {
+  const handleCallClick = () => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+        transaction_id: Date.now().toString()
+      });
+    }
+  };
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const socialIconClass = "flex h-8 w-8 items-center justify-center rounded-full bg-transparent border border-white/30 text-white hover:bg-white/10 transition-colors";
 
@@ -69,8 +77,24 @@ export default function Footer() {
                 <li className="flex items-start gap-3">
                   <Phone className="w-5 h-5 shrink-0 mt-0.5 text-white/70" />
                   <span className="leading-relaxed">
-                    <a href="tel:+919595025757" className="hover:text-white transition-colors">+91-9595025757</a><br />
-                    <a href="tel:+918999499930" className="hover:text-white transition-colors">+91-8999499930</a>
+
+                    <a
+                      href="tel:+919595025757"
+                      onClick={handleCallClick}
+                      className="hover:text-white transition-colors"
+                    >
+                      +91-9595025757
+                    </a>
+                    <br />
+
+                    <a
+                      href="tel:+918999499930"
+                      onClick={handleCallClick}
+                      className="hover:text-white transition-colors"
+                    >
+                      +91-8999499930
+                    </a>
+
                   </span>
                 </li>
               </ul>
