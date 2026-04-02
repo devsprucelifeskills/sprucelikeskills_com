@@ -86,8 +86,16 @@ export default function ApplyModal({ isOpen, onClose, courseTitle, courseSlug }:
                     onClose();
                     setFormData({ name: '', email: '', contact: '' });
                 }, 3000);
+
             } else {
                 setError(data.message || 'Something went wrong. Please try again.');
+            }
+
+            if (typeof window !== "undefined" && window.gtag) {
+                window.gtag('event', 'conversion', {
+                    send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+                    transaction_id: Date.now().toString()
+                });
             }
         } catch (err) {
             console.error("Error submitting application:", err);

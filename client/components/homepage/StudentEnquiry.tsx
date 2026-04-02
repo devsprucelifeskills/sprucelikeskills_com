@@ -36,6 +36,12 @@ export default function StudentEnquiry() {
       } else {
         setError(data.message || 'Failed to submit. Please try again.');
       }
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+          transaction_id: Date.now().toString()
+        });
+      }
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
@@ -51,7 +57,7 @@ export default function StudentEnquiry() {
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          
+
           {/* Left Column - Content & Branding */}
           <div className="lg:col-span-6">
             <ScrollReveal animation="slide-left">
@@ -62,11 +68,11 @@ export default function StudentEnquiry() {
                 </span>
                 Admissions Open 2024-25
               </div>
-              
+
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[1.1] mb-6">
                 Ready to Kickstart Your <span className="text-[#13523f]">Career?</span>
               </h2>
-              
+
               <p className="text-lg text-gray-600 font-medium leading-relaxed max-w-xl mb-10">
                 Join our community of healthcare professionals. Get expert guidance, industry-recognized certifications, and hands-on training tailored for your success.
               </p>

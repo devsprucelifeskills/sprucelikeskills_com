@@ -38,6 +38,12 @@ export default function HireFromSpruce() {
       } else {
         setError(data.message || 'Failed to submit. Please try again.');
       }
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+          transaction_id: Date.now().toString()
+        });
+      }
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {

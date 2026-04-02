@@ -42,15 +42,21 @@ export default function RegisterPage() {
       if (data.success) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data));
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+            transaction_id: Date.now().toString()
+          });
+        }
         router.push('/');
       } else {
         alert(data.message || 'Registration failed');
       }
     } catch (err) {
-        console.error(err);
-        alert('An error occurred during registration');
+      console.error(err);
+      alert('An error occurred during registration');
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
