@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Lock, Key, ArrowRight, RefreshCw, X, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Lock, Key, ArrowRight, RefreshCw, X, CheckCircle2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 interface ForgotPasswordModalProps {
   isOpen: boolean;
@@ -14,6 +14,8 @@ export default function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordM
   const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -117,6 +119,8 @@ export default function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordM
     setOtp('');
     setPassword('');
     setConfirmPassword('');
+    setShowPassword(false);
+    setShowConfirmPassword(false);
     setError('');
     setMessage('');
     onClose();
@@ -268,13 +272,20 @@ export default function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordM
                       <Lock className="w-5 h-5" />
                     </div>
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       required
                       placeholder="••••••••"
-                      className="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:bg-white transition-all"
+                      className="block w-full pl-11 pr-12 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:bg-white transition-all"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-green-600 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
                   </div>
                 </div>
 
@@ -285,13 +296,20 @@ export default function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordM
                       <Lock className="w-5 h-5" />
                     </div>
                     <input
-                      type="password"
+                      type={showConfirmPassword ? 'text' : 'password'}
                       required
                       placeholder="••••••••"
-                      className="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:bg-white transition-all"
+                      className="block w-full pl-11 pr-12 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:bg-white transition-all"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-green-600 transition-colors"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
                   </div>
                 </div>
 

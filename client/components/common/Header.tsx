@@ -22,14 +22,14 @@ const TOP_BAR_RIGHT: { label: string; href: string; external?: boolean }[] = [
 const NAV_LINKS = [
     { label: "Home", href: "/" },
     {
-        label: "About Us", href: "#",
+        label: "About", href: "#",
         children: [
             { label: "Our Journey", href: "/about/journey" },
             { label: "Our Mission & Vision", href: "/about/mission-vision" },
         ],
     },
     {
-        label: "Our Courses", href: "#", mega: true,
+        label: "Courses", href: "#", mega: true,
         children: [
             {
                 label: "Medical Coding", href: "/courses/medical-coding",
@@ -89,7 +89,7 @@ const NAV_LINKS = [
 
 // ─── Dropdown: About ─────────────────────────────────────────────────────────
 function AboutDropdown() {
-    const aboutLink = NAV_LINKS.find((l) => l.label === "About Us");
+    const aboutLink = NAV_LINKS.find((l) => l.label === "About");
     return (
         <div className="absolute top-[calc(100%+8px)] left-0 z-50 w-52 bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
             <div className="p-1.5">
@@ -135,7 +135,7 @@ function BlogDropdown() {
 
 // ─── Mega: Courses ───────────────────────────────────────────────────────────
 function CoursesDropdown() {
-    const courses = NAV_LINKS.find((l) => l.label === "Our Courses")?.children ?? [];
+    const courses = NAV_LINKS.find((l) => l.label === "Courses")?.children ?? [];
     return (
         <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 z-50 w-[600px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
             {/* Header band */}
@@ -308,13 +308,13 @@ export default function Header() {
                 <div className="max-w-7xl mx-auto px-4 xl:px-6 py-3 lg:py-2 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-0">
 
                     {/* LEFT SIDE: Logo and Accreditation Text */}
-                    <div className="flex w-full lg:w-auto flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-4">
+                    <div className="flex w-full lg:w-auto flex-col lg:flex-row items-center lg:items-center gap-2 lg:gap-4">
                         <Link href="/" className={`hidden lg:inline-block flex-shrink-0 pointer-events-auto transition-transform duration-300 origin-top-left ${scrolled ? 'lg:-translate-y-[10px]' : ''}`}>
                             <img src="/Group 10 (1).svg" alt="Spruce Lifeskills" className="h-[50px] md:h-[60px] lg:h-[60px] xl:h-[68px] w-auto object-contain" />
                         </Link>
-                        <div className={`flex flex-col lg:flex-row items-start lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                        <div className={`flex lg:hidden flex-col lg:flex-row items-center lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
                             <div className="hidden lg:block h-10 w-px bg-gray-200" />
-                            <div className="flex flex-col justify-center items-start text-left">
+                            <div className="flex flex-col justify-center items-center text-center">
                                 <p className="text-[11px] sm:text-[12px] lg:text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
                                     Authorized Education Partner
                                 </p>
@@ -341,19 +341,30 @@ export default function Header() {
                     ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
                     : "bg-white border-b border-gray-100"}`}>
 
-                <div className="max-w-7xl mx-auto w-full px-4 xl:px-6 h-[68px] flex items-center justify-between gap-4">
-
+                <div className="max-w-7xl mx-auto w-full px-4 xl:px-6  h-[68px] flex items-center align-center justify-between gap-4">
+                    <div className={`hidden lg:block mt-0  flex flex-col lg:flex-row items-start lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                        <div className="hidden lg:block   w-px bg-gray-200" />
+                        <div className="flex flex-col justify-center items-start text-left">
+                            <p className="text-[11px] sm:text-[12px] lg:text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
+                                Authorized Education Partner
+                            </p>
+                            <p className="text-[9.5px] sm:text-[10px] lg:text-[11px] font-bold text-emerald-600 tracking-[0.1em] uppercase mt-0.5 whitespace-nowrap">
+                                Skill • Empower • Excel
+                            </p>
+                        </div>
+                    </div>
                     {/* ── Logo (Visible on Mobile, Placeholder on Desktop) ── */}
                     <Link href="/" className="flex-shrink-0 flex items-center gap-3 lg:opacity-0 lg:pointer-events-none">
                         <img src="/Group 10 (1).svg" alt="Spruce Lifeskills"
                             className="h-[52px] md:h-[60px] w-auto object-contain" />
                     </Link>
 
+
                     {/* ── Desktop Nav (floating pill strip) ── */}
                     <nav className="hidden lg:flex items-center">
                         {/* Pill container */}
                         <div className="flex items-center gap-0.5 bg-gray-50 rounded-full px-2 py-1.5 border border-gray-200/80 shadow-inner">
-                            {NAV_LINKS.filter((l) => !l.highlight).map((link) => (
+                            {NAV_LINKS.filter((l) => !l.highlight && !["About", "Blog", "Gallery"].includes(l.label)).map((link) => (
                                 <div key={link.label} className="relative nav-item"
                                     onMouseEnter={() => link.children && handleMouseEnter(link.label)}
                                     onMouseLeave={link.children ? handleMouseLeave : undefined}>
@@ -401,6 +412,7 @@ export default function Header() {
 
                     {/* ── Right actions (desktop) ── */}
                     <div className="hidden lg:flex items-center gap-2">
+
                         {user ? (
                             <div className="flex items-center gap-2">
                                 <Link href={user?.role === "admin" ? "/admin" : "/profile/my-courses"}
@@ -445,18 +457,46 @@ export default function Header() {
                             </div>
                         ) : (
                             <div className="flex items-center gap-2">
-                                <Link href="/login"
+                                {/* <Link href="/login"
                                     className="text-sm font-semibold text-gray-700 hover:text-emerald-700 px-4 py-2
                              rounded-xl hover:bg-gray-100 transition-all">
-                                    Login
-                                </Link>
-                                <Link href="/register"
-                                    className="text-sm font-bold text-white px-5 py-2.5 rounded-xl
+                                    Sign in
+                                </Link> */}
+                                <Link href="/login"
+                                    className="text-sm font-bold text-white px-8 py-2.5 min-w-[120px] text-center whitespace-nowrap rounded-xl
                              bg-[#13523f] hover:bg-[#1a6e4a] shadow-md hover:shadow-lg transition-all">
-                                    Register Free →
+                                    Sign in
                                 </Link>
                             </div>
                         )}
+                        {/* ── Desktop Hamburger Menu ── */}
+                        <div className="relative group">
+                            <button className="p-2.5 rounded-xl text-gray-700 hover:bg-gray-100 hover:text-emerald-700 transition-colors" aria-label="Menu">
+                                <Menu className="w-5 h-5" />
+                            </button>
+                            <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110]">
+                                <div className="w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                                    <div className="p-2 flex flex-col gap-0.5">
+                                        {NAV_LINKS.filter(l => ["About", "Blog", "Gallery"].includes(l.label)).map(link => (
+                                            <div key={link.label} className="flex flex-col">
+                                                <Link href={link.href} className="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-bold text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all">
+                                                    {link.label}
+                                                </Link>
+                                                {link.children && (
+                                                    <div className="pl-4 pb-1.5 flex flex-col gap-0.5 border-l-2 border-emerald-50 ml-3 mt-0.5">
+                                                        {link.children.map((child: any) => (
+                                                            <Link key={child.label} href={child.href} className="text-[13px] font-medium text-gray-500 hover:text-emerald-600 transition-colors py-1 pl-2">
+                                                                {child.label}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* ── Mobile actions ── */}

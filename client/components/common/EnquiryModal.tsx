@@ -48,6 +48,12 @@ export default function EnquiryModal({ isOpen, onClose, defaultCourseName }: Enq
       } else {
         setError(data.message || 'Failed to submit enquiry');
       }
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17963235751/z9jPCKGAqIEcEKfzxPVC',
+          transaction_id: Date.now().toString()
+        });
+      }
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
