@@ -7,12 +7,15 @@ import MobileBottomNav from "./MobileBottomNav";
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith("/admin");
+  const isNepPage = pathname?.startsWith("/nep");
+
+  const hideLayout = isAdminPage || isNepPage;
 
   return (
     <>
       {children}
-      {!isAdminPage && <Footer />}
-      {!isAdminPage && <MobileBottomNav />}
+      {!hideLayout && <Footer />}
+      {!hideLayout && <MobileBottomNav />}
     </>
   );
 }

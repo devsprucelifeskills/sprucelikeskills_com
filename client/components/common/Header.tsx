@@ -67,7 +67,7 @@ const NAV_LINKS = [
                 ],
             },
             { label: "Campus to Corporate", href: "/courses/campus-corporate" },
-            { label: "NEP Courses", href: "https://nep.sprucelifeskills.in/", external: true },
+            { label: "NEP Courses", href: "/nep", external: false },
         ],
     },
     {
@@ -84,7 +84,7 @@ const NAV_LINKS = [
     { label: "Contact", href: "/contact" },
     { label: "Placement", href: "/placement" },
     { label: "Certification", href: "/certification" },
-    { label: "NEP Courses", href: "https://nep.sprucelifeskills.in/", external: true, highlight: true },
+    { label: "NEP Courses", href: "/nep", external: false, highlight: true },
 ];
 
 // ─── Dropdown: About ─────────────────────────────────────────────────────────
