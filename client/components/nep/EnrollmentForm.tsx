@@ -41,22 +41,22 @@ export function EnrollmentForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [dbCourses, setDbCourses] = React.useState<{ id: string; title: string }[]>([]);
 
-  React.useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/v2/course/get-courses?limit=100`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && data.courses) {
-            setDbCourses(data.courses.map((c: any) => ({ id: c._id || c.id, title: c.title })));
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch courses for EnrollmentForm", error);
-      }
-    };
-    fetchCourses();
-  }, []);
+  // React.useEffect(() => {
+  //   const fetchCourses = async () => {
+  //     try {
+  //       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/v2/course/get-courses?limit=100`);
+  //       if (res.ok) {
+  //         const data = await res.json();
+  //         if (data.success && data.courses) {
+  //           setDbCourses(data.courses.map((c: any) => ({ id: c._id || c.id, title: c.title })));
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch courses for EnrollmentForm", error);
+  //     }
+  //   };
+  //   fetchCourses();
+  // }, []);
   const form = useForm<InquiryFormValues>({
     resolver: zodResolver(inquirySchema),
     defaultValues: {
