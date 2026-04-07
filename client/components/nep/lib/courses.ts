@@ -167,7 +167,7 @@ export const courses: Course[] = [
         trainerInfo: 'Our trainers are certified Debt Recovery Agents with years of experience in the banking and financial services industry. They specialize in ethical negotiation tactics and legal compliance in the collections process.',
         fees: 2000,
         certification: 'RTMNU Certified',
-        link: 'https://sprucelifeskills.org.in/course/debt-recovery-agent-dra/',
+        link: 'https://www.spruceacademia.com/courses/69345843d0bc634cd703dcae',
         details: {
             credits: "2 Points",
             duration: "30 Hours (Online)",
