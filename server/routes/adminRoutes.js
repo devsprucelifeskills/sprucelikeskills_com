@@ -2,6 +2,7 @@ import express from 'express';
 import {
     getStats,
     getAllUsers,
+    createUser,
     updateUserRole,
     deleteUser,
     getAllEnrollments,
@@ -25,6 +26,7 @@ router.use(protect, authorize('admin'));
 router.get('/stats', getStats);
 
 router.get('/users', getAllUsers);
+router.post('/users', createUser);
 router.put('/users/:id/role', updateUserRole);
 router.delete('/users/:id', deleteUser);
 

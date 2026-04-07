@@ -207,3 +207,79 @@ export const getOTPTemplate = (userName, otp, websiteUrl = "www.sprucelifeskills
 </html>
     `;
 };
+
+export const getNewUserWelcomeTemplate = (userName, email, password, role, websiteUrl = "https://www.sprucelifeskills.com") => {
+    const roleLabel = role.charAt(0).toUpperCase() + role.slice(1);
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Spruce Life Skills</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fafc; color: #2d3748;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <!-- Header -->
+        <tr>
+            <td style="padding: 40px 30px; background: linear-gradient(135deg, #13523f 0%, #1a6e4a 100%); text-align: center;">
+                <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">Welcome to Spruce Life Skills! 🌿</h1>
+                <p style="margin: 10px 0 0 0; color: rgba(255, 255, 255, 0.85); font-size: 16px;">Your account has been created</p>
+            </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+            <td style="padding: 40px 30px;">
+                <h2 style="margin: 0 0 20px 0; font-size: 22px; font-weight: 600; color: #1a202c;">Hi ${userName},</h2>
+                <p style="margin: 0 0 20px 0; line-height: 1.6; color: #4a5568;">An account has been created for you on <strong>Spruce Life Skills</strong> with the role of <strong>${roleLabel}</strong>. Here are your login credentials — please keep them safe.</p>
+
+                <!-- Credentials Box -->
+                <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin-bottom: 30px;">
+                    <h3 style="margin: 0 0 16px 0; font-size: 14px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.05em;">🔑 Your Login Credentials</h3>
+                    <table width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #dcfce7; color: #4a5568; font-weight: 600; width: 100px;">Email</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #dcfce7; color: #1e293b; font-weight: 700;">${email}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #dcfce7; color: #4a5568; font-weight: 600;">Password</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #dcfce7; font-family: monospace; font-size: 16px; font-weight: 700; color: #13523f; letter-spacing: 1px;">${password}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; color: #4a5568; font-weight: 600;">Role</td>
+                            <td style="padding: 10px 0; color: #1e293b; font-weight: 700;">${roleLabel}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p style="margin: 0 0 10px 0; line-height: 1.6; color: #e53e3e; font-size: 13px; font-weight: 600;">⚠️ For security, please change your password after your first login.</p>
+
+                <!-- Action Button -->
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="${websiteUrl}/login" style="display: inline-block; padding: 16px 40px; background-color: #13523f; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Login to Your Account →</a>
+                </div>
+
+                <p style="margin: 0 0 10px 0; line-height: 1.6; color: #4a5568;">If you have any questions, feel free to reach out to our support team.</p>
+
+                <hr style="border: 0; border-top: 1px solid #edf2f7; margin: 30px 0;">
+
+                <p style="margin: 0; font-size: 13px; color: #a0aec0; line-height: 1.6;">
+                    <strong>Spruce Life Skills</strong><br>
+                    Website: <a href="${websiteUrl}" style="color: #13523f; text-decoration: none;">${websiteUrl.replace('https://', '')}</a><br>
+                    Transforming Skills into Success.
+                </p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="padding: 20px 30px; background-color: #f7fafc; text-align: center; font-size: 12px; color: #a0aec0;">
+                &copy; ${new Date().getFullYear()} Spruce Life Skills. All rights reserved.
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+};

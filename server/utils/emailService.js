@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import { getEnrollmentTemplate, getCourseFullyPaidTemplate, getOTPTemplate } from './emailTemplates.js';
+import { getEnrollmentTemplate, getCourseFullyPaidTemplate, getOTPTemplate, getNewUserWelcomeTemplate } from './emailTemplates.js';
 
 dotenv.config();
 
@@ -114,3 +114,40 @@ export const sendCourseFullyPaidEmail = async (toEmail, userName, enrollment) =>
          return { success: false, error: error.message };
      }
  };
+
+/**
+ * Send Welcome Email to Admin-Created User with Login Credentials
+ * @param {string} toEmail
+ * @param {string} userName
+ * @param {string} password  - plain-text password before hashing
+ * @param {string} role
+ */
+export const sendNewUserWelcomeEmail = async (toEmail, userName, password, role) => {
+    try {
+        if (!process.env.RESEND_API_KEY) {
+            console.warn('RESEND_API_KEY is missing. Welcome email could not be sent.');
+            return { success: false, message: 'API key missing' };
+        }
+
+        const html = getNewUserWelcomeTemplate(
+            userName,
+            toEmail,
+            password,
+            role,
+            process.env.FRONTEND_URL || 'https://www.sprucelifeskills.com'
+        );
+
+        const data = await resend.emails.send({
+            from: 'hello@sprucelifeskills.com',
+            to: [toEmail],
+            subject: `Welcome to Spruce Life Skills — Your Account is Ready!`,
+            html,
+        });
+
+        console.log(`Welcome email sent to ${toEmail}:`, data.id);
+        return { success: true, id: data.id };
+    } catch (error) {
+        console.error('Error sending welcome email:', error);
+        return { success: false, error: error.message };
+    }
+};

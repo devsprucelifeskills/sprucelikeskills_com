@@ -6,6 +6,7 @@ import PartnerEnquiry from '../models/PartnerEnquiry.js';
 import Meeting from '../models/Meeting.js';
 import Application from '../models/Application.js';
 import bcrypt from 'bcrypt';
+import { sendNewUserWelcomeEmail } from '../utils/emailService.js';
 
 // GET /api/v2/admin/stats
 export const getStats = async (req, res) => {
@@ -103,6 +104,54 @@ export const deleteUser = async (req, res) => {
         res.status(200).json({ success: true, message: 'User deleted successfully' });
     } catch (error) {
         console.error('Error deleting user:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+// POST /api/v2/admin/users
+export const createUser = async (req, res) => {
+    try {
+        const { name, email, role = 'student', password } = req.body;
+
+        if (!name || !email) {
+            return res.status(400).json({ success: false, message: 'Name and email are required.' });
+        }
+
+        if (!['student', 'trainer', 'admin'].includes(role)) {
+            return res.status(400).json({ success: false, message: 'Invalid role.' });
+        }
+
+        const existing = await User.findOne({ email: email.toLowerCase().trim() });
+        if (existing) {
+            return res.status(409).json({ success: false, message: 'A user with this email already exists.' });
+        }
+
+        // Generate a strong random password if not provided
+        const plainPassword = password && password.trim()
+            ? password.trim()
+            : 'Spruce@' + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+        const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+        const user = await User.create({
+            name: name.trim(),
+            email: email.toLowerCase().trim(),
+            password: hashedPassword,
+            role,
+        });
+
+        // Send welcome email with credentials (non-blocking)
+        sendNewUserWelcomeEmail(user.email, user.name, plainPassword, role).catch((err) =>
+            console.error('Welcome email failed:', err)
+        );
+
+        res.status(201).json({
+            success: true,
+            message: `User "${user.name}" created successfully. A welcome email with login credentials has been sent to ${user.email}.`,
+            user: { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt },
+        });
+    } catch (error) {
+        console.error('Error creating user:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
