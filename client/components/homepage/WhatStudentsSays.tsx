@@ -100,9 +100,9 @@ function PartnerMarquee() {
             {/* fade edges */}
             <div className="relative overflow-hidden">
                 <div className="pointer-events-none absolute left-0 top-0 h-full w-16 z-10"
-                    style={{ background: "linear-gradient(to right, rgba(19,82,63,1), transparent)" }} />
+                    style={{}} />
                 <div className="pointer-events-none absolute right-0 top-0 h-full w-16 z-10"
-                    style={{ background: "linear-gradient(to left, rgba(19,82,63,1), transparent)" }} />
+                    style={{}} />
 
                 <div className="spruce-marquee">
                     {track.map((p, i) => (
@@ -304,18 +304,18 @@ export default function WhatStudentsSays() {
             {/* ══ SECTION 1 — OUR STUDENTS WORK AT ══ */}
             <section
                 className="relative py-14 overflow-hidden mt-10 "
-                style={{ background: "linear-gradient(135deg, rgb(19,82,63) 0%, rgb(28,105,75) 100%)" }}
+                style={{}}
             >
                 {/* subtle dot-grid texture */}
                 <div
                     className="absolute inset-0 opacity-10 pointer-events-none"
                     style={{
-                        backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+                        backgroundImage: "radial-gradient(circle, #13523f 1px, transparent 1px)",
                         backgroundSize: "24px 24px",
                     }}
                 />
                 <div className="relative max-w-6xl mx-auto px-6">
-                    <h2 className="text-center text-2xl md:text-3xl font-black text-white
+                    <h2 className="text-center text-2xl md:text-3xl font-black text-black
                          uppercase tracking-widest mb-10 drop-shadow">
                         Our Students Works At
                     </h2>

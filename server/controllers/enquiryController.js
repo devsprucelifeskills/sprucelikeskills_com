@@ -2,15 +2,16 @@ import Enquiry from '../models/Enquiry.js';
 
 export const createEnquiry = async (req, res) => {
     try {
-        const { name, contact, message, courseName } = req.body;
+        const { name, mobile, email, message, courseName } = req.body;
 
-        if (!name || !contact || !message) {
-            return res.status(400).json({ success: false, message: "Missing required fields" });
+        if (!name || !mobile || !message) {
+            return res.status(400).json({ success: false, message: "Name, mobile number, and message are required fields." });
         }
 
         const newEnquiry = new Enquiry({
             name,
-            contact,
+            mobile,
+            email: email || '',
             message,
             courseName: courseName || ''
         });

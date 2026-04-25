@@ -236,7 +236,7 @@ export default function HeroSection() {
         }
       `}</style>
 
-      <section className="hs hs-grid w-full overflow-hidden">
+      <section className="hs bg-red-500 hs-grid w-full overflow-hidden">
 
         {/* Mobile image banner — hidden on desktop */}
         <div className="hs-imgbg">
@@ -282,7 +282,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="hs-wrap" style={{ maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
+        <div className="hs-wrap " style={{ maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
 
           {/* ════ LEFT / MAIN TEXT ════ */}
           <div className="hs-left">

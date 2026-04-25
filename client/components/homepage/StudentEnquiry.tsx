@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Loader2, CheckCircle2, User, Phone, BookOpen, MessageSquare, Send } from 'lucide-react';
+import { Loader2, CheckCircle2, User, Phone, Mail, BookOpen, MessageSquare, Send } from 'lucide-react';
 import ScrollReveal from '../common/ScrollReveal';
 
 export default function StudentEnquiry() {
   const [formData, setFormData] = useState({
     name: '',
-    contact: '',
+    mobile: '',
+    email: '',
     courseName: '',
     message: '',
   });
@@ -32,7 +33,7 @@ export default function StudentEnquiry() {
       const data = await res.json();
       if (data.success) {
         setIsSuccess(true);
-        setFormData({ name: '', contact: '', courseName: '', message: '' });
+        setFormData({ name: '', mobile: '', email: '', courseName: '', message: '' });
       } else {
         setError(data.message || 'Failed to submit. Please try again.');
       }
@@ -147,18 +148,20 @@ export default function StudentEnquiry() {
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {/* Contact Field */}
+                        {/* Mobile (Required) */}
                         <div className="group">
-                          <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 group-focus-within:text-[#13523f] transition-colors">Contact No / Email</label>
+                          <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 group-focus-within:text-[#13523f] transition-colors">
+                            Contact Number <span className="text-red-400">*</span>
+                          </label>
                           <div className="relative">
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#13523f] transition-colors" size={18} />
                             <input
-                              type="text"
-                              name="contact"
+                              type="tel"
+                              name="mobile"
                               required
                               placeholder="+91 00000 00000"
                               className="w-full bg-gray-50 border-2 border-transparent focus:border-[#13523f]/20 focus:bg-white rounded-2xl pl-12 pr-4 py-4 text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-300"
-                              value={formData.contact}
+                              value={formData.mobile}
                               onChange={handleChange}
                             />
                           </div>
@@ -179,6 +182,24 @@ export default function StudentEnquiry() {
                               onChange={handleChange}
                             />
                           </div>
+                        </div>
+                      </div>
+
+                      {/* Email (Optional) */}
+                      <div className="group">
+                        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 group-focus-within:text-[#13523f] transition-colors">
+                          Email Address <span className="text-gray-300 font-medium normal-case tracking-normal">(optional)</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#13523f] transition-colors" size={18} />
+                          <input
+                            type="email"
+                            name="email"
+                            placeholder="your@email.com"
+                            className="w-full bg-gray-50 border-2 border-transparent focus:border-[#13523f]/20 focus:bg-white rounded-2xl pl-12 pr-4 py-4 text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-300"
+                            value={formData.email}
+                            onChange={handleChange}
+                          />
                         </div>
                       </div>
 

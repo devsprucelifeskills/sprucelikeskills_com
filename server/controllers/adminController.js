@@ -75,7 +75,7 @@ export const updateUserRole = async (req, res) => {
         const user = await User.findByIdAndUpdate(
             req.params.id,
             { role },
-            { new: true, select: '-password' }
+            { new: true, select: '-password'}
         );
 
         if (!user) {

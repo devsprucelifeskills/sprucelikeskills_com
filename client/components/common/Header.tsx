@@ -312,7 +312,7 @@ export default function Header() {
                         <Link href="/" className={`hidden lg:inline-block flex-shrink-0 pointer-events-auto transition-transform duration-300 origin-top-left ${scrolled ? 'lg:-translate-y-[10px]' : ''}`}>
                             <img src="/Group 10 (1).svg" alt="Spruce Lifeskills" className="h-[50px] md:h-[60px] lg:h-[60px] xl:h-[68px] w-auto object-contain" />
                         </Link>
-                        <div className={`flex lg:hidden flex-col lg:flex-row items-center lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
+                        <div className={`flex  flex-col lg:flex-row items-center lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
                             <div className="hidden lg:block h-10 w-px bg-gray-200" />
                             <div className="flex flex-col justify-center items-center text-center">
                                 <p className="text-[11px] sm:text-[12px] lg:text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
@@ -342,23 +342,12 @@ export default function Header() {
                     : "bg-white border-b border-gray-100"}`}>
 
                 <div className="max-w-7xl mx-auto w-full px-4 xl:px-6  h-[68px] flex items-center align-center justify-between gap-4">
-                    <div className={`hidden lg:block mt-0  flex flex-col lg:flex-row items-start lg:items-center gap-1.5 lg:gap-4 transition-opacity duration-300 ${scrolled ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'}`}>
-                        <div className="hidden lg:block   w-px bg-gray-200" />
-                        <div className="flex flex-col justify-center items-start text-left">
-                            <p className="text-[11px] sm:text-[12px] lg:text-[13px] font-extrabold text-[#111827] tracking-tight uppercase whitespace-nowrap">
-                                Authorized Education Partner
-                            </p>
-                            <p className="text-[9.5px] sm:text-[10px] lg:text-[11px] font-bold text-emerald-600 tracking-[0.1em] uppercase mt-0.5 whitespace-nowrap">
-                                Skill • Empower • Excel
-                            </p>
-                        </div>
-                    </div>
+
                     {/* ── Logo (Visible on Mobile, Placeholder on Desktop) ── */}
                     <Link href="/" className="flex-shrink-0 flex items-center gap-3 lg:opacity-0 lg:pointer-events-none">
                         <img src="/Group 10 (1).svg" alt="Spruce Lifeskills"
                             className="h-[52px] md:h-[60px] w-auto object-contain" />
                     </Link>
-
 
                     {/* ── Desktop Nav (floating pill strip) ── */}
                     <nav className="hidden lg:flex items-center">

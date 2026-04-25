@@ -6,7 +6,8 @@ import { MessageSquare, ChevronDown } from 'lucide-react';
 interface Enquiry {
   _id: string;
   name: string;
-  contact: string;
+  mobile: string;
+  email?: string;
   courseName?: string;
   message: string;
   status: 'new' | 'contacted' | 'closed';
@@ -86,8 +87,8 @@ export default function EnquiriesPage() {
             key={tab}
             onClick={() => setFilter(tab)}
             className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize transition-all ${filter === tab
-                ? 'bg-[#13523f] text-white'
-                : 'bg-white text-gray-500 border border-gray-200 hover:border-[#13523f]/40'
+              ? 'bg-[#13523f] text-white'
+              : 'bg-white text-gray-500 border border-gray-200 hover:border-[#13523f]/40'
               }`}
           >
             {tab} ({counts[tab]})
@@ -118,7 +119,8 @@ export default function EnquiriesPage() {
                         {enq.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-2">📞 {enq.contact}</p>
+                    <p className="text-sm text-gray-500 mb-1">📞 {enq.mobile}</p>
+                    {enq.email && <p className="text-sm text-gray-500 mb-2">✉️ {enq.email}</p>}
                     {enq.courseName && (
                       <p className="text-xs font-bold text-[#13523f] bg-[#13523f]/5 border border-[#13523f]/10 px-2 py-1 rounded-md mb-2 inline-block">
                         Course: {enq.courseName}
