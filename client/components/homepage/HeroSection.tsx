@@ -311,10 +311,7 @@ export default function HeroSection() {
                   <div>
                     <span className="cw">
                       {s.circled}
-                      <svg viewBox="0 0 200 70" fill="none" preserveAspectRatio="none">
-                        <ellipse cx="100" cy="35" rx="93" ry="28"
-                          stroke="#13523f" strokeWidth="3" fill="none" />
-                      </svg>
+                      
                     </span>
                   </div>
                 </div>
