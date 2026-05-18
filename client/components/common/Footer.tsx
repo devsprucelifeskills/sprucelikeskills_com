@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 mb-12">
 
             {/* Contact Information */}
             <div className="lg:col-span-2">
@@ -124,6 +124,18 @@ export default function Footer() {
                   <li><Link href="/admission" className="hover:text-white transition-colors">Admission</Link></li>
                 </ul>
               </div>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="text-lg font-bold mb-6 text-white tracking-wide">Legal</h3>
+              <div className="w-8 h-0.5 bg-white/20 mb-6 -mt-4"></div>
+              <ul className="space-y-4 text-sm text-[#e8f5e9]/80 font-medium tracking-tight">
+                <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/refund-cancellation" className="hover:text-white transition-colors">Refund & Cancellation</Link></li>
+                <li><Link href="/terms-conditions" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/shipping-delivery" className="hover:text-white transition-colors">Shipping & Delivery</Link></li>
+              </ul>
             </div>
 
             {/* Courses */}
