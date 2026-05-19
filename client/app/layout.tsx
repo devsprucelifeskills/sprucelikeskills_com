@@ -35,6 +35,11 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=AW-17963235751"
           strategy="afterInteractive"
         />
+        {/* Easebuzz easeCheckout v2 — must load before payment is triggered */}
+        <Script
+          src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/v2.0.0/easebuzz-checkout-v2.min.js"
+          strategy="beforeInteractive"
+        />
         <Script id="google-ads">
           {`
             window.dataLayer = window.dataLayer || [];

@@ -9,6 +9,8 @@ import {
     getCourseSettings,
     createInstallmentOrder,
     verifyInstallmentPayment,
+    easebuzzCallback,
+    easebuzzRedirect,
     updateEmiSchedule,
     unblockStudent
 } from '../controllers/enrollmentController.js';
@@ -21,6 +23,11 @@ const router = express.Router();
 
 // Student: Get my enrollments & pay installments
 router.get('/my', protect, getMyEnrollments);
+
+// Easebuzz callback and redirect routes — registered before /:id param route to prevent collision
+router.post('/easebuzz/callback', easebuzzCallback);
+router.post('/easebuzz/redirect', easebuzzRedirect);
+
 router.post('/:id/installments/:installmentId/create-order', protect, createInstallmentOrder);
 router.post('/:id/installments/:installmentId/verify-payment', protect, verifyInstallmentPayment);
 

@@ -19,13 +19,16 @@ const installmentSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['online', 'offline', 'razorpay', 'system_auto'],
+        enum: ['online', 'offline', 'razorpay', 'system_auto', 'easebuzz'],
         default: 'online'
     },
     razorpayOrderId: {
         type: String
     },
     razorpayPaymentId: {
+        type: String
+    },
+    easebuzzPaymentId: {
         type: String
     }
 });

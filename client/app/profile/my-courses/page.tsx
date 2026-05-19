@@ -169,6 +169,7 @@ export default function MyCoursesPage() {
     }
   };
 
+  /*
   const handleInstallmentPayment = async (enrollmentId: string, installmentId: string, amount: number) => {
     setIsLoading(true);
     try {
@@ -232,6 +233,98 @@ export default function MyCoursesPage() {
       setIsLoading(false);
     }
   };
+  */
+
+  const handleInstallmentPayment = async (
+    enrollmentId: string,
+    installmentId: string,
+    amount: number
+  ) => {
+    setIsLoading(true);
+    try {
+      const token    = localStorage.getItem("token");
+      const backend  = process.env.NEXT_PUBLIC_BACKEND_API || "http://localhost:5000";
+
+      // ── Step 1: Get access_key from your backend ──────────────────
+      const orderRes = await fetch(
+        `${backend}/api/v2/enrollments/${enrollmentId}/installments/${installmentId}/create-order`,
+        { method: "POST", headers: { Authorization: `Bearer ${token}` } }
+      );
+      const orderData = await orderRes.json();
+      if (!orderData.success) throw new Error(orderData.message);
+
+      // ── Step 2: Guard — SDK must be loaded ────────────────────────
+      if (typeof window.EasebuzzCheckout === "undefined") {
+        throw new Error("Easebuzz SDK not loaded. Please refresh and try again.");
+      }
+
+      // ── Step 3: Open easeCheckout iFrame modal ────────────────────
+      const ebzCheckout = new window.EasebuzzCheckout(
+        process.env.NEXT_PUBLIC_EASEBUZZ_KEY!,
+        orderData.env   // "test" or "prod" — comes from backend
+      );
+
+      ebzCheckout.initiatePayment({
+        access_key: orderData.access_key,
+
+        onResponse: async (response) => {
+          // Modal closed — handle all outcomes here
+
+          // User closed modal without paying
+          if (response.status === "userCancelled" || response.status === "dropped") {
+            setIsLoading(false);
+            return;
+          }
+
+          // Payment failed
+          if (response.status !== "success") {
+            alert("Payment failed: " + (response.error_Message || "Unknown error"));
+            setIsLoading(false);
+            return;
+          }
+
+          // ── Step 4: Verify on backend ─────────────────────────────
+          try {
+            const verifyRes = await fetch(
+              `${backend}/api/v2/enrollments/${enrollmentId}/installments/${installmentId}/verify-payment`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  easepayid : response.easepayid,
+                  txnid     : response.txnid,
+                  status    : response.status,
+                  amount    : response.amount,
+                }),
+              }
+            );
+            const verifyData = await verifyRes.json();
+            if (verifyData.success) {
+              alert("Payment successful!");
+              window.location.reload();
+            } else {
+              alert("Verification failed: " + verifyData.message);
+            }
+          } catch {
+            alert("Could not verify. Contact support with txnid: " + response.txnid);
+          } finally {
+            setIsLoading(false);
+          }
+        },
+      });
+
+      // NOTE: do NOT call setIsLoading(false) here.
+      // The modal is open — onResponse() above handles cleanup.
+
+    } catch (err: any) {
+      console.error("Payment error:", err);
+      alert(err.message || "Payment initialization failed");
+      setIsLoading(false);
+    }
+  };
 
   if (isLoading) {
 
@@ -247,7 +340,7 @@ export default function MyCoursesPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+      {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" /> */}
       <Header />
 
 
