@@ -674,9 +674,10 @@ export const createInstallmentOrder = async (req, res) => {
 
     const user = await User.findById(req.user._id);
 
-    const EASEBUZZ_KEY  = process.env.EASEBUZZ_KEY?.trim();
-    const EASEBUZZ_SALT = process.env.EASEBUZZ_SALT?.trim();
-    const EASEBUZZ_ENV  = process.env.EASEBUZZ_ENV || 'test';
+    // Clean and strip quotes from Vercel/environment keys
+    const EASEBUZZ_KEY  = process.env.EASEBUZZ_KEY?.replace(/['"]/g, '').trim();
+    const EASEBUZZ_SALT = process.env.EASEBUZZ_SALT?.replace(/['"]/g, '').trim();
+    const EASEBUZZ_ENV  = (process.env.EASEBUZZ_ENV || 'test').replace(/['"]/g, '').trim();
 
     if (!EASEBUZZ_KEY || EASEBUZZ_KEY.includes('your_easebuzz_merchant_key_here') || !EASEBUZZ_SALT || EASEBUZZ_SALT.includes('your_easebuzz_salt_key_here')) {
       return res.status(400).json({
@@ -696,22 +697,27 @@ export const createInstallmentOrder = async (req, res) => {
     const cleanPhone = (user.phone || '9999999999').replace(/\D/g, '');
     const phone = cleanPhone.length >= 10 ? cleanPhone.slice(-10) : '9999999999';
 
+    // Determine the base backend URL dynamically to ensure surl and furl are always valid absolute URLs
+    const host = req.get('host');
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const backendBaseUrl = process.env.BACKEND_URL?.replace(/['"]/g, '').trim() || `${protocol}://${host}`;
+
     const params = {
       key             : EASEBUZZ_KEY,
       txnid,
       amount          : inst.amount.toFixed(2),   // string, e.g. "499.00" NOT paise
       productinfo     : "Installment Payment",
       firstname,
-      email           : user.email,
+      email           : user.email?.trim().toLowerCase(),
       phone,
       udf1            : id,           // enrollmentId — used in callback to find record
       udf2            : installmentId,
-      surl            : `${process.env.BACKEND_URL}/api/v2/enrollments/easebuzz/redirect`,
-      furl            : `${process.env.BACKEND_URL}/api/v2/enrollments/easebuzz/redirect`,
+      surl            : `${backendBaseUrl}/api/v2/enrollments/easebuzz/redirect`,
+      furl            : `${backendBaseUrl}/api/v2/enrollments/easebuzz/redirect`,
     };
 
     // Only include sub_merchant_id if explicitly defined in .env or if we are in UAT sandbox
-    const subMerchantId = process.env.EASEBUZZ_SUB_MERCHANT_ID || (EASEBUZZ_ENV === 'test' ? 'S2776847MR4' : '');
+    const subMerchantId = (process.env.EASEBUZZ_SUB_MERCHANT_ID || '').replace(/['"]/g, '').trim() || (EASEBUZZ_ENV === 'test' ? 'S2776847MR4' : '');
     if (subMerchantId) {
       params.sub_merchant_id = subMerchantId;
     }
@@ -769,9 +775,10 @@ export const verifyInstallmentPayment = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid IDs" });
     }
 
-    const EASEBUZZ_KEY  = process.env.EASEBUZZ_KEY?.trim();
-    const EASEBUZZ_SALT = process.env.EASEBUZZ_SALT?.trim();
-    const EASEBUZZ_ENV  = process.env.EASEBUZZ_ENV || 'test';
+    // Clean and strip quotes from Vercel/environment keys
+    const EASEBUZZ_KEY  = process.env.EASEBUZZ_KEY?.replace(/['"]/g, '').trim();
+    const EASEBUZZ_SALT = process.env.EASEBUZZ_SALT?.replace(/['"]/g, '').trim();
+    const EASEBUZZ_ENV  = (process.env.EASEBUZZ_ENV || 'test').replace(/['"]/g, '').trim();
 
     // 1. Fetch enrollment, installment, and user details first
     const enrollment = await Enrollment.findOne({ _id: id, userId: req.user._id });
@@ -794,7 +801,7 @@ export const verifyInstallmentPayment = async (req, res) => {
 
     // 2. Format parameters exactly matching initiateLink
     const amount = inst.amount.toFixed(2);
-    const email = user.email;
+    const email = user.email?.trim().toLowerCase();
     const cleanPhone = (user.phone || '9999999999').replace(/\D/g, '');
     const phone = cleanPhone.length >= 10 ? cleanPhone.slice(-10) : '9999999999';
     const rawFirstname = user.name?.trim().split(' ')[0] || 'User';
