@@ -708,8 +708,13 @@ export const createInstallmentOrder = async (req, res) => {
       udf2            : installmentId,
       surl            : `${process.env.BACKEND_URL}/api/v2/enrollments/easebuzz/redirect`,
       furl            : `${process.env.BACKEND_URL}/api/v2/enrollments/easebuzz/redirect`,
-      sub_merchant_id : process.env.EASEBUZZ_SUB_MERCHANT_ID || 'S2776847MR4',
     };
+
+    // Only include sub_merchant_id if explicitly defined in .env or if we are in UAT sandbox
+    const subMerchantId = process.env.EASEBUZZ_SUB_MERCHANT_ID || (EASEBUZZ_ENV === 'test' ? 'S2776847MR4' : '');
+    if (subMerchantId) {
+      params.sub_merchant_id = subMerchantId;
+    }
 
     params.hash = generateEasebuzzHash(params, EASEBUZZ_SALT);
 
