@@ -38,7 +38,7 @@ const verifyEasebuzzHash = (data, salt) => {
     udf1='', udf2='', udf3='', udf4='', udf5='',
     udf6='', udf7='', udf8='', udf9='', udf10=''
   } = data;
-  const str = `${salt}|${udf10}|${udf9}|${udf8}|${udf7}|${udf6}` +
+  const str = `${salt}|${status}|${udf10}|${udf9}|${udf8}|${udf7}|${udf6}` +
               `|${udf5}|${udf4}|${udf3}|${udf2}|${udf1}` +
               `|${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`;
   return crypto.createHash('sha512').update(str).digest('hex') === hash;
@@ -902,7 +902,9 @@ export const easebuzzCallback = async (req, res) => {
   try {
     const data = req.body;  // Easebuzz sends form-encoded POST
 
-    if (!verifyEasebuzzHash(data, process.env.EASEBUZZ_SALT)) {
+    const EASEBUZZ_SALT = process.env.EASEBUZZ_SALT?.replace(/['"]/g, '').trim();
+
+    if (!verifyEasebuzzHash(data, EASEBUZZ_SALT)) {
       console.error("Easebuzz callback hash mismatch", data);
       return res.status(400).send("Invalid signature");
     }
