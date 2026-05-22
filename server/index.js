@@ -24,6 +24,7 @@ app.use(cors({
 }))
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/v2/course', courseRoutes)
 app.use('/api/v2/auth', authRoutes)
