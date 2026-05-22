@@ -116,7 +116,13 @@ export default function TermsConditionsPage() {
                 <a href="mailto:sprucelifeskills@gmail.com" className="bg-white text-[#13523f] font-bold py-3 px-8 rounded-lg hover:bg-white/90 transition-all transform hover:scale-105 duration-300">Email Us</a>
                 <a href="tel:+919595025757" className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 duration-300">Call +91-9595025757</a>
               </div>
-              <p className="text-sm text-white/60 pt-4">Spruce Life Skills, 3rd Floor, Navprabhat Chambers, Besides ICICI Bank, Ramdaspeth, Nagpur – 440010</p>
+              <p className="text-sm text-white/60 pt-4">
+                <strong>Spruce Life Skills</strong><br/>
+                Registered Business Name: Sharadkumar keshavrao Halmare<br/>
+                Trade Name: SPRUCE<br/>
+                GSTIN: 27ACFPH3087F1ZO<br/>
+                3rd Floor, Navprabhat Chambers, Besides ICICI Bank, Ramdaspeth, Nagpur – 440010
+              </p>
             </div>
           </div>
         </section>

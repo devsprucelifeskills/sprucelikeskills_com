@@ -315,8 +315,11 @@ export default function PrivacyPolicyPage() {
                 </a>
               </div>
               <p className="text-sm text-white/60 pt-4">
-                Spruce Life Skills, 3rd Floor, Navprabhat Chambers, Besides
-                ICICI Bank, Ramdaspeth, Nagpur – 440010
+                <strong>Spruce Life Skills</strong><br/>
+                Registered Business Name: Sharadkumar keshavrao Halmare<br/>
+                Trade Name: SPRUCE<br/>
+                GSTIN: 27ACFPH3087F1ZO<br/>
+                3rd Floor, Navprabhat Chambers, Besides ICICI Bank, Ramdaspeth, Nagpur – 440010
               </p>
             </div>
           </div>
