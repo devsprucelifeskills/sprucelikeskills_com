@@ -80,24 +80,25 @@ export const courses: Course[] = [
                 "AAPC 2026 Books",
                 "650+ Practice Questions",
                 "Regular Tests",
-                "Placement Support"
+                "Placement Support",
+                "Price"
             ],
             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹80,000"]
                 },
                 {
                     title: "Advance Diploma in Medical Coding (CPC + University)",
-                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹45,000"]
                 },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
-                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark", "₹25,000"]
                 },
                 {
                     title: "Diploma In Medical Coding (University)",
-                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "₹2,000"]
                 },
 
             ]
@@ -158,24 +159,25 @@ export const courses: Course[] = [
                 "AAPC 2026 Books",
                 "650+ Practice Questions",
                 "Regular Tests",
-                "Placement Support"
+                "Placement Support",
+                "Price"
             ],
             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹80,000"]
                 },
                 {
                     title: "Advance Diploma in Medical Coding",
-                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹45,000"]
                 },
                 {
                     title: "Diploma In Medical Coding (Foundation)",
-                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "₹25,000"]
                 },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
-                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark", "₹25,000"]
                 }
             ]
         }
@@ -235,24 +237,25 @@ export const courses: Course[] = [
                 "AAPC 2026 Books",
                 "650+ Practice Questions",
                 "Regular Tests",
-                "Placement Support"
+                "Placement Support",
+                "Price"
             ],
             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹80,000"]
                 },
                 {
                     title: "Advance Diploma in Medical Coding",
-                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹45,000"]
                 },
                 {
                     title: "Diploma In Medical Coding (Foundation)",
-                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "₹25,000"]
                 },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
-                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark", "₹25,000"]
                 }
             ]
         }
@@ -312,24 +315,25 @@ export const courses: Course[] = [
                 "AAPC 2026 Books",
                 "650+ Practice Questions",
                 "Regular Tests",
-                "Placement Support"
+                "Placement Support",
+                "Price"
             ],
             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹80,000"]
                 },
                 {
                     title: "Advance Diploma in Medical Coding",
-                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹45,000"]
                 },
                 {
                     title: "Diploma In Medical Coding (Foundation)",
-                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "₹25,000"]
                 },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
-                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark", "₹25,000"]
                 }
             ]
         }
@@ -389,24 +393,25 @@ export const courses: Course[] = [
                 "AAPC 2026 Books",
                 "650+ Practice Questions",
                 "Regular Tests",
-                "Placement Support"
+                "Placement Support",
+                "Price"
             ],
             columns: [
                 {
                     title: "Post Graduate Diploma in Clinical Research & Medical Coding",
-                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["12 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹80,000"]
                 },
                 {
                     title: "Advance Diploma in Medical Coding",
-                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["6 Months", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "checkmark", "₹45,000"]
                 },
                 {
                     title: "Diploma In Medical Coding (Foundation)",
-                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "-", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "₹25,000"]
                 },
                 {
                     title: "Diploma In Certified Professional Coder (CPC)",
-                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark"]
+                    features: ["3 Months", "checkmark", "checkmark", "-", "-", "checkmark", "checkmark", "checkmark", "checkmark", "₹25,000"]
                 }
             ]
         }
