@@ -1,8 +1,9 @@
 import Enquiry from '../models/Enquiry.js';
+import { sendEnquiryNotificationEmail } from '../utils/emailService.js';
 
 export const createEnquiry = async (req, res) => {
     try {
-        const { name, mobile, email, message, courseName } = req.body;
+        const { name, mobile, email, message, courseName, city } = req.body;
 
         if (!name || !mobile || !message) {
             return res.status(400).json({ success: false, message: "Name, mobile number, and message are required fields." });
@@ -13,10 +14,21 @@ export const createEnquiry = async (req, res) => {
             mobile,
             email: email || '',
             message,
-            courseName: courseName || ''
+            courseName: courseName || '',
+            city: city || ''
         });
 
         await newEnquiry.save();
+
+        // Send Email Notification to Admin
+        await sendEnquiryNotificationEmail({
+            name,
+            mobile,
+            email: email || '',
+            message,
+            courseName: courseName || '',
+            city: city || ''
+        });
 
         res.status(201).json({
             success: true,

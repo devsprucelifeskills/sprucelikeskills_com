@@ -283,3 +283,77 @@ export const getNewUserWelcomeTemplate = (userName, email, password, role, websi
 </html>
     `;
 };
+
+export const getLeadEnquiryTemplate = (data, websiteUrl = "https://www.sprucelifeskills.com") => {
+    const { name, email, mobile, city, courseName, message } = data;
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lead Enquiry - Spruce Life Skills</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+        <!-- Header -->
+        <tr>
+            <td style="padding: 30px; background-color: #0A7A3F; text-align: center;">
+                <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 700;">New Student Enquiry! 🎓</h1>
+            </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+            <td style="padding: 40px 30px;">
+                <p style="margin: 0 0 20px 0; font-size: 16px; color: #555;">You have received a new enquiry from the landing page. Here are the details:</p>
+
+                <div style="background-color: #f9f9f9; border: 1px solid #eee; border-radius: 6px; padding: 20px; margin-bottom: 25px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; font-weight: 700; width: 120px;">Full Name:</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef;">${name}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; font-weight: 700;">Mobile:</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef;">${mobile}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; font-weight: 700;">Email:</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef;">${email || 'Not Provided'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; font-weight: 700;">City:</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef;">${city || 'Not Provided'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; font-weight: 700;">Course:</td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #efefef; color: #0A7A3F; font-weight: 700;">${courseName}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <h3 style="font-size: 15px; color: #333; margin-bottom: 10px; border-left: 4px solid #0A7A3F; padding-left: 10px;">Message / Additional Info:</h3>
+                    <div style="background-color: #fff8eb; padding: 15px; border-radius: 4px; font-style: italic; color: #666; font-size: 13.5px; line-height: 1.5;">
+                        ${message.replace(/\n/g, '<br>')}
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="tel:${mobile}" style="display: inline-block; padding: 12px 25px; background-color: #0A7A3F; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 700; font-size: 15px;">Call Lead Now</a>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="padding: 20px; background-color: #f4f7f6; text-align: center; font-size: 12px; color: #999;">
+                &copy; ${new Date().getFullYear()} Spruce Life Skills Operations. Generated via Landing Page.
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+};

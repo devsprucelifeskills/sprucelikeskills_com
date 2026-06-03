@@ -22,6 +22,11 @@ const enquirySchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    city: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     courseName: {
         type: String,
         trim: true,

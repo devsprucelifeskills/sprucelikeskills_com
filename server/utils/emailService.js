@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import { getEnrollmentTemplate, getCourseFullyPaidTemplate, getOTPTemplate, getNewUserWelcomeTemplate } from './emailTemplates.js';
+import { getEnrollmentTemplate, getCourseFullyPaidTemplate, getOTPTemplate, getNewUserWelcomeTemplate, getLeadEnquiryTemplate } from './emailTemplates.js';
 
 dotenv.config();
 
@@ -87,33 +87,33 @@ export const sendCourseFullyPaidEmail = async (toEmail, userName, enrollment) =>
   * @param {string} userName 
   * @param {string} otp 
   */
- export const sendOTPEmail = async (toEmail, userName, otp) => {
-     try {
-         if (!process.env.RESEND_API_KEY) {
-             console.warn("RESEND_API_KEY is missing. OTP email could not be sent.");
-             return { success: false, message: "API key missing" };
-         }
- 
-         const html = getOTPTemplate(
-             userName,
-             otp,
-             process.env.FRONTEND_URL || "www.sprucelifeskills.com"
-         );
- 
-         const data = await resend.emails.send({
-             from: 'hello@sprucelifeskills.com', // Replace with your verified domain in production
-             to: [toEmail],
-             subject: `Password Reset Verification Code: ${otp}`,
-             html: html,
-         });
- 
-         console.log(`OTP Email sent successfully to ${toEmail}:`, data.id);
-         return { success: true, id: data.id };
-     } catch (error) {
-         console.error("Error sending OTP email:", error);
-         return { success: false, error: error.message };
-     }
- };
+export const sendOTPEmail = async (toEmail, userName, otp) => {
+    try {
+        if (!process.env.RESEND_API_KEY) {
+            console.warn("RESEND_API_KEY is missing. OTP email could not be sent.");
+            return { success: false, message: "API key missing" };
+        }
+
+        const html = getOTPTemplate(
+            userName,
+            otp,
+            process.env.FRONTEND_URL || "www.sprucelifeskills.com"
+        );
+
+        const data = await resend.emails.send({
+            from: 'hello@sprucelifeskills.com', // Replace with your verified domain in production
+            to: [toEmail],
+            subject: `Password Reset Verification Code: ${otp}`,
+            html: html,
+        });
+
+        console.log(`OTP Email sent successfully to ${toEmail}:`, data.id);
+        return { success: true, id: data.id };
+    } catch (error) {
+        console.error("Error sending OTP email:", error);
+        return { success: false, error: error.message };
+    }
+};
 
 /**
  * Send Welcome Email to Admin-Created User with Login Credentials
@@ -148,6 +148,37 @@ export const sendNewUserWelcomeEmail = async (toEmail, userName, password, role)
         return { success: true, id: data.id };
     } catch (error) {
         console.error('Error sending welcome email:', error);
+        return { success: false, error: error.message };
+    }
+};
+
+/**
+ * Send Admin Notification for new Enquiry
+ * @param {object} enquiryData 
+ */
+export const sendEnquiryNotificationEmail = async (enquiryData) => {
+    try {
+        if (!process.env.RESEND_API_KEY) {
+            console.warn("RESEND_API_KEY is missing. Admin notification could not be sent.");
+            return { success: false, message: "API key missing" };
+        }
+
+        const adminEmail = "Sprucelifeskills@gmail.com";
+        const { name, courseName } = enquiryData;
+
+        const html = getLeadEnquiryTemplate(enquiryData);
+
+        const data = await resend.emails.send({
+            from: 'hello@sprucelifeskills.com',
+            to: [adminEmail],
+            subject: `New Lead: ${name} for ${courseName}`,
+            html: html,
+        });
+
+        console.log(`Admin notification sent successfully for lead ${name}:`, data.id);
+        return { success: true, id: data.id };
+    } catch (error) {
+        console.error("Error sending admin notification email:", error);
         return { success: false, error: error.message };
     }
 };
