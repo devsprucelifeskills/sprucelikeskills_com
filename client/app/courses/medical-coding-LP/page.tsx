@@ -461,7 +461,7 @@ export default function MedicalCodingLandingPage() {
                                 <div className="space-y-4">
                                     <h1 className="font-sans text-3.5xl sm:text-4.5xl lg:text-5xl text-white font-normal leading-[1.1] tracking-tight">
                                         <strong className="font-semibold text-[#01F182]"> Medical Coding</strong> <br />
-                                        Training from an AAPC Authorized Education Partner & RTMNU-Approved Institute
+                                        Training from an AAPC Authorized Education Partner & RTMNU-Recognize Institute
                                     </h1>
                                     <p className="font-mono text-[10.5px] text-[#01F182]/80 uppercase tracking-widest font-black flex items-center gap-1.5">
                                         <span className="w-1.5 h-1.5 bg-[#01F182] rounded-full inline-block" />
@@ -470,10 +470,16 @@ export default function MedicalCodingLandingPage() {
                                 </div>
 
                                 {/* Subtitle */}
-                                <p className="text-zinc-300 text-xs sm:text-[13.5px] font-mono leading-relaxed max-w-xl">
+                                {/* <p className="text-zinc-300 text-xs sm:text-[13.5px] font-mono leading-relaxed max-w-xl">
                                     Get industry-focused Medical Coding training with AAPC-aligned curriculum, CPC preparation, practical learning, recorded sessions, and placement support to help you build a successful healthcare career.
-                                </p>
-
+                                </p> */}
+                                {/* Highlights Section */}
+                                <div className="text-zinc-300 text-[13px] font-mono leading-relaxed max-w-xl space-y-2">
+                                    <p>🥇 First AAPC Authorized Education Partner in Central India</p>
+                                    <p>🎓 Only Institute in India with RTMNU-Recognized Medical Coding Programs</p>
+                                    <p>🏫 ISO Certified | NEP Credit Points</p>
+                                    <p>🌐 First & Only Institute working with International Organization (AAPC)</p>
+                                </div>
                                 {/* Neon Green Pill Trigger Button */}
                                 <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                                     <button
